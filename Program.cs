@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using CsvHelper;
+using CsvHelper.Configuration; 
 
 namespace Chirp.cli {
     public record Cheep(string Author, string Message, long Timestamp);
@@ -74,42 +76,47 @@ namespace Chirp.cli {
                 return;
             }
 
-            foreach (var line in File.ReadLines(DbFile, Encoding.UTF8))
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
-                if (string.IsNullOrWhiteSpace(line)) continue;
-
-                var fields = ParseCsvLine(line);
-                if (fields.Count < 3) continue;
-
-                var author = fields[0];
-                if (!long.TryParse(fields[1], NumberStyles.Integer, CultureInfo.InvariantCulture, out var unix))
-                    continue;
-
-                var message = fields[2];
-
-                var dtLocal = DateTimeOffset.FromUnixTimeSeconds(unix).ToLocalTime().DateTime;
-                Console.WriteLine($"{author} @ {dtLocal.ToString(DisplayFormat, CultureInfo.InvariantCulture)}: {message}");
+                PrepareHeaderForMatch = args => args.Header.ToLower(),
+                BadDataFound = null
+            };
+            using (var reader = new StreamReader(DbFile))
+            using (var csv = new CsvReader(reader, config))
+            {
+                var records = csv.GetRecords<Cheep>();
+                foreach (var cheep in records)
+                {
+                    DateTimeOffset dto = DateTimeOffset.FromUnixTimeSeconds(cheep.Timestamp);
+                    string realDate = dto.LocalDateTime.ToString("MM/dd/yy HH:mm:ss");
+                    Console.Write(cheep.Author + " @ " + realDate + ": " + cheep.Message + "\n");
+                    
+                }
             }
         }
 
         private static void WriteCheep(string message, string DbFile)
         {
-            // Get OS username for author
-            var author = Environment.UserName ?? "unknown";
+            string chirp = Console.ReadLine();
 
-            // Current Unix timestamp (UTC seconds since epoch)
-            var unixNow = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-
-            // Escape fields for CSV (RFC 4180-ish minimal: double quotes inside and wrap if needed)
-            var authorEsc = CsvEscape(author);
-            var messageEsc = CsvEscape(message);
-
-            var line = $"{authorEsc},{unixNow.ToString(CultureInfo.InvariantCulture)},{messageEsc}";
-
-            // Ensure file exists and append
-            using var sw = new StreamWriter(DbFile, append: true, Encoding.UTF8);
-            sw.WriteLine(line);
+            Cheep cheeps = new(Environment.UserName, message, DateTimeOffset.UtcNow.ToUnixTimeSeconds());
+                   
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HasHeaderRecord = false
+            };
+                    
+            using (var writer = new StreamWriter(DbFile, append: true))
+            using (var csv = new CsvWriter(writer, config))
+                    
+            {
+                csv.WriteRecords(new[] { cheeps });
+                writer.Flush();
+            }
+                    
+            Console.WriteLine(" the chirp: " + message + " was saved");
         }
+        
 
         /// <summary>
         /// Escapes a CSV field by doubling quotes and wrapping in quotes if it contains comma, quote, or newline.
