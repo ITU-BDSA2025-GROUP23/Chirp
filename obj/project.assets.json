@@ -8,19 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "/Users/andersgrangaard/.nuget/packages/": {}
+    "C:\\Users\\MC\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp.CLI.csproj",
+      "projectUniqueName": "C:\\Users\\MC\\Desktop\\Chirp\\Chirp.CLI.csproj",
       "projectName": "Chirp.CLI",
-      "projectPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp.CLI.csproj",
-      "packagesPath": "/Users/andersgrangaard/.nuget/packages/",
-      "outputPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/obj/",
+      "projectPath": "C:\\Users\\MC\\Desktop\\Chirp\\Chirp.CLI.csproj",
+      "packagesPath": "C:\\Users\\MC\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\MC\\Desktop\\Chirp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/andersgrangaard/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\MC\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -64,7 +64,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.413/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.413/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

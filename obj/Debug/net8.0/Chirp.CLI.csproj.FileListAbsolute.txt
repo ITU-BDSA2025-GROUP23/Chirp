@@ -1,0 +1,14 @@
+C:\Users\MC\Desktop\Chirp\bin\Debug\net8.0\data\chirp_cli_db.csv
+C:\Users\MC\Desktop\Chirp\bin\Debug\net8.0\Chirp.CLI.exe
+C:\Users\MC\Desktop\Chirp\bin\Debug\net8.0\Chirp.CLI.deps.json
+C:\Users\MC\Desktop\Chirp\bin\Debug\net8.0\Chirp.CLI.runtimeconfig.json
+C:\Users\MC\Desktop\Chirp\bin\Debug\net8.0\Chirp.CLI.dll
+C:\Users\MC\Desktop\Chirp\bin\Debug\net8.0\Chirp.CLI.pdb
+C:\Users\MC\Desktop\Chirp\obj\Debug\net8.0\Chirp.CLI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\MC\Desktop\Chirp\obj\Debug\net8.0\Chirp.CLI.csproj.CoreCompileInputs.cache
+C:\Users\MC\Desktop\Chirp\obj\Debug\net8.0\Chirp.CLI.sourcelink.json
+C:\Users\MC\Desktop\Chirp\obj\Debug\net8.0\Chirp.CLI.dll
+C:\Users\MC\Desktop\Chirp\obj\Debug\net8.0\refint\Chirp.CLI.dll
+C:\Users\MC\Desktop\Chirp\obj\Debug\net8.0\Chirp.CLI.pdb
+C:\Users\MC\Desktop\Chirp\obj\Debug\net8.0\Chirp.CLI.genruntimeconfig.cache
+C:\Users\MC\Desktop\Chirp\obj\Debug\net8.0\ref\Chirp.CLI.dll

@@ -4,15 +4,15 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 
-namespace Chirp.CLI {
+namespace Chirp.cli {
     public record Cheep(string Author, string Message, long Timestamp);
     internal static class Program
     {
         // CSV database file
-        private const string DbFile = "chirp_cli_db.csv";
+        private static string DbFile = Path.Combine(AppContext.BaseDirectory, "Data", "chirp_cli_db.csv");
 
         // Output time format to match example: "08/01/23 14:09:20"
-        private const string DisplayFormat = "MM/dd/yy HH:mm:ss";
+        private static string DisplayFormat = "MM/dd/yy HH:mm:ss";
 
         static int Main(string[] args)
         {
@@ -28,7 +28,7 @@ namespace Chirp.CLI {
                 switch (cmd)
                 {
                     case "read":
-                        ReadCheeps();
+                        ReadCheeps(DbFile, DisplayFormat);
                         return 0;
 
                     case "cheep":
@@ -38,7 +38,7 @@ namespace Chirp.CLI {
                             return 2;
                         }
                         var message = string.Join(" ", args, 1, args.Length - 1);
-                        WriteCheep(message);
+                        WriteCheep(message, DbFile);
                         return 0;
 
                     default:
@@ -66,7 +66,7 @@ namespace Chirp.CLI {
             Console.WriteLine("  dotnet run -- cheep \"Hello, world!\"");
         }
 
-        private static void ReadCheeps()
+        private static void ReadCheeps(string DbFile, string DisplayFormat)
         {
             if (!File.Exists(DbFile))
             {
@@ -92,7 +92,7 @@ namespace Chirp.CLI {
             }
         }
 
-        private static void WriteCheep(string message)
+        private static void WriteCheep(string message, string DbFile)
         {
             // Get OS username for author
             var author = Environment.UserName ?? "unknown";
