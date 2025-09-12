@@ -18,8 +18,8 @@
     </ItemGroup>
 
     <PropertyGroup>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <AssemblyName>Chirp.CLI</AssemblyName>
         <RootNamespace>Chirp.CLI</RootNamespace>
     </PropertyGroup>
 </Project>
+
