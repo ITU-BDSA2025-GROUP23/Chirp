@@ -26,12 +26,12 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore
-        run: dotnet restore
+        run: dotnet restore chirp.sln
 
       - name: Build + Test (Release)
         run: |
-          dotnet build --configuration Release --no-restore
-          dotnet test  --configuration Release --no-build --verbosity normal
+          dotnet build chirp.sln --configuration Release --no-restore
+          dotnet test chirp.sln --configuration Release --no-build --verbosity normal
 
       - name: Publish single-file for Win/Mac/Linux (RID loop)
         run: |
