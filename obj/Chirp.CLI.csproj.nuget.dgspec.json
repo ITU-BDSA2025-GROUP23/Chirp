@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\MC\\Desktop\\Chirp\\Chirp.CLI.csproj": {}
+    "C:\\Users\\Rasmus\\Documents\\Anal_Design\\Git Shit\\10 09 25\\Chirp\\Chirp.CLI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\MC\\Desktop\\Chirp\\Chirp.CLI.csproj": {
+    "C:\\Users\\Rasmus\\Documents\\Anal_Design\\Git Shit\\10 09 25\\Chirp\\Chirp.CLI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MC\\Desktop\\Chirp\\Chirp.CLI.csproj",
+        "projectUniqueName": "C:\\Users\\Rasmus\\Documents\\Anal_Design\\Git Shit\\10 09 25\\Chirp\\Chirp.CLI.csproj",
         "projectName": "Chirp.CLI",
-        "projectPath": "C:\\Users\\MC\\Desktop\\Chirp\\Chirp.CLI.csproj",
-        "packagesPath": "C:\\Users\\MC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MC\\Desktop\\Chirp\\obj\\",
+        "projectPath": "C:\\Users\\Rasmus\\Documents\\Anal_Design\\Git Shit\\10 09 25\\Chirp\\Chirp.CLI.csproj",
+        "packagesPath": "C:\\Users\\Rasmus\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Rasmus\\Documents\\Anal_Design\\Git Shit\\10 09 25\\Chirp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\MC\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Rasmus\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -42,6 +42,12 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[33.1.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

@@ -13,6 +13,10 @@
         </None>
     </ItemGroup>
 
+    <ItemGroup>
+        <PackageReference Include="CsvHelper" Version="33.1.0" />
+    </ItemGroup>
+
     <PropertyGroup>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <AssemblyName>Chirp.CLI</AssemblyName>
