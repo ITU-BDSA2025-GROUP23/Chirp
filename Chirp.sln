@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleDB", "SimpleDB\SimpleDB.csproj", "{6083E820-85FF-493C-BA43-CA43078B495D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.CLI", "Chirp.CLI.csproj", "{AA89A985-A5E3-495C-B630-22988F2C94F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.CLI", "Chirp.CLI\Chirp.CLI.csproj", "{56D13F57-35FE-4F6D-BFD6-A30CB510B59E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,9 +20,9 @@ Global
 		{6083E820-85FF-493C-BA43-CA43078B495D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6083E820-85FF-493C-BA43-CA43078B495D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6083E820-85FF-493C-BA43-CA43078B495D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA89A985-A5E3-495C-B630-22988F2C94F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA89A985-A5E3-495C-B630-22988F2C94F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA89A985-A5E3-495C-B630-22988F2C94F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA89A985-A5E3-495C-B630-22988F2C94F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56D13F57-35FE-4F6D-BFD6-A30CB510B59E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56D13F57-35FE-4F6D-BFD6-A30CB510B59E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56D13F57-35FE-4F6D-BFD6-A30CB510B59E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56D13F57-35FE-4F6D-BFD6-A30CB510B59E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
