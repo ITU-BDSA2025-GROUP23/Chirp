@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chrip/src/Chirp.CLI.client/Chirp.CLI.client.csproj",
+      "projectUniqueName": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.client/Chirp.CLI.client.csproj",
       "projectName": "Chirp.CLI.client",
-      "projectPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chrip/src/Chirp.CLI.client/Chirp.CLI.client.csproj",
+      "projectPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.client/Chirp.CLI.client.csproj",
       "packagesPath": "/Users/andersgrangaard/.nuget/packages/",
-      "outputPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chrip/src/Chirp.CLI.client/obj/",
+      "outputPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.client/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/andersgrangaard/.nuget/NuGet/NuGet.Config"
