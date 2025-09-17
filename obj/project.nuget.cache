@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Q1cHAqRK3Ek=",
+  "dgSpecHash": "3eYB1GrtaHw=",
   "success": true,
-  "projectFilePath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chrip/Chirp.CLI.csproj",
+  "projectFilePath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/Chirp.CLI.csproj",
   "expectedPackageFiles": [
     "/Users/andersgrangaard/.nuget/packages/csvhelper/33.1.0/csvhelper.33.1.0.nupkg.sha512"
   ],

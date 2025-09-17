@@ -1,0 +1,16 @@
+/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.client/obj/Debug/net8.0/Chirp.CLI.client.csproj.AssemblyReference.cache
+/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.client/obj/Debug/net8.0/Chirp.CLI.client.GeneratedMSBuildEditorConfig.editorconfig
+/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.client/obj/Debug/net8.0/Chirp.CLI.client.csproj.CoreCompileInputs.cache
+/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.client/obj/Debug/net8.0/Chirp.CLI.client.sourcelink.json
+/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.client/bin/Debug/net8.0/CsvHelper.dll
+/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.client/obj/Debug/net8.0/Chirp.CL.A9F3F8B4.Up2Date
+/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.client/obj/Debug/net8.0/Chirp.CLI.client.genruntimeconfig.cache
+/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.client/bin/Debug/net8.0/Chirp.CLI
+/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.client/bin/Debug/net8.0/Chirp.CLI.deps.json
+/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.client/bin/Debug/net8.0/Chirp.CLI.runtimeconfig.json
+/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.client/bin/Debug/net8.0/Chirp.CLI.dll
+/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.client/bin/Debug/net8.0/Chirp.CLI.pdb
+/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.client/obj/Debug/net8.0/Chirp.CLI.dll
+/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.client/obj/Debug/net8.0/refint/Chirp.CLI.dll
+/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.client/obj/Debug/net8.0/Chirp.CLI.pdb
+/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.client/obj/Debug/net8.0/ref/Chirp.CLI.dll
