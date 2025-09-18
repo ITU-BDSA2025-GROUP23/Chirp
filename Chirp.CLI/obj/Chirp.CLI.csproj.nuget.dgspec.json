@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Rasmus\\Documents\\Anal_Design\\Git Shit\\17 09 25\\Chirp\\Chirp.CLI\\Chirp.CLI.csproj": {}
+    "C:\\Users\\MC\\Desktop\\Chirp3\\Chirp\\Chirp.CLI\\Chirp.CLI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Rasmus\\Documents\\Anal_Design\\Git Shit\\17 09 25\\Chirp\\Chirp.CLI\\Chirp.CLI.csproj": {
+    "C:\\Users\\MC\\Desktop\\Chirp3\\Chirp\\Chirp.CLI\\Chirp.CLI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Rasmus\\Documents\\Anal_Design\\Git Shit\\17 09 25\\Chirp\\Chirp.CLI\\Chirp.CLI.csproj",
+        "projectUniqueName": "C:\\Users\\MC\\Desktop\\Chirp3\\Chirp\\Chirp.CLI\\Chirp.CLI.csproj",
         "projectName": "Chirp.CLI",
-        "projectPath": "C:\\Users\\Rasmus\\Documents\\Anal_Design\\Git Shit\\17 09 25\\Chirp\\Chirp.CLI\\Chirp.CLI.csproj",
-        "packagesPath": "C:\\Users\\Rasmus\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Rasmus\\Documents\\Anal_Design\\Git Shit\\17 09 25\\Chirp\\Chirp.CLI\\obj\\",
+        "projectPath": "C:\\Users\\MC\\Desktop\\Chirp3\\Chirp\\Chirp.CLI\\Chirp.CLI.csproj",
+        "packagesPath": "C:\\Users\\MC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\MC\\Desktop\\Chirp3\\Chirp\\Chirp.CLI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Rasmus\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\MC\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -26,8 +26,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Rasmus\\Documents\\Anal_Design\\Git Shit\\17 09 25\\Chirp\\SimpleDB\\SimpleDB.csproj": {
-                "projectPath": "C:\\Users\\Rasmus\\Documents\\Anal_Design\\Git Shit\\17 09 25\\Chirp\\SimpleDB\\SimpleDB.csproj"
+              "C:\\Users\\MC\\Desktop\\Chirp3\\Chirp\\SimpleDB\\SimpleDB.csproj": {
+                "projectPath": "C:\\Users\\MC\\Desktop\\Chirp3\\Chirp\\SimpleDB\\SimpleDB.csproj"
               }
             }
           }
@@ -46,12 +46,6 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "dependencies": {
-            "CsvHelper": {
-              "target": "Package",
-              "version": "[33.1.0, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -72,17 +66,17 @@
         }
       }
     },
-    "C:\\Users\\Rasmus\\Documents\\Anal_Design\\Git Shit\\17 09 25\\Chirp\\SimpleDB\\SimpleDB.csproj": {
+    "C:\\Users\\MC\\Desktop\\Chirp3\\Chirp\\SimpleDB\\SimpleDB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Rasmus\\Documents\\Anal_Design\\Git Shit\\17 09 25\\Chirp\\SimpleDB\\SimpleDB.csproj",
+        "projectUniqueName": "C:\\Users\\MC\\Desktop\\Chirp3\\Chirp\\SimpleDB\\SimpleDB.csproj",
         "projectName": "SimpleDB",
-        "projectPath": "C:\\Users\\Rasmus\\Documents\\Anal_Design\\Git Shit\\17 09 25\\Chirp\\SimpleDB\\SimpleDB.csproj",
-        "packagesPath": "C:\\Users\\Rasmus\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Rasmus\\Documents\\Anal_Design\\Git Shit\\17 09 25\\Chirp\\SimpleDB\\obj\\",
+        "projectPath": "C:\\Users\\MC\\Desktop\\Chirp3\\Chirp\\SimpleDB\\SimpleDB.csproj",
+        "packagesPath": "C:\\Users\\MC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\MC\\Desktop\\Chirp3\\Chirp\\SimpleDB\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Rasmus\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\MC\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"

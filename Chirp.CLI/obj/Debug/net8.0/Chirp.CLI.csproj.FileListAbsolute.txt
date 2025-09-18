@@ -55,3 +55,22 @@ C:\Users\Rasmus\Documents\Anal_Design\Git Shit\17 09 25\Chirp\Chirp.CLI\obj\Debu
 C:\Users\Rasmus\Documents\Anal_Design\Git Shit\17 09 25\Chirp\Chirp.CLI\obj\Debug\net8.0\Chirp.CLI.pdb
 C:\Users\Rasmus\Documents\Anal_Design\Git Shit\17 09 25\Chirp\Chirp.CLI\obj\Debug\net8.0\Chirp.CLI.genruntimeconfig.cache
 C:\Users\Rasmus\Documents\Anal_Design\Git Shit\17 09 25\Chirp\Chirp.CLI\obj\Debug\net8.0\ref\Chirp.CLI.dll
+C:\Users\MC\Desktop\Chirp3\Chirp\Chirp.CLI\bin\Debug\net8.0\data\chirp_cli_db.csv
+C:\Users\MC\Desktop\Chirp3\Chirp\Chirp.CLI\bin\Debug\net8.0\Chirp.CLI.exe
+C:\Users\MC\Desktop\Chirp3\Chirp\Chirp.CLI\bin\Debug\net8.0\Chirp.CLI.deps.json
+C:\Users\MC\Desktop\Chirp3\Chirp\Chirp.CLI\bin\Debug\net8.0\Chirp.CLI.runtimeconfig.json
+C:\Users\MC\Desktop\Chirp3\Chirp\Chirp.CLI\bin\Debug\net8.0\Chirp.CLI.dll
+C:\Users\MC\Desktop\Chirp3\Chirp\Chirp.CLI\bin\Debug\net8.0\Chirp.CLI.pdb
+C:\Users\MC\Desktop\Chirp3\Chirp\Chirp.CLI\bin\Debug\net8.0\CsvHelper.dll
+C:\Users\MC\Desktop\Chirp3\Chirp\Chirp.CLI\bin\Debug\net8.0\SimpleDB.dll
+C:\Users\MC\Desktop\Chirp3\Chirp\Chirp.CLI\bin\Debug\net8.0\SimpleDB.pdb
+C:\Users\MC\Desktop\Chirp3\Chirp\Chirp.CLI\obj\Debug\net8.0\Chirp.CLI.csproj.AssemblyReference.cache
+C:\Users\MC\Desktop\Chirp3\Chirp\Chirp.CLI\obj\Debug\net8.0\Chirp.CLI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\MC\Desktop\Chirp3\Chirp\Chirp.CLI\obj\Debug\net8.0\Chirp.CLI.csproj.CoreCompileInputs.cache
+C:\Users\MC\Desktop\Chirp3\Chirp\Chirp.CLI\obj\Debug\net8.0\Chirp.CLI.sourcelink.json
+C:\Users\MC\Desktop\Chirp3\Chirp\Chirp.CLI\obj\Debug\net8.0\Chirp.CLI.csproj.Up2Date
+C:\Users\MC\Desktop\Chirp3\Chirp\Chirp.CLI\obj\Debug\net8.0\Chirp.CLI.dll
+C:\Users\MC\Desktop\Chirp3\Chirp\Chirp.CLI\obj\Debug\net8.0\refint\Chirp.CLI.dll
+C:\Users\MC\Desktop\Chirp3\Chirp\Chirp.CLI\obj\Debug\net8.0\Chirp.CLI.pdb
+C:\Users\MC\Desktop\Chirp3\Chirp\Chirp.CLI\obj\Debug\net8.0\Chirp.CLI.genruntimeconfig.cache
+C:\Users\MC\Desktop\Chirp3\Chirp\Chirp.CLI\obj\Debug\net8.0\ref\Chirp.CLI.dll

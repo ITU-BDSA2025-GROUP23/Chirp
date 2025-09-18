@@ -3,28 +3,24 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using CsvHelper;
-using CsvHelper.Configuration; 
 using SimpleDB;
 
-namespace Chirp.cli {
+
+namespace Chirp.CLI{
     public record Cheep(string Author, string Message, long Timestamp);
 
     internal static class Program
     {
-        // CSV database file
+   
         private static string DbFile = Path.Combine(AppContext.BaseDirectory, "Data", "chirp_cli_db.csv");
 		
 		private static CSVDatabase<Cheep> db = new CSVDatabase<Cheep>(DbFile);
-			
-        // Output time format to match example: "08/01/23 14:09:20"
-        private static string DisplayFormat = "MM/dd/yy HH:mm:ss";
-
+        
         static int Main(string[] args)
         {
             if (args.Length == 0)
             {
-                PrintUsage();
+                UserInterface.PrintUsage();
                 return 1;
             }
 
@@ -34,7 +30,7 @@ namespace Chirp.cli {
                 switch (cmd)
                 {
                     case "read":
-                        ReadCheeps(DbFile, DisplayFormat);
+                        ReadCheeps();
                         return 0;
 
                     case "cheep":
@@ -44,12 +40,12 @@ namespace Chirp.cli {
                             return 2;
                         }
                         var message = string.Join(" ", args, 1, args.Length - 1);
-                        WriteCheep(message, DbFile);
+                        WriteCheep(message);
                         return 0;
 
                     default:
                         Console.Error.WriteLine($"Unknown command: {cmd}");
-                        PrintUsage();
+                        UserInterface.PrintUsage();
                         return 3;
                 }
             }
@@ -61,45 +57,22 @@ namespace Chirp.cli {
             }
         }
 
-        private static void PrintUsage()
+        public static void ReadCheeps()
         {
-            Console.WriteLine("Usage:");
-            Console.WriteLine("  Chirp.CLI read");
-            Console.WriteLine("  Chirp.CLI cheep \"Hello, world!\"");
-            Console.WriteLine();
-            Console.WriteLine("Or via dotnet run --:");
-            Console.WriteLine("  dotnet run -- read");
-            Console.WriteLine("  dotnet run -- cheep \"Hello, world!\"");
-        }
-
-        private static void ReadCheeps(string DbFile, string DisplayFormat)
-        {
-            if (!File.Exists(DbFile))
+            foreach (var cheep in db.Read())
             {
-                // Empty DB is not an error; just no output.
-                return;
+                UserInterface.ReadCheep(cheep);
             }
-
-            
-                foreach (var cheep in db.Read())
-                {
-                    DateTimeOffset dto = DateTimeOffset.FromUnixTimeSeconds(cheep.Timestamp);
-                    string realDate = dto.LocalDateTime.ToString(DisplayFormat);
-                    Console.Write(cheep.Author + " @ " + realDate + ": " + cheep.Message + "\n");
-                    
-                }
-           
         }
-
-        private static void WriteCheep(string message, string DbFile)
+        
+        
+        public static void WriteCheep(string message)
         {
-          
-        	var cheep = new Cheep(Environment.UserName, message, DateTimeOffset.UtcNow.ToUnixTimeSeconds());
+            var cheep = new Cheep(Environment.UserName, message, DateTimeOffset.UtcNow.ToUnixTimeSeconds());
+        
+            db.Store(cheep);
 
-        	db.Store(cheep);
-      
-                    
-            Console.WriteLine(" the chirp: " + message + " was saved");
+            UserInterface.Saved(message);
         }
 	}
 }
