@@ -1,7 +1,7 @@
 using CommandLine;
 using SimpleDB;
 
-namespace Chirp.CLI.client;
+namespace Chirp.CLI.Client;
 
 public record Cheep(string Author, string Message, long Timestamp);
 internal static class Program

@@ -5620,19 +5620,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/mathiasdjurhuus/.nuget/packages/": {}
+    "/Users/andersgrangaard/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/mathiasdjurhuus/Documents/GitHub/Chirp/tests/Chirp.CLI.Client.Tests/Chirp.CLI.Client.Tests.csproj",
+      "projectUniqueName": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/tests/Chirp.CLI.Client.Tests/Chirp.CLI.Client.Tests.csproj",
       "projectName": "Chirp.CLI.Client.Tests",
-      "projectPath": "/Users/mathiasdjurhuus/Documents/GitHub/Chirp/tests/Chirp.CLI.Client.Tests/Chirp.CLI.Client.Tests.csproj",
-      "packagesPath": "/Users/mathiasdjurhuus/.nuget/packages/",
-      "outputPath": "/Users/mathiasdjurhuus/Documents/GitHub/Chirp/tests/Chirp.CLI.Client.Tests/obj/",
+      "projectPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/tests/Chirp.CLI.Client.Tests/Chirp.CLI.Client.Tests.csproj",
+      "packagesPath": "/Users/andersgrangaard/.nuget/packages/",
+      "outputPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/tests/Chirp.CLI.Client.Tests/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/mathiasdjurhuus/.nuget/NuGet/NuGet.Config"
+        "/Users/andersgrangaard/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -5644,8 +5644,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj": {
-              "projectPath": "/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj"
+            "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj": {
+              "projectPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj"
             }
           }
         }
@@ -5659,8 +5659,7 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.300"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -5694,22 +5693,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[8.0.20, 8.0.20]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[8.0.20, 8.0.20]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.305/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.413/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

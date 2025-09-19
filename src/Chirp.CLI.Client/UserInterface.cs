@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Chirp.CLI.client;
+namespace Chirp.CLI.Client;
 
 public static class UserInterface
 {
