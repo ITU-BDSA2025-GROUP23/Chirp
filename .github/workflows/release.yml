@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      PROJECT_PATH: Chirp.Cli/Chirp.Cli.csproj
+      PROJECT_PATH: Chirp.Cli.Client/Chirp.Cli.client.csproj
       APP_NAME: chirp
 
     steps:
