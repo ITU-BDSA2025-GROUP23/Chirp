@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "OYM0PHLZDMI=",
+  "success": true,
+  "projectFilePath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.client/Chirp.CLI.client.csproj",
+  "expectedPackageFiles": [
+    "/Users/andersgrangaard/.nuget/packages/csvhelper/33.1.0/csvhelper.33.1.0.nupkg.sha512"
+  ],
+  "logs": []
+}

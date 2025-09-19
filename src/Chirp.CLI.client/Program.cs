@@ -6,12 +6,12 @@ using System.Text;
 using CsvHelper;
 using CsvHelper.Configuration; 
 
-namespace Chirp.cli {
+namespace Chirp.CLI.client {
     public record Cheep(string Author, string Message, long Timestamp);
     internal static class Program
     {
         // CSV database file
-        private static string DbFile = Path.Combine(AppContext.BaseDirectory, "Data", "chirp_cli_db.csv");
+        private static string DbFile = Path.Combine(AppContext.BaseDirectory, "data", "chirp_cli_db.csv");
 
         // Output time format to match example: "08/01/23 14:09:20"
         private static string DisplayFormat = "MM/dd/yy HH:mm:ss";
