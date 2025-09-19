@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "6TcfY/sBLm4=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\MC\\Desktop\\Chirp3\\Chirp\\Chirp.CLI\\Chirp.CLI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\MC\\.nuget\\packages\\commandlineparser\\2.9.1\\commandlineparser.2.9.1.nupkg.sha512",
+    "C:\\Users\\MC\\.nuget\\packages\\csvhelper\\33.1.0\\csvhelper.33.1.0.nupkg.sha512"
+  ],
+  "logs": []
+}
