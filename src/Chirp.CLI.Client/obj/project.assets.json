@@ -105,19 +105,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\MC\\.nuget\\packages\\": {}
+    "/Users/mathiasdjurhuus/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\MC\\Desktop\\Chirp3\\Chirp\\Chirp.CLI\\Chirp.CLI.csproj",
+      "projectUniqueName": "/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj",
       "projectName": "Chirp.CLI",
-      "projectPath": "C:\\Users\\MC\\Desktop\\Chirp3\\Chirp\\Chirp.CLI\\Chirp.CLI.csproj",
-      "packagesPath": "C:\\Users\\MC\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\MC\\Desktop\\Chirp3\\Chirp\\Chirp.CLI\\obj\\",
+      "projectPath": "/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj",
+      "packagesPath": "/Users/mathiasdjurhuus/.nuget/packages/",
+      "outputPath": "/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/Chirp.CLI.Client/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\MC\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/mathiasdjurhuus/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -129,8 +129,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\MC\\Desktop\\Chirp3\\Chirp\\SimpleDB\\SimpleDB.csproj": {
-              "projectPath": "C:\\Users\\MC\\Desktop\\Chirp3\\Chirp\\SimpleDB\\SimpleDB.csproj"
+            "/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/SimpleDB/SimpleDB.csproj": {
+              "projectPath": "/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/SimpleDB/SimpleDB.csproj"
             }
           }
         }
@@ -144,7 +144,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -166,12 +167,26 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[8.0.20, 8.0.20]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.osx-arm64",
+            "version": "[8.0.20, 8.0.20]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[8.0.20, 8.0.20]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.413/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.305/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

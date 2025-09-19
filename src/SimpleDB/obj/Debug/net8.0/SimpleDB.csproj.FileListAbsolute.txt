@@ -1,26 +1,39 @@
-C:\Users\Rasmus\Documents\Anal_Design\Git Shit\17 09 25\Chirp\SimpleDB\bin\Debug\net8.0\SimpleDB.deps.json
-C:\Users\Rasmus\Documents\Anal_Design\Git Shit\17 09 25\Chirp\SimpleDB\bin\Debug\net8.0\SimpleDB.dll
-C:\Users\Rasmus\Documents\Anal_Design\Git Shit\17 09 25\Chirp\SimpleDB\bin\Debug\net8.0\SimpleDB.pdb
-C:\Users\Rasmus\Documents\Anal_Design\Git Shit\17 09 25\Chirp\SimpleDB\obj\Debug\net8.0\SimpleDB.csproj.AssemblyReference.cache
-C:\Users\Rasmus\Documents\Anal_Design\Git Shit\17 09 25\Chirp\SimpleDB\obj\Debug\net8.0\SimpleDB.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Rasmus\Documents\Anal_Design\Git Shit\17 09 25\Chirp\SimpleDB\obj\Debug\net8.0\SimpleDB.AssemblyInfoInputs.cache
-C:\Users\Rasmus\Documents\Anal_Design\Git Shit\17 09 25\Chirp\SimpleDB\obj\Debug\net8.0\SimpleDB.AssemblyInfo.cs
-C:\Users\Rasmus\Documents\Anal_Design\Git Shit\17 09 25\Chirp\SimpleDB\obj\Debug\net8.0\SimpleDB.csproj.CoreCompileInputs.cache
-C:\Users\Rasmus\Documents\Anal_Design\Git Shit\17 09 25\Chirp\SimpleDB\obj\Debug\net8.0\SimpleDB.sourcelink.json
-C:\Users\Rasmus\Documents\Anal_Design\Git Shit\17 09 25\Chirp\SimpleDB\obj\Debug\net8.0\SimpleDB.dll
-C:\Users\Rasmus\Documents\Anal_Design\Git Shit\17 09 25\Chirp\SimpleDB\obj\Debug\net8.0\refint\SimpleDB.dll
-C:\Users\Rasmus\Documents\Anal_Design\Git Shit\17 09 25\Chirp\SimpleDB\obj\Debug\net8.0\SimpleDB.pdb
-C:\Users\Rasmus\Documents\Anal_Design\Git Shit\17 09 25\Chirp\SimpleDB\obj\Debug\net8.0\ref\SimpleDB.dll
-C:\Users\MC\Desktop\Chirp3\Chirp\SimpleDB\bin\Debug\net8.0\SimpleDB.deps.json
-C:\Users\MC\Desktop\Chirp3\Chirp\SimpleDB\bin\Debug\net8.0\SimpleDB.dll
-C:\Users\MC\Desktop\Chirp3\Chirp\SimpleDB\bin\Debug\net8.0\SimpleDB.pdb
-C:\Users\MC\Desktop\Chirp3\Chirp\SimpleDB\obj\Debug\net8.0\SimpleDB.csproj.AssemblyReference.cache
-C:\Users\MC\Desktop\Chirp3\Chirp\SimpleDB\obj\Debug\net8.0\SimpleDB.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\MC\Desktop\Chirp3\Chirp\SimpleDB\obj\Debug\net8.0\SimpleDB.AssemblyInfoInputs.cache
-C:\Users\MC\Desktop\Chirp3\Chirp\SimpleDB\obj\Debug\net8.0\SimpleDB.AssemblyInfo.cs
-C:\Users\MC\Desktop\Chirp3\Chirp\SimpleDB\obj\Debug\net8.0\SimpleDB.csproj.CoreCompileInputs.cache
-C:\Users\MC\Desktop\Chirp3\Chirp\SimpleDB\obj\Debug\net8.0\SimpleDB.sourcelink.json
-C:\Users\MC\Desktop\Chirp3\Chirp\SimpleDB\obj\Debug\net8.0\SimpleDB.dll
-C:\Users\MC\Desktop\Chirp3\Chirp\SimpleDB\obj\Debug\net8.0\refint\SimpleDB.dll
-C:\Users\MC\Desktop\Chirp3\Chirp\SimpleDB\obj\Debug\net8.0\SimpleDB.pdb
-C:\Users\MC\Desktop\Chirp3\Chirp\SimpleDB\obj\Debug\net8.0\ref\SimpleDB.dll
+C:/Users/Rasmus/Documents/Anal_Design/Git Shit/17 09 25/Chirp/SimpleDB/bin/Debug/net8.0/SimpleDB.deps.json
+C:/Users/Rasmus/Documents/Anal_Design/Git Shit/17 09 25/Chirp/SimpleDB/bin/Debug/net8.0/SimpleDB.dll
+C:/Users/Rasmus/Documents/Anal_Design/Git Shit/17 09 25/Chirp/SimpleDB/bin/Debug/net8.0/SimpleDB.pdb
+C:/Users/Rasmus/Documents/Anal_Design/Git Shit/17 09 25/Chirp/SimpleDB/obj/Debug/net8.0/SimpleDB.csproj.AssemblyReference.cache
+C:/Users/Rasmus/Documents/Anal_Design/Git Shit/17 09 25/Chirp/SimpleDB/obj/Debug/net8.0/SimpleDB.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/Rasmus/Documents/Anal_Design/Git Shit/17 09 25/Chirp/SimpleDB/obj/Debug/net8.0/SimpleDB.AssemblyInfoInputs.cache
+C:/Users/Rasmus/Documents/Anal_Design/Git Shit/17 09 25/Chirp/SimpleDB/obj/Debug/net8.0/SimpleDB.AssemblyInfo.cs
+C:/Users/Rasmus/Documents/Anal_Design/Git Shit/17 09 25/Chirp/SimpleDB/obj/Debug/net8.0/SimpleDB.csproj.CoreCompileInputs.cache
+C:/Users/Rasmus/Documents/Anal_Design/Git Shit/17 09 25/Chirp/SimpleDB/obj/Debug/net8.0/SimpleDB.sourcelink.json
+C:/Users/Rasmus/Documents/Anal_Design/Git Shit/17 09 25/Chirp/SimpleDB/obj/Debug/net8.0/SimpleDB.dll
+C:/Users/Rasmus/Documents/Anal_Design/Git Shit/17 09 25/Chirp/SimpleDB/obj/Debug/net8.0/refint/SimpleDB.dll
+C:/Users/Rasmus/Documents/Anal_Design/Git Shit/17 09 25/Chirp/SimpleDB/obj/Debug/net8.0/SimpleDB.pdb
+C:/Users/Rasmus/Documents/Anal_Design/Git Shit/17 09 25/Chirp/SimpleDB/obj/Debug/net8.0/ref/SimpleDB.dll
+C:/Users/MC/Desktop/Chirp3/Chirp/SimpleDB/bin/Debug/net8.0/SimpleDB.deps.json
+C:/Users/MC/Desktop/Chirp3/Chirp/SimpleDB/bin/Debug/net8.0/SimpleDB.dll
+C:/Users/MC/Desktop/Chirp3/Chirp/SimpleDB/bin/Debug/net8.0/SimpleDB.pdb
+C:/Users/MC/Desktop/Chirp3/Chirp/SimpleDB/obj/Debug/net8.0/SimpleDB.csproj.AssemblyReference.cache
+C:/Users/MC/Desktop/Chirp3/Chirp/SimpleDB/obj/Debug/net8.0/SimpleDB.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/MC/Desktop/Chirp3/Chirp/SimpleDB/obj/Debug/net8.0/SimpleDB.AssemblyInfoInputs.cache
+C:/Users/MC/Desktop/Chirp3/Chirp/SimpleDB/obj/Debug/net8.0/SimpleDB.AssemblyInfo.cs
+C:/Users/MC/Desktop/Chirp3/Chirp/SimpleDB/obj/Debug/net8.0/SimpleDB.csproj.CoreCompileInputs.cache
+C:/Users/MC/Desktop/Chirp3/Chirp/SimpleDB/obj/Debug/net8.0/SimpleDB.sourcelink.json
+C:/Users/MC/Desktop/Chirp3/Chirp/SimpleDB/obj/Debug/net8.0/SimpleDB.dll
+C:/Users/MC/Desktop/Chirp3/Chirp/SimpleDB/obj/Debug/net8.0/refint/SimpleDB.dll
+C:/Users/MC/Desktop/Chirp3/Chirp/SimpleDB/obj/Debug/net8.0/SimpleDB.pdb
+C:/Users/MC/Desktop/Chirp3/Chirp/SimpleDB/obj/Debug/net8.0/ref/SimpleDB.dll
+/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/SimpleDB/bin/Debug/net8.0/SimpleDB.deps.json
+/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/SimpleDB/bin/Debug/net8.0/SimpleDB.dll
+/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/SimpleDB/bin/Debug/net8.0/SimpleDB.pdb
+/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/SimpleDB/obj/Debug/net8.0/SimpleDB.csproj.AssemblyReference.cache
+/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/SimpleDB/obj/Debug/net8.0/SimpleDB.GeneratedMSBuildEditorConfig.editorconfig
+/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/SimpleDB/obj/Debug/net8.0/SimpleDB.AssemblyInfoInputs.cache
+/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/SimpleDB/obj/Debug/net8.0/SimpleDB.AssemblyInfo.cs
+/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/SimpleDB/obj/Debug/net8.0/SimpleDB.csproj.CoreCompileInputs.cache
+/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/SimpleDB/obj/Debug/net8.0/SimpleDB.sourcelink.json
+/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/SimpleDB/obj/Debug/net8.0/SimpleDB.dll
+/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/SimpleDB/obj/Debug/net8.0/refint/SimpleDB.dll
+/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/SimpleDB/obj/Debug/net8.0/SimpleDB.pdb
+/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/SimpleDB/obj/Debug/net8.0/ref/SimpleDB.dll

@@ -1,10 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "OYM0PHLZDMI=",
+  "dgSpecHash": "H9nFdTbo96A=",
   "success": true,
-  "projectFilePath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.client/Chirp.CLI.client.csproj",
+  "projectFilePath": "/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/Chirp.CLI.client/Chirp.CLI.client.csproj",
   "expectedPackageFiles": [
-    "/Users/andersgrangaard/.nuget/packages/csvhelper/33.1.0/csvhelper.33.1.0.nupkg.sha512"
+    "/Users/mathiasdjurhuus/.nuget/packages/commandlineparser/2.9.1/commandlineparser.2.9.1.nupkg.sha512",
+    "/Users/mathiasdjurhuus/.nuget/packages/csvhelper/33.1.0/csvhelper.33.1.0.nupkg.sha512",
+    "/Users/mathiasdjurhuus/.nuget/packages/microsoft.netcore.app.ref/8.0.20/microsoft.netcore.app.ref.8.0.20.nupkg.sha512",
+    "/Users/mathiasdjurhuus/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.20/microsoft.aspnetcore.app.ref.8.0.20.nupkg.sha512",
+    "/Users/mathiasdjurhuus/.nuget/packages/microsoft.netcore.app.host.osx-arm64/8.0.20/microsoft.netcore.app.host.osx-arm64.8.0.20.nupkg.sha512"
   ],
   "logs": []
 }

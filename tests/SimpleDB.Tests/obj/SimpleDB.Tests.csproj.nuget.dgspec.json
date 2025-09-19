@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/tests/SimpleDB.Tests/SimpleDB.Tests.csproj": {}
+    "/Users/mathiasdjurhuus/Documents/GitHub/Chirp/tests/SimpleDB.Tests/SimpleDB.Tests.csproj": {}
   },
   "projects": {
-    "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/SimpleDB/SimpleDB.csproj": {
+    "/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/SimpleDB/SimpleDB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/SimpleDB/SimpleDB.csproj",
+        "projectUniqueName": "/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/SimpleDB/SimpleDB.csproj",
         "projectName": "SimpleDB",
-        "projectPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/SimpleDB/SimpleDB.csproj",
-        "packagesPath": "/Users/andersgrangaard/.nuget/packages/",
-        "outputPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/SimpleDB/obj/",
+        "projectPath": "/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/SimpleDB/SimpleDB.csproj",
+        "packagesPath": "/Users/mathiasdjurhuus/.nuget/packages/",
+        "outputPath": "/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/SimpleDB/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/andersgrangaard/.nuget/NuGet/NuGet.Config"
+          "/Users/mathiasdjurhuus/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -37,11 +37,18 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[33.1.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -53,26 +60,36 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.20, 8.0.20]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.20, 8.0.20]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.413/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/tests/SimpleDB.Tests/SimpleDB.Tests.csproj": {
+    "/Users/mathiasdjurhuus/Documents/GitHub/Chirp/tests/SimpleDB.Tests/SimpleDB.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/tests/SimpleDB.Tests/SimpleDB.Tests.csproj",
+        "projectUniqueName": "/Users/mathiasdjurhuus/Documents/GitHub/Chirp/tests/SimpleDB.Tests/SimpleDB.Tests.csproj",
         "projectName": "SimpleDB.Tests",
-        "projectPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/tests/SimpleDB.Tests/SimpleDB.Tests.csproj",
-        "packagesPath": "/Users/andersgrangaard/.nuget/packages/",
-        "outputPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/tests/SimpleDB.Tests/obj/",
+        "projectPath": "/Users/mathiasdjurhuus/Documents/GitHub/Chirp/tests/SimpleDB.Tests/SimpleDB.Tests.csproj",
+        "packagesPath": "/Users/mathiasdjurhuus/.nuget/packages/",
+        "outputPath": "/Users/mathiasdjurhuus/Documents/GitHub/Chirp/tests/SimpleDB.Tests/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/andersgrangaard/.nuget/NuGet/NuGet.Config"
+          "/Users/mathiasdjurhuus/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -84,8 +101,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/SimpleDB/SimpleDB.csproj": {
-                "projectPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/SimpleDB/SimpleDB.csproj"
+              "/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/SimpleDB/SimpleDB.csproj": {
+                "projectPath": "/Users/mathiasdjurhuus/Documents/GitHub/Chirp/src/SimpleDB/SimpleDB.csproj"
               }
             }
           }
@@ -99,7 +116,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -133,12 +151,22 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.20, 8.0.20]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.20, 8.0.20]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.413/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
