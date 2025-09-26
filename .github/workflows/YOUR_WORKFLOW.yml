@@ -1,18 +1,27 @@
 name: Label issues
 on:
   issues:
-    types:
-      - reopened
-      - opened
+    types: [opened, reopened]
+
 jobs:
   label_issues:
     runs-on: ubuntu-latest
     permissions:
       issues: write
+      contents: read
     steps:
-      - run: gh issue edit "$NUMBER" --add-label "$LABELS"
+      - name: Ensure label exists
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh label create "triage" --color FEF2C0 --description "Needs triage" \
+            || echo "Label already exists"
+
+      - name: Add label
+        env:
+          GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
-          LABELS: triage
+        run: |
+          gh issue edit "$NUMBER" --add-label "triage"
