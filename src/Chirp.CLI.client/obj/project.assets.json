@@ -105,19 +105,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/andersgrangaard/.nuget/packages/": {}
+    "C:\\Users\\Rasmus\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj",
+      "projectUniqueName": "C:\\Users\\Rasmus\\Documents\\Anal_Design\\Git Shit\\17 09 25\\Chirp\\src\\Chirp.CLI.Client\\Chirp.CLI.client.csproj",
       "projectName": "Chirp.CLI",
-      "projectPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj",
-      "packagesPath": "/Users/andersgrangaard/.nuget/packages/",
-      "outputPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/src/Chirp.CLI.Client/obj/",
+      "projectPath": "C:\\Users\\Rasmus\\Documents\\Anal_Design\\Git Shit\\17 09 25\\Chirp\\src\\Chirp.CLI.Client\\Chirp.CLI.client.csproj",
+      "packagesPath": "C:\\Users\\Rasmus\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Rasmus\\Documents\\Anal_Design\\Git Shit\\17 09 25\\Chirp\\src\\Chirp.CLI.Client\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/andersgrangaard/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Rasmus\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -129,8 +129,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/src/SimpleDB/SimpleDB.csproj": {
-              "projectPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/src/SimpleDB/SimpleDB.csproj"
+            "C:\\Users\\Rasmus\\Documents\\Anal_Design\\Git Shit\\17 09 25\\Chirp\\src\\SimpleDB\\SimpleDB.csproj": {
+              "projectPath": "C:\\Users\\Rasmus\\Documents\\Anal_Design\\Git Shit\\17 09 25\\Chirp\\src\\SimpleDB\\SimpleDB.csproj"
             }
           }
         }
@@ -171,7 +171,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.413/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.413/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

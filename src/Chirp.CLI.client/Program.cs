@@ -1,4 +1,8 @@
 using CommandLine;
+using System;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
 using SimpleDB;
 
 namespace Chirp.CLI.Client;
@@ -6,25 +10,25 @@ namespace Chirp.CLI.Client;
 public record Cheep(string Author, string Message, long Timestamp);
 internal static class Program
 {
-    private static readonly string DbFile = Path.Combine(AppContext.BaseDirectory, "Data", "chirp_cli_db.csv");
-    private static readonly CSVDatabase<Cheep> db = new CSVDatabase<Cheep>(DbFile);
 
     static int Main(string[] args)
     {
+        var baseURL = "http://localhost:5205";
+        using HttpClient client = new();
+        client.BaseAddress = new Uri(baseURL);
+        
         return Parser.Default
             .ParseArguments<Read, Cheepd>(args)
             .MapResult(
                 (Read opt) =>
                 {
-                    var cheeps = db.Read();
+                    var cheeps = client.GetFromJsonAsync<List<Cheep>>("cheeps").Result;
                     foreach (var c in cheeps) UserInterface.ReadCheep(c);
                     return 0;
                 },
                 (Cheepd opt) =>
                 {
-                    var item = new Cheep(Environment.UserName, opt.Message, DateTimeOffset.UtcNow.ToUnixTimeSeconds());
-                    db.Store(item);
-                    UserInterface.Saved(opt.Message);
+                    
                     return 0;
                 },
                 errs => 1
