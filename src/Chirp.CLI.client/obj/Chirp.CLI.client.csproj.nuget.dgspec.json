@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj": {}
+    "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.Client/Chirp.CLI.Client.csproj": {}
   },
   "projects": {
-    "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj": {
+    "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.Client/Chirp.CLI.Client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj",
+        "projectUniqueName": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.Client/Chirp.CLI.Client.csproj",
         "projectName": "Chirp.CLI",
-        "projectPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj",
+        "projectPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.Client/Chirp.CLI.Client.csproj",
         "packagesPath": "/Users/andersgrangaard/.nuget/packages/",
         "outputPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.Client/obj/",
         "projectStyle": "PackageReference",
