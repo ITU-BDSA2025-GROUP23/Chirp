@@ -28,6 +28,17 @@ internal static class Program
                 },
                 (Cheepd opt) =>
                 {
+                    var item = new Cheep(Environment.UserName, opt.Message, DateTimeOffset.UtcNow.ToUnixTimeSeconds());
+                    var data = client.PostAsJsonAsync("cheep", item).Result;
+                    
+                    if (data.IsSuccessStatusCode)
+                    {
+                        UserInterface.Saved(opt.Message);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Failed to save cheep: {data.StatusCode}");
+                    }
                     
                     return 0;
                 },
