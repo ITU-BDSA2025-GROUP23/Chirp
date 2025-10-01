@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MMsU8eg+h5Y=",
+  "dgSpecHash": "azrxvugE6YE=",
   "success": true,
-  "projectFilePath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/tests/Chirp.CLI.Client.Tests/Chirp.CLI.Client.Tests.csproj",
+  "projectFilePath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/tests/Chirp.CLI.Client.Tests/Chirp.CLI.Client.Tests.csproj",
   "expectedPackageFiles": [
     "/Users/andersgrangaard/.nuget/packages/commandlineparser/2.9.1/commandlineparser.2.9.1.nupkg.sha512",
     "/Users/andersgrangaard/.nuget/packages/coverlet.collector/6.0.0/coverlet.collector.6.0.0.nupkg.sha512",

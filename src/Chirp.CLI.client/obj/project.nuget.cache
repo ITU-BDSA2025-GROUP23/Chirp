@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "44o866OhxV8=",
+  "dgSpecHash": "8jvyMZoWU0I=",
   "success": true,
-  "projectFilePath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/src/Chirp.CLI.client/Chirp.CLI.client.csproj",
+  "projectFilePath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj",
   "expectedPackageFiles": [
     "/Users/andersgrangaard/.nuget/packages/commandlineparser/2.9.1/commandlineparser.2.9.1.nupkg.sha512",
     "/Users/andersgrangaard/.nuget/packages/csvhelper/33.1.0/csvhelper.33.1.0.nupkg.sha512"

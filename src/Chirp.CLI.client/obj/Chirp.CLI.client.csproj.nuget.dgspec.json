@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj": {}
+    "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj": {}
   },
   "projects": {
-    "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj": {
+    "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj",
+        "projectUniqueName": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj",
         "projectName": "Chirp.CLI",
-        "projectPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj",
+        "projectPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj",
         "packagesPath": "/Users/andersgrangaard/.nuget/packages/",
-        "outputPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/src/Chirp.CLI.Client/obj/",
+        "outputPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.Client/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/andersgrangaard/.nuget/NuGet/NuGet.Config"
@@ -26,8 +26,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/src/SimpleDB/SimpleDB.csproj": {
-                "projectPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/src/SimpleDB/SimpleDB.csproj"
+              "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/SimpleDB/SimpleDB.csproj": {
+                "projectPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/SimpleDB/SimpleDB.csproj"
               }
             }
           }
@@ -72,14 +72,14 @@
         }
       }
     },
-    "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/src/SimpleDB/SimpleDB.csproj": {
+    "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/SimpleDB/SimpleDB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/src/SimpleDB/SimpleDB.csproj",
+        "projectUniqueName": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/SimpleDB/SimpleDB.csproj",
         "projectName": "SimpleDB",
-        "projectPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/src/SimpleDB/SimpleDB.csproj",
+        "projectPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/SimpleDB/SimpleDB.csproj",
         "packagesPath": "/Users/andersgrangaard/.nuget/packages/",
-        "outputPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/src/SimpleDB/obj/",
+        "outputPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/SimpleDB/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/andersgrangaard/.nuget/NuGet/NuGet.Config"

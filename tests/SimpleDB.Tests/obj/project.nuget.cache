@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pPrwbMlVe7o=",
+  "dgSpecHash": "P7tySk4wUuY=",
   "success": true,
-  "projectFilePath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/tests/SimpleDB.Tests/SimpleDB.Tests.csproj",
+  "projectFilePath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/tests/SimpleDB.Tests/SimpleDB.Tests.csproj",
   "expectedPackageFiles": [
     "/Users/andersgrangaard/.nuget/packages/coverlet.collector/6.0.0/coverlet.collector.6.0.0.nupkg.sha512",
     "/Users/andersgrangaard/.nuget/packages/csvhelper/33.1.0/csvhelper.33.1.0.nupkg.sha512",

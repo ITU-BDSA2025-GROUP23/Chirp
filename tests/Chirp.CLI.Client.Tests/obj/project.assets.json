@@ -5601,7 +5601,7 @@
     },
     "Chirp.CLI/1.0.0": {
       "type": "project",
-      "path": "../../src/Chirp.CLI.client/Chirp.CLI.client.csproj",
+      "path": "../../src/Chirp.CLI.Client/Chirp.CLI.client.csproj",
       "msbuildProject": "../../src/Chirp.CLI.Client/Chirp.CLI.client.csproj"
     },
     "SimpleDB/1.0.0": {
@@ -5625,11 +5625,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/tests/Chirp.CLI.Client.Tests/Chirp.CLI.Client.Tests.csproj",
+      "projectUniqueName": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/tests/Chirp.CLI.Client.Tests/Chirp.CLI.Client.Tests.csproj",
       "projectName": "Chirp.CLI.Client.Tests",
-      "projectPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/tests/Chirp.CLI.Client.Tests/Chirp.CLI.Client.Tests.csproj",
+      "projectPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/tests/Chirp.CLI.Client.Tests/Chirp.CLI.Client.Tests.csproj",
       "packagesPath": "/Users/andersgrangaard/.nuget/packages/",
-      "outputPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/tests/Chirp.CLI.Client.Tests/obj/",
+      "outputPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/tests/Chirp.CLI.Client.Tests/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/andersgrangaard/.nuget/NuGet/NuGet.Config"
@@ -5644,8 +5644,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj": {
-              "projectPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp.CLI/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj"
+            "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj": {
+              "projectPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/src/Chirp.CLI.Client/Chirp.CLI.client.csproj"
             }
           }
         }
