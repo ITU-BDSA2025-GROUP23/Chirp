@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net9.0": {
+    "net8.0": {
       "Microsoft.Data.Sqlite/9.0.9": {
         "type": "package",
         "dependencies": {
@@ -66,10 +66,10 @@
           "lib/netstandard2.0/_._": {}
         },
         "build": {
-          "buildTransitive/net9.0/SQLitePCLRaw.lib.e_sqlite3.targets": {}
+          "buildTransitive/net8.0/SQLitePCLRaw.lib.e_sqlite3.targets": {}
         },
         "runtimeTargets": {
-          "runtimes/browser-wasm/nativeassets/net9.0/e_sqlite3.a": {
+          "runtimes/browser-wasm/nativeassets/net8.0/e_sqlite3.a": {
             "assetType": "native",
             "rid": "browser-wasm"
           },
@@ -327,34 +327,34 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net9.0": [
+    "net8.0": [
       "Microsoft.Data.Sqlite >= 9.0.9"
     ]
   },
   "packageFolders": {
-    "/Users/mathiasdjurhuus/.nuget/packages/": {}
+    "/Users/andersgrangaard/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/mathiasdjurhuus/Documents/Chirp.Razor/Chirp.Razor.csproj",
+      "projectUniqueName": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/Chirp.Razor/Chirp.Razor.csproj",
       "projectName": "Chirp.Razor",
-      "projectPath": "/Users/mathiasdjurhuus/Documents/Chirp.Razor/Chirp.Razor.csproj",
-      "packagesPath": "/Users/mathiasdjurhuus/.nuget/packages/",
-      "outputPath": "/Users/mathiasdjurhuus/Documents/Chirp.Razor/obj/",
+      "projectPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/Chirp.Razor/Chirp.Razor.csproj",
+      "packagesPath": "/Users/andersgrangaard/.nuget/packages/",
+      "outputPath": "/Users/andersgrangaard/Desktop/3. semester/BDSA/Chirp/Chirp.Razor/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/mathiasdjurhuus/.nuget/NuGet/NuGet.Config"
+        "/Users/andersgrangaard/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
-        "net9.0"
+        "net8.0"
       ],
       "sources": {
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net9.0": {
-          "targetAlias": "net9.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "projectReferences": {}
         }
       },
@@ -367,12 +367,11 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.300"
+      }
     },
     "frameworks": {
-      "net9.0": {
-        "targetAlias": "net9.0",
+      "net8.0": {
+        "targetAlias": "net8.0",
         "dependencies": {
           "Microsoft.Data.Sqlite": {
             "target": "Package",
@@ -398,7 +397,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.305/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.413/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
