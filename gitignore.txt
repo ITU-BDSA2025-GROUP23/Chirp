@@ -1,0 +1,102 @@
+# =========================
+# .gitignore for modern .NET (+ Rider/VS/VS Code)
+# =========================
+
+############################
+# Build results / artifacts
+############################
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+artifacts/
+
+# Older lock files
+project.lock.json
+project.fragment.lock.json
+
+############################
+# NuGet
+############################
+*.nupkg
+*.snupkg
+# Local NuGet cache
+.nuget/
+
+############################
+# MSBuild / Test logs
+############################
+*.binlog
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+# NUnit / MSTest
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+*.trx
+
+############################
+# Code coverage
+############################
+*.coverage
+*.coveragexml
+coverage/
+.coverage/
+.opencover.xml
+
+############################
+# Tool build dirs
+############################
+tools/**/obj/
+tools/**/bin/
+
+############################
+# IDEs
+############################
+# JetBrains Rider / IntelliJ
+.idea/
+*.sln.iml
+
+# Visual Studio
+.vs/
+
+# VS Code
+.vscode/
+
+# ReSharper / Rider caches (if any leak)
+_ReSharper.Caches/
+
+############################
+# User-specific / temp
+############################
+*.user
+*.suo
+*.userosscache
+*.swp
+*.swo
+*.tmp
+*.log
+~$*
+*~
+
+############################
+# OS junk
+############################
+.DS_Store
+Thumbs.db
+
+############################
+# Keep: project data files
+############################
+# Do NOT ignore the CSV db used by the CLI:
+# Chirp.CLI/chirp_cli_db.csv
