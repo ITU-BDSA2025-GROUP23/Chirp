@@ -1,8 +1,14 @@
+using Chirp.Razor.Services;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Path
+string? dbPath = Environment.GetEnvironmentVariable("CHIRPDBPATH");
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddSingleton<ICheepService, CheepService>();
+builder.Services.AddSingleton<DBFacade>(_ => new DBFacade(dbPath));
 
 
 var app = builder.Build();
@@ -17,9 +23,6 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.MapRazorPages();
-
 app.Run();

@@ -1,37 +1,83 @@
+using System.Data;
+using Chirp.Razor.Services;
+using Microsoft.Data.Sqlite;
+
 public record CheepViewModel(string Author, string Message, string Timestamp);
 
 public interface ICheepService
 {
-    public List<CheepViewModel> GetCheeps();
-    public List<CheepViewModel> GetCheepsFromAuthor(string author);
+    List<CheepViewModel> GetCheeps();
+    List<CheepViewModel> GetCheepsFromAuthor(string author);
 }
 
 public class CheepService : ICheepService
 {
-    // These would normally be loaded from a database for example
-    private static readonly List<CheepViewModel> _cheeps = new()
-        {
-            new CheepViewModel("Helge", "Hello, BDSA students!", UnixTimeStampToDateTimeString(1690892208)),
-            new CheepViewModel("Adrian", "Hej, velkommen til kurset.", UnixTimeStampToDateTimeString(1690895308)),
-        };
+    private readonly DBFacade _db;
+
+    public CheepService(DBFacade db)
+    {
+        _db = db;
+    }
 
     public List<CheepViewModel> GetCheeps()
     {
-        return _cheeps;
+        var cheeps = new List<CheepViewModel>();
+
+        using var conn = _db.OpenConnection();
+        using var cmd = conn.CreateCommand();
+        cmd.CommandText = @"
+            SELECT u.username, m.text, m.pub_date
+            FROM message m
+            JOIN user u ON m.author_id = u.user_id
+            ORDER BY m.pub_date DESC
+            LIMIT 32;
+        ";
+
+        using var reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            var author = reader.GetString(0);
+            var message = reader.GetString(1);
+            var timestamp = UnixTimeStampToDateTimeString(reader.GetInt64(2));
+            cheeps.Add(new CheepViewModel(author, message, timestamp));
+        }
+
+        return cheeps;
     }
 
     public List<CheepViewModel> GetCheepsFromAuthor(string author)
     {
-        // filter by the provided author name
-        return _cheeps.Where(x => x.Author == author).ToList();
+        var cheeps = new List<CheepViewModel>();
+
+        using var conn = _db.OpenConnection();
+        using var cmd = conn.CreateCommand();
+        cmd.CommandText = @"
+            SELECT u.username, m.text, m.pub_date
+            FROM message m
+            JOIN user u ON m.author_id = u.user_id
+            WHERE u.username = $author
+            ORDER BY m.pub_date DESC
+            LIMIT 32;
+        ";
+        var param = cmd.CreateParameter();
+        param.ParameterName = "$author";
+        param.Value = author;
+        cmd.Parameters.Add(param);        using var reader = cmd.ExecuteReader();
+        
+        while (reader.Read())
+        {
+            var username = reader.GetString(0);
+            var message = reader.GetString(1);
+            var timestamp = UnixTimeStampToDateTimeString(reader.GetInt64(2));
+            cheeps.Add(new CheepViewModel(username, message, timestamp));
+        }
+
+        return cheeps;
     }
 
-    private static string UnixTimeStampToDateTimeString(double unixTimeStamp)
+    private static string UnixTimeStampToDateTimeString(long unixTimeStamp)
     {
-        // Unix timestamp is seconds past epoch
-        DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-        dateTime = dateTime.AddSeconds(unixTimeStamp);
-        return dateTime.ToString("MM/dd/yy H:mm:ss");
+        var dateTime = DateTimeOffset.FromUnixTimeSeconds(unixTimeStamp).ToLocalTime().DateTime;
+        return dateTime.ToString("yyyy-MM-dd HH:mm:ss");
     }
-
 }
