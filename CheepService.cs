@@ -1,4 +1,3 @@
-using System.Data;
 using Chirp.Razor.Services;
 using Microsoft.Data.Sqlite;
 
@@ -8,47 +7,57 @@ public interface ICheepService
 {
     List<CheepViewModel> GetCheeps();
     List<CheepViewModel> GetCheepsFromAuthor(string author);
+
+    // NEW: paged overloads
+    List<CheepViewModel> GetCheeps(int page, int pageSize);
+    List<CheepViewModel> GetCheepsFromAuthor(string author, int page, int pageSize);
 }
 
 public class CheepService : ICheepService
 {
     private readonly DBFacade _db;
+    public CheepService(DBFacade db) => _db = db;
 
-    public CheepService(DBFacade db)
+    public List<CheepViewModel> GetCheeps() => GetCheeps(1, 32);
+    public List<CheepViewModel> GetCheepsFromAuthor(string author) => GetCheepsFromAuthor(author, 1, 32);
+
+    public List<CheepViewModel> GetCheeps(int page, int pageSize)
     {
-        _db = db;
-    }
+        if (page < 1) page = 1;
+        if (pageSize < 1) pageSize = 32;
+        var offset = (page - 1) * pageSize;
 
-    public List<CheepViewModel> GetCheeps()
-    {
-        var cheeps = new List<CheepViewModel>();
-
+        var list = new List<CheepViewModel>();
         using var conn = _db.OpenConnection();
         using var cmd = conn.CreateCommand();
         cmd.CommandText = @"
             SELECT u.username, m.text, m.pub_date
             FROM message m
             JOIN user u ON m.author_id = u.user_id
-            ORDER BY m.pub_date DESC
-            LIMIT 32;
-        ";
+            ORDER BY m.pub_date DESC, m.message_id DESC
+            LIMIT $limit OFFSET $offset;";
+        var pLimit = cmd.CreateParameter(); pLimit.ParameterName = "$limit"; pLimit.Value = pageSize; cmd.Parameters.Add(pLimit);
+        var pOffset = cmd.CreateParameter(); pOffset.ParameterName = "$offset"; pOffset.Value = offset; cmd.Parameters.Add(pOffset);
 
         using var reader = cmd.ExecuteReader();
         while (reader.Read())
         {
-            var author = reader.GetString(0);
-            var message = reader.GetString(1);
-            var timestamp = UnixTimeStampToDateTimeString(reader.GetInt64(2));
-            cheeps.Add(new CheepViewModel(author, message, timestamp));
+            list.Add(new CheepViewModel(
+                reader.GetString(0),
+                reader.GetString(1),
+                Unix(reader.GetInt64(2))
+            ));
         }
-
-        return cheeps;
+        return list;
     }
 
-    public List<CheepViewModel> GetCheepsFromAuthor(string author)
+    public List<CheepViewModel> GetCheepsFromAuthor(string author, int page, int pageSize)
     {
-        var cheeps = new List<CheepViewModel>();
+        if (page < 1) page = 1;
+        if (pageSize < 1) pageSize = 32;
+        var offset = (page - 1) * pageSize;
 
+        var list = new List<CheepViewModel>();
         using var conn = _db.OpenConnection();
         using var cmd = conn.CreateCommand();
         cmd.CommandText = @"
@@ -56,28 +65,24 @@ public class CheepService : ICheepService
             FROM message m
             JOIN user u ON m.author_id = u.user_id
             WHERE u.username = $author
-            ORDER BY m.pub_date DESC
-            LIMIT 32;
-        ";
-        var param = cmd.CreateParameter();
-        param.ParameterName = "$author";
-        param.Value = author;
-        cmd.Parameters.Add(param);        using var reader = cmd.ExecuteReader();
-        
+            ORDER BY m.pub_date DESC, m.message_id DESC
+            LIMIT $limit OFFSET $offset;";
+        var pAuthor = cmd.CreateParameter(); pAuthor.ParameterName = "$author"; pAuthor.Value = author; cmd.Parameters.Add(pAuthor);
+        var pLimit = cmd.CreateParameter(); pLimit.ParameterName = "$limit"; pLimit.Value = pageSize; cmd.Parameters.Add(pLimit);
+        var pOffset = cmd.CreateParameter(); pOffset.ParameterName = "$offset"; pOffset.Value = offset; cmd.Parameters.Add(pOffset);
+
+        using var reader = cmd.ExecuteReader();
         while (reader.Read())
         {
-            var username = reader.GetString(0);
-            var message = reader.GetString(1);
-            var timestamp = UnixTimeStampToDateTimeString(reader.GetInt64(2));
-            cheeps.Add(new CheepViewModel(username, message, timestamp));
+            list.Add(new CheepViewModel(
+                reader.GetString(0),
+                reader.GetString(1),
+                Unix(reader.GetInt64(2))
+            ));
         }
-
-        return cheeps;
+        return list;
     }
 
-    private static string UnixTimeStampToDateTimeString(long unixTimeStamp)
-    {
-        var dateTime = DateTimeOffset.FromUnixTimeSeconds(unixTimeStamp).ToLocalTime().DateTime;
-        return dateTime.ToString("yyyy-MM-dd HH:mm:ss");
-    }
+    private static string Unix(long s)
+        => DateTimeOffset.FromUnixTimeSeconds(s).ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss");
 }

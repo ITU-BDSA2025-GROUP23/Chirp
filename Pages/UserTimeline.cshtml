@@ -30,4 +30,14 @@
     {
         <em>There are no cheeps so far.</em>
     }
+    <nav class="pager">
+        @if (Model.Page > 1)
+        {
+            <a href="/@Model.Username?page=@(Model.Page - 1)">« Previous</a>
+        }
+        @if (Model.HasNextPage)
+        {
+            <a style="margin-left:1rem" href="/@Model.Username?page=@(Model.Page + 1)">Next »</a>
+        }
+    </nav>
 </div>
