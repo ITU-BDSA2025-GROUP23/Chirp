@@ -1,4 +1,4 @@
-using Chirp.Razor.Services;
+using Database;
 using Microsoft.Data.Sqlite;
 
 public record CheepViewModel(string Author, string Message, string Timestamp);
@@ -38,7 +38,7 @@ public class CheepService : ICheepService
             LIMIT $limit OFFSET $offset;";
         var pLimit = cmd.CreateParameter(); pLimit.ParameterName = "$limit"; pLimit.Value = pageSize; cmd.Parameters.Add(pLimit);
         var pOffset = cmd.CreateParameter(); pOffset.ParameterName = "$offset"; pOffset.Value = offset; cmd.Parameters.Add(pOffset);
-
+        //fejl her 
         using var reader = cmd.ExecuteReader();
         while (reader.Read())
         {

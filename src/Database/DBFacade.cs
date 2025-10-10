@@ -1,7 +1,7 @@
 using System.Data;
 using Microsoft.Data.Sqlite;
 
-namespace Chirp.Razor.Services;
+namespace Database;
 
 public sealed class DBFacade
 {
