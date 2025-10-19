@@ -1,0 +1,13 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Chirp.Razor.DataModel;
+
+public class Cheep
+{
+    public required int id  { get; set; }
+    public required string Text { get; set; }
+    public required DateTime Timestamp  { get; set; }
+    
+    public int AuthorId { get; set; }
+}
