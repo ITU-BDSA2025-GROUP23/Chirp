@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\src\Chirp.Razor\Chirp.Razor.csproj" />
+    <ProjectReference Include="..\src\Database\Database.csproj" />
   </ItemGroup>
 
 </Project>
