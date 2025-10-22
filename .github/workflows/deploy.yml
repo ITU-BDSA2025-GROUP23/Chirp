@@ -9,9 +9,9 @@ permissions:
   contents: read
 
 env:
-  AZURE_WEBAPP_NAME: your-app-service-name
-  DOTNET_VERSION: '8.0.x'   # match your project
-  PROJECT_PATH: src/YourApp/YourApp.csproj
+  AZURE_WEBAPP_NAME: bdsagroup23chirprazor
+  DOTNET_VERSION: '8.0.x'
+  PROJECT_PATH: src/Chirp.Razor/Chirp.Razor.csproj
 
 jobs:
   build-and-deploy:
