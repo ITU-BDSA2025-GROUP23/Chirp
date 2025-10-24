@@ -16,6 +16,13 @@ builder.Services.AddScoped<ICheepService, CheepService>();
 
 var app = builder.Build();
 
+if (app.Environment.IsDevelopment())
+{
+    using var scope = app.Services.CreateScope();
+    var context = scope.ServiceProvider.GetRequiredService<ChatDBContext>();
+    context.Database.Migrate();
+}
+
 
 //Region MRGA
 app.UseHttpsRedirection();
