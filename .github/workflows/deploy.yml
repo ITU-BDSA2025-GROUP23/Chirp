@@ -1,46 +1,66 @@
-name: Deploy Razor Pages to Azure App Service
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and deploy Razor Pages Chirp
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   workflow_dispatch:
 
-permissions:
-  contents: read
-
-env:
-  AZURE_WEBAPP_NAME: bdsagroup23chirprazor
-  DOTNET_VERSION: '8.0.x'
-  PROJECT_PATH: src/Chirp.Razor/Chirp.Razor.csproj
-
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read #This is required for actions/checkout
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup .NET
+      - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
+          dotnet-version: '8.x'
 
-      - name: Restore
-        run: dotnet restore ${{ env.PROJECT_PATH }}
+      - name: Build with dotnet
+        run: dotnet build src/Chirp.Razor/Chirp.Razor.csproj --configuration Release
 
-      - name: Build
-        run: dotnet build ${{ env.PROJECT_PATH }} --configuration Release --no-restore
+      - name: dotnet publish
+        run: dotnet publish src/Chirp.Razor/Chirp.Razor.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
-      - name: Test
-        run: dotnet test --configuration Release --no-build --verbosity normal
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: .net-app
+          path: ${{env.DOTNET_ROOT}}/myapp
 
-      - name: Publish
-        run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -o ${{ github.workspace }}/publish
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      id-token: write #This is required for requesting the JWT
+      contents: read #This is required for actions/checkout
 
-      - name: Deploy to Azure WebApp
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: .net-app
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_08C4F9B8641F4547A08E0DFC635181A1 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_bea229b6-7a08-4086-b44c-71f57f716bdb }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_48dfcc8c-da1d-4671-b5f3-d4e0ec5a7d3d }}
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ${{ github.workspace }}/publish
+          app-name: 'bdsagroup23chirprazor'
+          slot-name: 'Production'
+          package: .
+
+          
