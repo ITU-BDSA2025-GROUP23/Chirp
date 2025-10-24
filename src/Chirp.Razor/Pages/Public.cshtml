@@ -16,9 +16,9 @@
                 <li>
                     <p>
                         <strong>
-                            <a href="/@cheep.Author">@cheep.Author</a>
+                            <a href="/@cheep.AuthorId">user @cheep.AuthorId</a>
                         </strong>
-                        @cheep.Message
+                        @cheep.Text
                         <small>&mdash; @cheep.Timestamp</small>
                     </p>
                 </li>
@@ -29,14 +29,4 @@
     {
         <em>There are no cheeps so far.</em>
     }
-    <nav class="pager">
-        @if (Model.Page > 1)
-        {
-            <a href="/?page=@(Model.Page - 1)">« Previous</a>
-        }
-        @if (Model.HasNextPage)
-        {
-            <a style="margin-left:1rem" href="/?page=@(Model.Page + 1)">Next »</a>
-        }
-    </nav>
 </div>
