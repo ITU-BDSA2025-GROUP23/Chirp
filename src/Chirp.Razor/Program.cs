@@ -12,7 +12,7 @@ builder.Services.AddRazorPages();
 string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<ChatDBContext>(options => options.UseSqlite(connectionString));
-builder.Services.AddScoped<ICheepService, CheepService>();
+builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 
 var app = builder.Build();
 
