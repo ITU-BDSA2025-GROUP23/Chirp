@@ -9,4 +9,4 @@ From the project root:
 ```bash
 dotnet restore
 dotnet build -c Release
-dotnet run --project src/Chirp.Api
+dotnet run --project src/Chirp.Razor
