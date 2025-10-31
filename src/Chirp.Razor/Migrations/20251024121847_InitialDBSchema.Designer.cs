@@ -45,7 +45,7 @@ namespace Chirp.Razor.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("AuthorId")
+                    b.Property<int>("Author")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Text")
@@ -57,7 +57,7 @@ namespace Chirp.Razor.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("AuthorId");
+                    b.HasIndex("Author");
 
                     b.ToTable("Cheeps");
                 });
@@ -66,7 +66,7 @@ namespace Chirp.Razor.Migrations
                 {
                     b.HasOne("Chirp.Razor.DataModel.Author", null)
                         .WithMany("Cheeps")
-                        .HasForeignKey("AuthorId")
+                        .HasForeignKey("Author")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

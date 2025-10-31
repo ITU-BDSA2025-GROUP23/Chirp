@@ -49,7 +49,7 @@ namespace Chirp.Razor.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Cheeps_AuthorId",
                 table: "Cheeps",
-                column: "AuthorId");
+                column: "Author");
         }
 
         /// <inheritdoc />
