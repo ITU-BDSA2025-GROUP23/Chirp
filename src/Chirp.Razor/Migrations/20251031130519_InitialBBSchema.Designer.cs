@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Chirp.Razor.Migrations
 {
     [DbContext(typeof(ChatDBContext))]
-    [Migration("20251024121847_InitialDBSchema")]
-    partial class InitialDBSchema
+    [Migration("20251031130519_InitialBBSchema")]
+    partial class InitialBBSchema
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,7 +22,7 @@ namespace Chirp.Razor.Migrations
 
             modelBuilder.Entity("Chirp.Razor.DataModel.Author", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("AuthorId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -30,45 +30,47 @@ namespace Chirp.Razor.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Username")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("id");
+                    b.HasKey("AuthorId");
 
                     b.ToTable("Authors");
                 });
 
             modelBuilder.Entity("Chirp.Razor.DataModel.Cheep", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("CheepId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Author")
+                    b.Property<int>("AuthorId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("Timestamp")
+                    b.Property<DateTime>("TimeStamp")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("id");
+                    b.HasKey("CheepId");
 
-                    b.HasIndex("Author");
+                    b.HasIndex("AuthorId");
 
                     b.ToTable("Cheeps");
                 });
 
             modelBuilder.Entity("Chirp.Razor.DataModel.Cheep", b =>
                 {
-                    b.HasOne("Chirp.Razor.DataModel.Author", null)
+                    b.HasOne("Chirp.Razor.DataModel.Author", "Author")
                         .WithMany("Cheeps")
-                        .HasForeignKey("Author")
+                        .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Author");
                 });
 
             modelBuilder.Entity("Chirp.Razor.DataModel.Author", b =>

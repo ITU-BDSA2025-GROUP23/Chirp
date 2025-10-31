@@ -5,10 +5,10 @@ namespace Chirp.Razor.DataModel;
 
 public class Cheep
 {
-    public int id  { get; set; }
+    public int CheepId  { get; set; }
+	public required int AuthorId { get; set; }
+	public Author? Author { get; set; } = null!;
     public required string Text { get; set; } = default!;
-    public required DateTime Timestamp  { get; set; }
-    
-    public int AuthorId { get; set; }
-    public Author? Author { get; set; } = null!;
+    public required DateTime TimeStamp  { get; set; }
+  
 }

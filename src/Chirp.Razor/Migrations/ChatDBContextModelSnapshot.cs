@@ -19,7 +19,7 @@ namespace Chirp.Razor.Migrations
 
             modelBuilder.Entity("Chirp.Razor.DataModel.Author", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("AuthorId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -27,18 +27,18 @@ namespace Chirp.Razor.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Username")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("id");
+                    b.HasKey("AuthorId");
 
                     b.ToTable("Authors");
                 });
 
             modelBuilder.Entity("Chirp.Razor.DataModel.Cheep", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("CheepId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -49,10 +49,10 @@ namespace Chirp.Razor.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("Timestamp")
+                    b.Property<DateTime>("TimeStamp")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("id");
+                    b.HasKey("CheepId");
 
                     b.HasIndex("AuthorId");
 
@@ -61,11 +61,13 @@ namespace Chirp.Razor.Migrations
 
             modelBuilder.Entity("Chirp.Razor.DataModel.Cheep", b =>
                 {
-                    b.HasOne("Chirp.Razor.DataModel.Author", null)
+                    b.HasOne("Chirp.Razor.DataModel.Author", "Author")
                         .WithMany("Cheeps")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Author");
                 });
 
             modelBuilder.Entity("Chirp.Razor.DataModel.Author", b =>

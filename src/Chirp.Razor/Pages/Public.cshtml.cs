@@ -23,9 +23,9 @@ public class PublicModel : PaginationModel
         {
             _service = service;
         }
-        public ActionResult OnGet(int? id = 1)
+        public ActionResult OnGet(int? CheepId = 1)
         {
-            CurrentPage = id ?? 1;
+            CurrentPage = CheepId ?? 1;
             CurrentPageCheeps = _service.GetPaginatedCheeps(CurrentPage, PageSize);
             return Page();
         }
