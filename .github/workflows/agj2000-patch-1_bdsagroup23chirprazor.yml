@@ -6,7 +6,7 @@ name: Build and deploy ASP.Net Core app to Azure Web App - bdsagroup23chirprazor
 on:
   push:
     branches:
-      - AGJ2000-patch-1
+      - main
   workflow_dispatch:
 
 jobs:
@@ -64,5 +64,6 @@ jobs:
           package: .
 
           
+
 
 
