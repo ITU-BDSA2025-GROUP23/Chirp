@@ -7,11 +7,6 @@
 From the project root:
 
 ```bash
-# 1) Restore dependencies
 dotnet restore
-
-# 2) (Optional) Build the project
 dotnet build -c Release
-
-# 3) Run the API (adjust the path if your project name differs)
 dotnet run --project src/Chirp.Api
