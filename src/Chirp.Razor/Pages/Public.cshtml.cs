@@ -13,13 +13,13 @@ public class PaginationModel : PageModel
 }
 public class PublicModel : PaginationModel
 {
-        private readonly ICheepService _service;
-        public List<Cheep> Cheeps => _service.GetCheeps();
+        private readonly ICheepRepository _service;
+        public IEnumerable<Cheep> Cheeps => _service.GetAllCheeps();
         public List<Cheep> CurrentPageCheeps { get; set; }
-        public int NumberOfCheeps => Cheeps.Count;
+        public int NumberOfCheeps => Cheeps.ToList().Count;
         public int TotalPages => (int)Math.Ceiling((double)NumberOfCheeps / PageSize);
 
-        public PublicModel(ICheepService service)
+        public PublicModel(ICheepRepository service)
         {
             _service = service;
         }
