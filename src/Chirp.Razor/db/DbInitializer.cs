@@ -8,7 +8,7 @@ public static class DbInitializer
 {
     public static void SeedDatabase(ChatDBContext ChatDBContext)
     {
-        if (!(ChatDBContext.Authors.Any() && ChatDBContext.Cheeps.Any()))
+        if (!(ChatDBContext.Authors.Any() || ChatDBContext.Cheeps.Any()))
         {
             var a1 = new Author() { AuthorId = 1, Name = "Roger Histand", Email = "Roger+Histand@hotmail.com", Cheeps = new List<Cheep>() };
             var a2 = new Author() { AuthorId = 2, Name = "Luanna Muro", Email = "Luanna-Muro@ku.dk", Cheeps = new List<Cheep>() };
