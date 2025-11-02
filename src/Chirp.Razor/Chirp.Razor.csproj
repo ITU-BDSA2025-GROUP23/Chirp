@@ -6,7 +6,6 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
-    <!-- Exclude test sources and folders from this web project -->
     <ItemGroup>
         <Compile Remove="test/**/*.cs" />
         <Compile Remove="Chirp.Razor.test/**/*.cs" />

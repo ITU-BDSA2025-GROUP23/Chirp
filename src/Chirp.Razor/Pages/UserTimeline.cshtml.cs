@@ -1,23 +1,34 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Chirp.Razor.DataModel;
-using System.Collections.Generic;
+using Chirp.Razor.DTOs;
 
 namespace Chirp.Razor.Pages;
 
-public class UserTimelineModel : PageModel
+public class UserTimelineModel : PaginationModel
 {
+    [BindProperty(SupportsGet = true, Name = "author")]
+    public string? AuthorName { get; set; }
+
     private readonly ICheepRepository _service;
-    public IEnumerable<Cheep>? Cheeps { get; set; } 
 
-    public UserTimelineModel(ICheepRepository service)
-    {
-        _service = service;
-    }
+    public List<CheepDTO> Cheeps { get; set; } = new();
+    public int TotalCheeps { get; private set; }
+    public int TotalPages => (int)Math.Ceiling((double)TotalCheeps / PageSize);
 
-    public ActionResult OnGet()
+    public UserTimelineModel(ICheepRepository service) => _service = service;
+
+    public IActionResult OnGet()
     {
-        Cheeps = _service.GetAllCheeps();
+        if (string.IsNullOrWhiteSpace(AuthorName))
+            AuthorName = RouteData.Values["author"]?.ToString();
+
+        if (CurrentPage < 1) CurrentPage = 1;
+
+        TotalCheeps = _service.GetCheepCount(AuthorName);
+
+        var lastPage = Math.Max(1, (int)Math.Ceiling((double)TotalCheeps / PageSize));
+        if (CurrentPage > lastPage) CurrentPage = lastPage;
+
+        Cheeps = _service.GetPaginatedCheepsDTO(CurrentPage, PageSize, AuthorName);
         return Page();
     }
 }
