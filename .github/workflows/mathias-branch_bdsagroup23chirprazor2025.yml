@@ -23,16 +23,16 @@ jobs:
       - name: Setup .NET 8
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.x
+          dotnet-version: 8.0.x
 
       - name: Restore
         run: dotnet restore src/Chirp.Razor/Chirp.Razor.csproj
 
-      - name: Build (Release)
-        run: dotnet build src/Chirp.Razor/Chirp.Razor.csproj --configuration Release --no-restore
+      - name: Build (Release, net8.0)
+        run: dotnet build src/Chirp.Razor/Chirp.Razor.csproj -c Release -f net8.0 --no-restore
 
-      - name: Publish
-        run: dotnet publish src/Chirp.Razor/Chirp.Razor.csproj -c Release -o ${{ github.workspace }}/publish
+      - name: Publish (net8.0)
+        run: dotnet publish src/Chirp.Razor/Chirp.Razor.csproj -c Release -f net8.0 -o ${{ github.workspace }}/publish
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -46,6 +46,9 @@ jobs:
     permissions:
       id-token: write
       contents: read
+    env:
+      APPNAME: bdsagroup23chirprazor2025
+      RESOURCE_GROUP: bdsagroup23chirprazor2025
 
     steps:
       - name: Download artifact
@@ -60,6 +63,16 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_4746234C5F684B35A8C43774AB41B5D7 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_F901CA9E62514FCB86561C08C3C48916 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_642C0197A66E4CAB948A08EE6D63A5B0 }}
+
+      - name: Ensure runtime (.NET 8) and SQLite connection string
+        uses: azure/cli@v2
+        with:
+          inlineScript: |
+            az webapp config set -g $RESOURCE_GROUP -n $APPNAME --linux-fx-version "DOTNETCORE|8.0"
+            az webapp config connection-string set \
+              -g $RESOURCE_GROUP -n $APPNAME \
+              --settings DefaultConnection="Data Source=/home/chirp.db" \
+              --connection-string-type Custom
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
