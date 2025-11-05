@@ -113,3 +113,8 @@ Thumbs.db
 *.db-shm
 *.db-wal
 /db/
+
+**/bin/
+**/obj/
+**/publish/
+*.zip
