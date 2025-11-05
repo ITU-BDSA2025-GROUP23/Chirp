@@ -5,17 +5,12 @@ on:
     branches: [ main, Mathias-branch ]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  id-token: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      # Optional: if you have a global.json, align to that exact SDK (e.g., 8.0.415)
       - name: Setup .NET 8 SDK
         uses: actions/setup-dotnet@v4
         with:
@@ -45,9 +40,7 @@ jobs:
     environment:
       name: Production
       url: ${{ steps.deploy.outputs.webapp-url }}
-    env:
-      APPNAME: bdsagroup23chirprazor2025
-      RESOURCE_GROUP: bdsagroup23chirprazor2025
+
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v4
@@ -55,27 +48,10 @@ jobs:
           name: dotnet-app
           path: ./dotnet-app
 
-      - name: Login to Azure (OIDC)
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_4746234C5F684B35A8C43774AB41B5D7 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_F901CA9E62514FCB86561C08C3C48916 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_642C0197A66E4CAB948A08EE6D63A5B0 }}
-
-      - name: Ensure runtime (.NET 8) + SQLite connection string
-        uses: azure/cli@v2
-        with:
-          inlineScript: |
-            az webapp config set -g $RESOURCE_GROUP -n $APPNAME --linux-fx-version "DOTNETCORE|8.0"
-            az webapp config connection-string set \
-              -g $RESOURCE_GROUP -n $APPNAME \
-              --settings DefaultConnection="Data Source=/home/chirp.db" \
-              --connection-string-type Custom
-
-      - name: Deploy
+      - name: Deploy to Azure Web App
         id: deploy
         uses: azure/webapps-deploy@v3
         with:
-          app-name: ${{ env.APPNAME }}
-          slot-name: Production
+          app-name: bdsagroup23chirprazor2025
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5CBBDBE37AB34C74B3143FD0BB943E9B }}
           package: ./dotnet-app
