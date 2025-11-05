@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using System.Linq;  
 using Chirp.Core.DTOs;
+using Chirp.Infrastructure.DataModel;
+using Chirp.Infrastructure.Repositories;
 using Database;
 
 namespace Chirp.Web.Pages;

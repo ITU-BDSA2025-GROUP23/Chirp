@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Chirp.Core.DTOs;
+using Chirp.Infrastructure.DataModel;
+using Chirp.Infrastructure.Repositories;
 
 namespace Chirp.Web.Pages;
 
