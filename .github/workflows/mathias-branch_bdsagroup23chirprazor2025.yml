@@ -1,81 +1,60 @@
-name: Build & Deploy — bdsagroup23chirprazor2025
+name: Build and deploy ASP.NET Core app to Azure Web App - bdsagroup23chirprazor
 
 on:
   push:
-    branches: [ main, Mathias-branch ]
+    branches: [ main ]
   workflow_dispatch:
-
-permissions:
-  contents: read
-  id-token: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      # Optional: if you have a global.json, align to that exact SDK (e.g., 8.0.415)
-      - name: Setup .NET 8 SDK
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.415
-
-      - name: Clean leftover local artifacts
-        run: rm -rf src/Chirp.Razor/publish src/Chirp.Razor/app.zip
+          dotnet-version: "8.0.x"
 
       - name: Restore
-        run: dotnet restore src/Chirp.Razor/Chirp.Razor.csproj
+        working-directory: src/Chirp.Razor
+        run: dotnet restore
 
-      - name: Build (Release, net8.0)
-        run: dotnet build src/Chirp.Razor/Chirp.Razor.csproj -c Release -f net8.0 --no-restore
+      - name: Build (Release)
+        working-directory: src/Chirp.Razor/Chirp.Razor.csproj/
+        run: dotnet build --configuration Release --no-restore
 
-      - name: Publish (net8.0)
-        run: dotnet publish src/Chirp.Razor/Chirp.Razor.csproj -c Release -f net8.0 -o ${{ github.workspace }}/publish
+      - name: Publish
+        working-directory: src/Chirp.Razor/Chirp.Razor.csproj/
+        run: dotnet publish -c Release -o ../../publish --no-build
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: dotnet-app
-          path: ${{ github.workspace }}/publish
+          name: drop
+          path: publish/
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     environment:
       name: Production
-      url: ${{ steps.deploy.outputs.webapp-url }}
-    env:
-      APPNAME: bdsagroup23chirprazor2025
-      RESOURCE_GROUP: bdsagroup23chirprazor2025
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: dotnet-app
-          path: ./dotnet-app
+          name: drop
+          path: ./drop
 
-      - name: Login to Azure (OIDC)
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_4746234C5F684B35A8C43774AB41B5D7 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_F901CA9E62514FCB86561C08C3C48916 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_642C0197A66E4CAB948A08EE6D63A5B0 }}
-
-      - name: Ensure runtime (.NET 8) + SQLite connection string
-        uses: azure/cli@v2
-        with:
-          inlineScript: |
-            az webapp config set -g $RESOURCE_GROUP -n $APPNAME --linux-fx-version "DOTNETCORE|8.0"
-            az webapp config connection-string set \
-              -g $RESOURCE_GROUP -n $APPNAME \
-              --settings DefaultConnection="Data Source=/home/chirp.db" \
-              --connection-string-type Custom
-
-      - name: Deploy
-        id: deploy
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: ${{ env.APPNAME }}
+          app-name: bdsagroup23chirprazor2025
           slot-name: Production
-          package: ./dotnet-app
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5CBBDBE37AB34C74B3143FD0BB943E9B }}
+          package: ./drop
