@@ -1,23 +1,39 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
+using System.Linq;  
+using Chirp.Razor.DTOs;
 using Database;
 
 namespace Chirp.Razor.Pages;
 
-public class PublicModel : PageModel
+public class PublicModel : PaginationModel
 {
-    private readonly ICheepService _service;
-    public IReadOnlyList<CheepViewModel> Cheeps { get; private set; } = Array.Empty<CheepViewModel>();
-    public int Page { get; private set; } = 1;
-    public bool HasNextPage { get; private set; }
 
-    public PublicModel(ICheepService service) => _service = service;
+    private readonly ICheepRepository _service;
 
-    public void OnGet([FromQuery] int? page)
+    public List<CheepDTO> Cheeps { get; set; } = new();
+    public int TotalCheeps { get; private set; }
+    public int NumberOfCheeps => Cheeps.Count;
+    public int TotalPages => (int)System.Math.Ceiling((double)TotalCheeps / PageSize);
+
+    public PublicModel(ICheepRepository service)
     {
-        Page = page.HasValue && page.Value > 0 ? page.Value : 1;
-        //fejl her
-        Cheeps = _service.GetCheeps(Page, 32);
-        HasNextPage = Cheeps.Count == 32;
+        _service = service;
+    }
+
+    public IActionResult OnGet([FromQuery(Name = "page")] int page = 1)
+    {
+        if (int.TryParse(Request.Query["p"], out var p) && p > 0) CurrentPage = p;
+        else
+            CurrentPage = 1;
+            
+        TotalCheeps = _service.GetCheepCount();
+
+        var lastPage = System.Math.Max(1, (int)System.Math.Ceiling((double)TotalCheeps / PageSize));
+        if (CurrentPage > lastPage) CurrentPage = lastPage;
+
+        Cheeps = _service.GetPaginatedCheepsDTO(CurrentPage, PageSize);
+        return Page();
     }
 }

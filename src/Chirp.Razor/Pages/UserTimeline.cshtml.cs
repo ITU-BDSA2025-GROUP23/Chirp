@@ -1,24 +1,34 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Database;
+using Chirp.Razor.DTOs;
 
 namespace Chirp.Razor.Pages;
 
-public class UserTimelineModel : PageModel
+public class UserTimelineModel : PaginationModel
 {
-    private readonly ICheepService _service;
-    public string Username { get; private set; } = "";
-    public IReadOnlyList<CheepViewModel> Cheeps { get; private set; } = Array.Empty<CheepViewModel>();
-    public int Page { get; private set; } = 1;
-    public bool HasNextPage { get; private set; }
+    [BindProperty(SupportsGet = true, Name = "author")]
+    public string? AuthorName { get; set; }
 
-    public UserTimelineModel(ICheepService service) => _service = service;
+    private readonly ICheepRepository _service;
 
-    public void OnGet(string username, [FromQuery] int? page)
+    public List<CheepDTO> Cheeps { get; set; } = new();
+    public int TotalCheeps { get; private set; }
+    public int TotalPages => (int)Math.Ceiling((double)TotalCheeps / PageSize);
+
+    public UserTimelineModel(ICheepRepository service) => _service = service;
+
+    public IActionResult OnGet()
     {
-        Username = username;
-        Page = page.HasValue && page.Value > 0 ? page.Value : 1;
-        Cheeps = _service.GetCheepsFromAuthor(username, Page, 32);
-        HasNextPage = Cheeps.Count == 32;
+        if (string.IsNullOrWhiteSpace(AuthorName))
+            AuthorName = RouteData.Values["author"]?.ToString();
+
+        if (CurrentPage < 1) CurrentPage = 1;
+
+        TotalCheeps = _service.GetCheepCount(AuthorName);
+
+        var lastPage = Math.Max(1, (int)Math.Ceiling((double)TotalCheeps / PageSize));
+        if (CurrentPage > lastPage) CurrentPage = lastPage;
+
+        Cheeps = _service.GetPaginatedCheepsDTO(CurrentPage, PageSize, AuthorName);
+        return Page();
     }
 }

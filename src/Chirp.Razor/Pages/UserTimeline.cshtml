@@ -3,41 +3,39 @@
 @{
     ViewData["Title"] = "Chirp!";
     Layout = "Shared/_Layout";
-    var routeName = HttpContext.GetRouteValue("author");
 }
 
-<div>
-    <h2> @routeName's Timeline </h2>
+<div class="container mt-4">
+    <h2>@Model.AuthorName's Timeline</h2>
 
     @if (Model.Cheeps.Any())
     {
-        <ul id="messagelist" class="cheeps">
+        <ul id="messagelist" class="cheeps list-unstyled">
             @foreach (var cheep in Model.Cheeps)
             {
-                <li>
-                    <p>
-                        <strong>
-                            <a href="/@cheep.Author">@cheep.Author</a>
-                        </strong>
-                        @cheep.Message
-                        <small>&mdash; @cheep.Timestamp</small>
+                <li class="mb-3 border-bottom pb-2">
+                    <p class="mb-1">
+                        <strong><a href="/@cheep.AuthorName">@cheep.AuthorName</a></strong>
+                        @cheep.Text
+                        <small class="text-muted">— @cheep.TimeIso</small>
                     </p>
                 </li>
             }
         </ul>
+
+        <nav class="pager" style="margin-top:1rem">
+            @if (Model.CurrentPage > 1)
+            {
+                <a href="/@Model.AuthorName?p=@(Model.CurrentPage - 1)">« Previous</a>
+            }
+            @if (Model.CurrentPage < Model.TotalPages)
+            {
+                <a style="margin-left:1rem" href="/@Model.AuthorName?p=@(Model.CurrentPage + 1)">Next »</a>
+            }
+        </nav>
     }
     else
     {
         <em>There are no cheeps so far.</em>
     }
-    <nav class="pager">
-        @if (Model.Page > 1)
-        {
-            <a href="/@Model.Username?page=@(Model.Page - 1)">« Previous</a>
-        }
-        @if (Model.HasNextPage)
-        {
-            <a style="margin-left:1rem" href="/@Model.Username?page=@(Model.Page + 1)">Next »</a>
-        }
-    </nav>
 </div>
