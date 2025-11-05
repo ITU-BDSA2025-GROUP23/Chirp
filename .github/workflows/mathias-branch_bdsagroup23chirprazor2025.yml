@@ -1,39 +1,39 @@
-name: Build & Deploy (OIDC) — bdsagroup23chirprazor2025
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and deploy ASP.Net Core app to Azure Web App - bdsagroup23chirprazor
 
 on:
   push:
     branches:
       - main
-      - Mathias-branch
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: read #This is required for actions/checkout
+
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup .NET 8
+      - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.x
+          dotnet-version: '8.x'
 
-      - name: Restore
-        run: dotnet restore src/Chirp.Razor/Chirp.Razor.csproj
+      - name: Build with dotnet
+        run: dotnet build src/Chirp.Razor/Chirp.Razor.csproj --configuration Release
 
-      - name: Build (Release)
-        run: dotnet build src/Chirp.Razor/Chirp.Razor.csproj --configuration Release --no-restore
+      - name: dotnet publish
+        run: dotnet publish src/Chirp.Razor/Chirp.Razor.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
-      - name: Publish
-        run: dotnet publish src/Chirp.Razor/Chirp.Razor.csproj -c Release -o ${{ github.workspace }}/publish
-
-      - name: Upload artifact
+      - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: dotnet-app
-          path: ${{ github.workspace }}/publish
+          name: .net-app
+          path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
     runs-on: ubuntu-latest
@@ -61,3 +61,4 @@ jobs:
           app-name: bdsagroup23chirprazor2025
           slot-name: Production
           package: ./dotnet-app
+
