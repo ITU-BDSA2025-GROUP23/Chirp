@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc;
-namespace Chirp.Razor.Pages;
+namespace Chirp.Web.Pages;
 
 public class PaginationModel : PageModel
 {

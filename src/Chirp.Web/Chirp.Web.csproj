@@ -8,25 +8,27 @@
 
     <ItemGroup>
         <Compile Remove="test/**/*.cs" />
-        <Compile Remove="Chirp.Razor.test/**/*.cs" />
+        <Compile Remove="Chirp.Web.test/**/*.cs" />
         <None Remove="test/**" />
-        <None Remove="Chirp.Razor.test/**" />
+        <None Remove="Chirp.Web.test/**" />
         <Content Remove="test/**" />
-        <Content Remove="Chirp.Razor.test/**" />
+        <Content Remove="Chirp.Web.test/**" />
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Dapper" Version="2.1.66" />
-        <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.9" />
+        <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.10" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.10">
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
           <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SQLite" Version="9.0.9"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SQLite" Version="9.0.10" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\Database\Database.csproj" />
+        <ProjectReference Include="..\Chirp.Infrastructure\Chirp.Infrastructure.csproj" />
     </ItemGroup>
-
+    
+    
 </Project>
