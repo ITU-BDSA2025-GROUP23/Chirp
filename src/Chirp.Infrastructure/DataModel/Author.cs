@@ -3,7 +3,7 @@
 namespace Chirp.Infrastructure.DataModel;
 
 public class Author
-{
+{ 
     public required int AuthorId  { get; set; }
     public required string Name { get; set; }
     
