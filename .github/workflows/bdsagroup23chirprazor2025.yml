@@ -2,7 +2,7 @@ name: Build & Deploy — bdsagroup23chirprazor2025
 
 on:
   push:
-    branches: [ main, Mathias-branch ]
+    branches: [ main, AGJ2000-patch-1 ]
   workflow_dispatch:
 
 jobs:
@@ -17,16 +17,16 @@ jobs:
           dotnet-version: 8.0.415
 
       - name: Clean leftover local artifacts
-        run: rm -rf src/Chirp.Razor/publish src/Chirp.Razor/app.zip
+        run: rm -rf src/Chirp.Razor/publish src/Chirp.Web/app.zip
 
       - name: Restore
-        run: dotnet restore src/Chirp.Razor/Chirp.Razor.csproj
+        run: dotnet restore src/Chirp.Web/Chirp.Web.csproj
 
       - name: Build (Release, net8.0)
-        run: dotnet build src/Chirp.Razor/Chirp.Razor.csproj -c Release -f net8.0 --no-restore
+        run: dotnet build src/Chirp.Web/Chirp.Web.csproj -c Release -f net8.0 --no-restore
 
       - name: Publish (net8.0)
-        run: dotnet publish src/Chirp.Razor/Chirp.Razor.csproj -c Release -f net8.0 -o ${{ github.workspace }}/publish
+        run: dotnet publish src/Chirp.Web/Chirp.Web.csproj -c Release -f net8.0 -o ${{ github.workspace }}/publish
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -55,3 +55,6 @@ jobs:
           app-name: bdsagroup23chirprazor2025
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5CBBDBE37AB34C74B3143FD0BB943E9B }}
           package: ./dotnet-app
+
+
+
