@@ -2,7 +2,7 @@ name: Build & Deploy — bdsagroup23chirprazor2025
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, AGJ2000-patch-1 ]
   workflow_dispatch:
 
 jobs:
@@ -55,5 +55,6 @@ jobs:
           app-name: bdsagroup23chirprazor2025
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5CBBDBE37AB34C74B3143FD0BB943E9B }}
           package: ./dotnet-app
+
 
 
