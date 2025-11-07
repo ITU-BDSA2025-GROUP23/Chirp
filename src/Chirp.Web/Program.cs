@@ -1,8 +1,10 @@
-using Chirp.Web.DataModel;
+using Chirp.Infrastructure.DataModel;
+using Chirp.Infrastructure.Repositories;
 using Database;
 using Microsoft.EntityFrameworkCore;
 using Chirp.Web;
-using Chirp.Web.db; // updated namespace
+using Chirp.Web.db; 
+using Chirp.Core;
 
 public class Program
 {

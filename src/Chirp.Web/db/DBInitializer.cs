@@ -2,7 +2,7 @@ namespace Chirp.Web.db;
 
 using System;
 using System.Data.Common;
-using Chirp.Web.DataModel;
+using Chirp.Infrastructure.DataModel;
 
 public static class DbInitializer
 {
