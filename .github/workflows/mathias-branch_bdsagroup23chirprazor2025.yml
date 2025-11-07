@@ -5,6 +5,10 @@ on:
     branches: [ main, Mathias-branch ]
   workflow_dispatch:
 
+concurrency:
+  group: bdsagroup23chirprazor2025
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,25 +18,22 @@ jobs:
       - name: Setup .NET 8 SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.415
-
-      - name: Clean leftover local artifacts
-        run: rm -rf src/Chirp.Razor/publish src/Chirp.Razor/app.zip
+          dotnet-version: '8.0.413'
 
       - name: Restore
-        run: dotnet restore src/Chirp.Razor/Chirp.Razor.csproj
-
+        run: dotnet restore src/Chirp.Web/Chirp.Web.csproj
       - name: Build (Release, net8.0)
-        run: dotnet build src/Chirp.Razor/Chirp.Razor.csproj -c Release -f net8.0 --no-restore
+        run: dotnet build src/Chirp.Web/Chirp.Web.csproj -c Release -f net8.0 --no-restore
 
       - name: Publish (net8.0)
-        run: dotnet publish src/Chirp.Razor/Chirp.Razor.csproj -c Release -f net8.0 -o ${{ github.workspace }}/publish
+        run: dotnet publish src/Chirp.Web/Chirp.Web.csproj -c Release -f net8.0 -o ${{ github.workspace }}/publish --no-restore
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: dotnet-app
           path: ${{ github.workspace }}/publish
+          if-no-files-found: error
 
   deploy:
     runs-on: ubuntu-latest
