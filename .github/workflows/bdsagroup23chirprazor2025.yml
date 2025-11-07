@@ -56,3 +56,4 @@ jobs:
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5CBBDBE37AB34C74B3143FD0BB943E9B }}
           package: ./dotnet-app
 
+
