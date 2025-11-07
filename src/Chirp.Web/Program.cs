@@ -1,8 +1,8 @@
-using Chirp.Razor.DataModel;
+using Chirp.Web.DataModel;
 using Database;
 using Microsoft.EntityFrameworkCore;
-using Chirp.Razor;
-using Chirp.Razor.db; // updated namespace
+using Chirp.Web;
+using Chirp.Web.db; // updated namespace
 
 public class Program
 {

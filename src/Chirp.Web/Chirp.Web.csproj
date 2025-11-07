@@ -8,11 +8,11 @@
 
     <ItemGroup>
         <Compile Remove="test/**/*.cs" />
-        <Compile Remove="Chirp.Razor.test/**/*.cs" />
+        <Compile Remove="Chirp.Web.test/**/*.cs" />
         <None Remove="test/**" />
-        <None Remove="Chirp.Razor.test/**" />
+        <None Remove="Chirp.Web.test/**" />
         <Content Remove="test/**" />
-        <Content Remove="Chirp.Razor.test/**" />
+        <Content Remove="Chirp.Web.test/**" />
     </ItemGroup>
 
     <ItemGroup>

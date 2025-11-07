@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Chirp.Razor.DataModel;
+namespace Chirp.Web.DataModel;
 
 public class ChatDBContext : DbContext
 {
