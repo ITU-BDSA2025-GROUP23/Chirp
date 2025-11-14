@@ -17,6 +17,69 @@ public class CheepTest :  IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly ChatDBContext _context;
     
+	[Fact]
+	public async Task getAuthorsCheep()
+    {
+        //arrange 
+        using var connection = new SqliteConnection("Filename=:memory:");
+        await connection.OpenAsync();
+        var builder = new DbContextOptionsBuilder<ChatDBContext>().UseSqlite(connection);
+
+        using var context = new ChatDBContext(builder.Options);
+        await context.Database.EnsureCreatedAsync(); // Applies the schema to the database
+
+        ICheepRepository repository = new CheepRepository(context);
+
+        string username = "username123";
+        string email = "email123@itu.dk";
+        string text = "This cheep is by username123";
+        
+
+        // Act
+        repository.CreateCheep(username,  email, text);
+        
+        
+        // Assert
+        var cheeps = repository.GetCheepsByAuthor(username).ToList();
+
+    	Assert.Single(cheeps);
+    	var cheep = cheeps[0];
+    	Assert.Equal(text, cheep.Text);  
+    }
+	
+	[Fact]
+	public async Task getAllCheeps()
+    {
+        //arrange 
+        using var connection = new SqliteConnection("Filename=:memory:");
+        await connection.OpenAsync();
+        var builder = new DbContextOptionsBuilder<ChatDBContext>().UseSqlite(connection);
+
+        using var context = new ChatDBContext(builder.Options);
+        await context.Database.EnsureCreatedAsync(); // Applies the schema to the database
+
+        ICheepRepository repository = new CheepRepository(context);
+
+        string username1 = "username1";
+        string email1 = "email1@itu.dk";
+        string text1 = "This cheep is by username1";
+        
+		string username2 = "username2";
+        string email2 = "email2@itu.dk";
+        string text2 = "This cheep is by username2";
+        // Act
+        repository.CreateCheep(username1,  email1, text1);
+        repository.CreateCheep(username2,  email2, text2);
+        
+        // Assert
+        var cheeps = repository.GetAllCheeps().ToList();
+
+    	var cheep1 = cheeps[0];
+		var cheep2 = cheeps[1];
+    	Assert.Equal(text1, cheep2.Text);
+		Assert.Equal(text2, cheep1.Text); 
+    }
+
     [Fact]
     public async Task LenghtApproved()
     {
@@ -34,7 +97,6 @@ public class CheepTest :  IClassFixture<WebApplicationFactory<Program>>
         string email = "email123@itu.dk";
         string text = "This message within range :-)";
         
-
         // Act
         repository.CreateCheep(username,  email, text);
         
