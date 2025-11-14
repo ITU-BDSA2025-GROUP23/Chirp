@@ -5,7 +5,7 @@ using Xunit;
 using System;
 using System.IO;
 
-namespace Chirp.Web.test;
+namespace Chirp.test;
 
 public class PublicTimelineTests : IClassFixture<TestingWebApplicationFactory>
 {

@@ -6,7 +6,7 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Chirp.Razor.test; 
+namespace Chirp.test; 
 
 public class TestingWebApplicationFactory : WebApplicationFactory<Program>
 {
