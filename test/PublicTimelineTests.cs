@@ -7,15 +7,13 @@ using System.IO;
 
 namespace Chirp.Razor.test;
 
-public class PublicTimelineTests : IClassFixture<WebApplicationFactory<Program>>
+public class PublicTimelineTests : IClassFixture<TestingWebApplicationFactory>
 {
     private readonly HttpClient _client;
 
-    public PublicTimelineTests(WebApplicationFactory<Program> factory)
+    public PublicTimelineTests(TestingWebApplicationFactory factory)
     {
-        var dbPath = Path.Combine("db", "chirp.db");
-        Environment.SetEnvironmentVariable("CHIRPDBPATH", dbPath);
-
+        
         _client = factory.CreateClient(new WebApplicationFactoryClientOptions
         {
             AllowAutoRedirect = true
