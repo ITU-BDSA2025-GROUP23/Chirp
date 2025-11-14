@@ -81,7 +81,7 @@ public class CheepTest :  IClassFixture<WebApplicationFactory<Program>>
     }
 
     [Fact]
-    public async Task LenghtApproved()
+    public async Task LengthApproved()
     {
         //arrange 
         using var connection = new SqliteConnection("Filename=:memory:");
@@ -110,7 +110,7 @@ public class CheepTest :  IClassFixture<WebApplicationFactory<Program>>
     	Assert.True(cheep.Text.Length <= 160);  
     }
 	[Fact]
-	public async Task LenghtDenied()
+	public async Task LengthDenied()
     {
         //arrange 
         using var connection = new SqliteConnection("Filename=:memory:");
@@ -128,20 +128,17 @@ public class CheepTest :  IClassFixture<WebApplicationFactory<Program>>
         // for some reason I can only do it on one line !? 
         
 
-        // Act
-        repository.CreateCheep(username,  email, text);
+        
+       
         
         
-        // Assert
-        var cheeps = repository.GetCheepsByAuthor(username).ToList();
-
-    	Assert.Single(cheeps);
-    	var cheep = cheeps[0];
-    	Assert.Equal(text, cheep.Text);                
-    	Assert.False(cheep.Text.Length <= 160);  
+        // Act + Assert
+        Assert.Throws<ArgumentException>(() =>
+	        repository.CreateCheep(username,  email, text));
+        
     }
 	[Fact]
-	public async Task LenghtExceptionThrown()
+	public async Task LengthExceptionThrown()
    {
     // arrange
     string tooLongText = "This message not within range :-( flan ingridientlist: 1 cup white sugar 3 large eggs 1 (14 ounce) can sweetened condensed milk 1 (12 fluid ounce) can evaporated milk 1 tablespoon vanilla extract";
