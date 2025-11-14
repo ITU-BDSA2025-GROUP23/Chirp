@@ -14,8 +14,6 @@ namespace Chirp.Web.test;
 
 public class CheepRepoTest :  IClassFixture<WebApplicationFactory<Program>>
 {
-    private readonly ChatDBContext _context;
-    
     [Fact]
     public async Task CreateAuthorTest()
     {

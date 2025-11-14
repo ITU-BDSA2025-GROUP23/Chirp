@@ -15,8 +15,6 @@ namespace Chirp.Web.test;
 
 public class CheepTest :  IClassFixture<WebApplicationFactory<Program>>
 {
-    private readonly ChatDBContext _context;
-    
 	[Fact]
 	public async Task getAuthorsCheep()
     {
@@ -127,18 +125,13 @@ public class CheepTest :  IClassFixture<WebApplicationFactory<Program>>
         string text = "This message not within range :-( flan ingridientlist: 1 cup white sugar 3 large eggs 1 (14 ounce) can sweetened condensed milk 1 (12 fluid ounce) can evaporated milk 1 tablespoon vanilla extract";
         // for some reason I can only do it on one line !? 
         
-
-        
-       
-        
-        
         // Act + Assert
         Assert.Throws<ArgumentException>(() =>
 	        repository.CreateCheep(username,  email, text));
         
     }
 	[Fact]
-	public async Task LengthExceptionThrown()
+	public void LengthExceptionThrown()
    {
     // arrange
     string tooLongText = "This message not within range :-( flan ingridientlist: 1 cup white sugar 3 large eggs 1 (14 ounce) can sweetened condensed milk 1 (12 fluid ounce) can evaporated milk 1 tablespoon vanilla extract";
