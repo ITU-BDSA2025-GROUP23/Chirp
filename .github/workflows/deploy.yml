@@ -1,4 +1,4 @@
-name: Build & Deploy — bdsagroup23chirprazor2025
+name: Build & Deploy — deploy
 
 on:
   push:
