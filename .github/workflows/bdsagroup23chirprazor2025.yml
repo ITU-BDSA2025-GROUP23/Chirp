@@ -1,32 +1,31 @@
-name: Build & Deploy — bdsagroup23chirprazor2025
+name: Build, Deploy & Release — Chirp.Web
 
 on:
   push:
-    branches: [ main, AGJ2000-patch-1 ]
+    branches: [ main, AGJ2000-patch-1]
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - name: Setup .NET 8 SDK
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.415
-
-      - name: Clean leftover local artifacts
-        run: rm -rf src/Chirp.Razor/publish src/Chirp.Web/app.zip
+          dotnet-version: 8.0.x
 
       - name: Restore
         run: dotnet restore src/Chirp.Web/Chirp.Web.csproj
 
-      - name: Build (Release, net8.0)
-        run: dotnet build src/Chirp.Web/Chirp.Web.csproj -c Release -f net8.0 --no-restore
+      - name: Build (Release)
+        run: dotnet build src/Chirp.Web/Chirp.Web.csproj -c Release --no-restore
 
-      - name: Publish (net8.0)
-        run: dotnet publish src/Chirp.Web/Chirp.Web.csproj -c Release -f net8.0 -o ${{ github.workspace }}/publish
+      - name: Publish
+        run: dotnet publish src/Chirp.Web/Chirp.Web.csproj -c Release -o ${{ github.workspace }}/publish
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -39,7 +38,6 @@ jobs:
     needs: build
     environment:
       name: Production
-      url: ${{ steps.deploy.outputs.webapp-url }}
 
     steps:
       - name: Download artifact
@@ -49,12 +47,27 @@ jobs:
           path: ./dotnet-app
 
       - name: Deploy to Azure Web App
-        id: deploy
+        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: bdsagroup23chirprazor2025
+          app-name: bdsagroup23chirprazor2025   # <- dit app-navn
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5CBBDBE37AB34C74B3143FD0BB943E9B }}
           package: ./dotnet-app
 
+  release:
+    runs-on: ubuntu-latest
+    needs: deploy
 
-
+    steps:
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: deploy-${{ github.run_number }}
+          release_name: "Chirp deploy #${{ github.run_number }}"
+          body: |
+            Automatic release for commit ${{ github.sha }}.
+            Deployed from branch `${{ github.ref }}`.
+          draft: false
+          prerelease: false
