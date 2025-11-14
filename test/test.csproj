@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Chirp.Web\Chirp.Web.csproj" />
+    <ProjectReference Include="..\src\Chirp.Web/Chirp.Web.csproj" />
     <ProjectReference Include="..\src\Database\Database.csproj" />
   </ItemGroup>
 
