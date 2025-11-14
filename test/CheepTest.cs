@@ -9,6 +9,7 @@ using Chirp.Infrastructure.Repositories;
 using Chirp.Infrastructure.DataModel;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace Chirp.Web.test;
 
@@ -77,4 +78,22 @@ public class CheepTest :  IClassFixture<WebApplicationFactory<Program>>
     	Assert.Equal(text, cheep.Text);                
     	Assert.False(cheep.Text.Length <= 160);  
     }
+	[Fact]
+	public async Task LenghtExceptionThrown()
+   {
+    // arrange
+    string tooLongText = "This message not within range :-( flan ingridientlist: 1 cup white sugar 3 large eggs 1 (14 ounce) can sweetened condensed milk 1 (12 fluid ounce) can evaporated milk 1 tablespoon vanilla extract";
+    var cheep = new Cheep
+    {
+        Text = tooLongText,
+        TimeStamp = DateTime.UtcNow,
+        AuthorId = 1
+    };
+
+    var context = new ValidationContext(cheep);
+
+    // act + assert
+    Assert.Throws<ValidationException>(() =>
+        Validator.ValidateObject(cheep, context, validateAllProperties: true));
+	}
 }
