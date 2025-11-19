@@ -21,6 +21,13 @@ bld/
 [Ll]ogs/
 artifacts/
 
+############################
+# Ignore SQLite database files
+*.db
+*.db-shm
+*.db-wal
+############################
+
 # Older lock files
 project.lock.json
 project.fragment.lock.json
@@ -100,3 +107,14 @@ Thumbs.db
 ############################
 # Do NOT ignore the CSV db used by the CLI:
 # Chirp.CLI/chirp_cli_db.csv
+
+# SQLite
+*.db
+*.db-shm
+*.db-wal
+/db/
+
+**/bin/
+**/obj/
+**/publish/
+*.zip

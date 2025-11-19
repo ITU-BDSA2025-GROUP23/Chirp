@@ -1,0 +1,13 @@
+﻿empty
+
+<ItemGroup>
+        <ProjectReference Include="..\Chirp.Web\Chirp.Web.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Chirp.Infrastructure\Chirp.Infrastructure.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+            <ProjectReference Include="..\Chirp.Core\Chirp.Core.csproj" />
+        </ItemGroup>

@@ -5,17 +5,15 @@ using Xunit;
 using System;
 using System.IO;
 
-namespace Chirp.Razor.test;
+namespace Chirp.test;
 
-public class PublicTimelineTests : IClassFixture<WebApplicationFactory<Program>>
+public class PublicTimelineTests : IClassFixture<TestingWebApplicationFactory>
 {
     private readonly HttpClient _client;
 
-    public PublicTimelineTests(WebApplicationFactory<Program> factory)
+    public PublicTimelineTests(TestingWebApplicationFactory factory)
     {
-        var dbPath = Path.Combine("db", "chirp.db");
-        Environment.SetEnvironmentVariable("CHIRPDBPATH", dbPath);
-
+        
         _client = factory.CreateClient(new WebApplicationFactoryClientOptions
         {
             AllowAutoRedirect = true
@@ -25,14 +23,16 @@ public class PublicTimelineTests : IClassFixture<WebApplicationFactory<Program>>
     [Fact]
     public async Task PublicTimeline_ShouldContain_Jacqualine_FirstPage()
     {
+        //Arrange & act
         var resp = await _client.GetAsync("/");
         var html = await resp.Content.ReadAsStringAsync();
-
+        
+        //Assert
         if (!resp.IsSuccessStatusCode)
         {
             File.WriteAllText("PublicTimeline_error.html", html);
         }
-
+        
         resp.EnsureSuccessStatusCode();
         Assert.Contains("Jacqualine Gilcoine", html);
         Assert.Contains("Starbuck now is what we hear the worst.", html);
@@ -41,6 +41,7 @@ public class PublicTimelineTests : IClassFixture<WebApplicationFactory<Program>>
     [Fact]
     public async Task MellieTimeline()
     {
+        //Arrange & act
         var resp = await _client.GetAsync("/");
         var html = await resp.Content.ReadAsStringAsync();
 
@@ -48,7 +49,8 @@ public class PublicTimelineTests : IClassFixture<WebApplicationFactory<Program>>
         {
             File.WriteAllText("MellieTimeline_error.html", html);
         }
-
+        
+        //Assert
         resp.EnsureSuccessStatusCode();
         Assert.Contains("Mellie Yost", html);
         Assert.Contains("But what was behind the barricade.", html);
@@ -57,8 +59,11 @@ public class PublicTimelineTests : IClassFixture<WebApplicationFactory<Program>>
     [Fact]
     public async Task PublicTimeline_PageParam_1_Equals_Default()
     {
+        //Arrange & act
         var r1 = await _client.GetStringAsync("/");
         var r2 = await _client.GetStringAsync("/?page=1");
+        
+        //Assert
         Assert.Equal(r1, r2);
     }
 }

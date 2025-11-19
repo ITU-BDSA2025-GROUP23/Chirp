@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Chirp.Razor.DataModel;
+namespace Chirp.Infrastructure.DataModel;
 
 public class Author
-{
-    public required int id  { get; set; }
-    public required string Username { get; set; }
+{ 
+    public int AuthorId  { get; set; }
+    public required string Name { get; set; }
     
     public required string Email { get; set; }
     
