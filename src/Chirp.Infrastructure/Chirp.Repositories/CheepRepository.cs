@@ -13,7 +13,8 @@ namespace Chirp.Infrastructure.Repositories;
         public IEnumerable<Cheep> GetCheepsByAuthor(string authorName);
 
         public void AddCheep(string text, int authorID);
-        
+
+        public List<Cheep> GetPaginatedCheeps(int currentPage, int pageSize, string? author = null);
         public List<CheepDTO> GetPaginatedCheepsDTO(int currentPage, int pageSize, string? author = null);
         
         int GetCheepCount(string? author = null);
@@ -89,6 +90,7 @@ public class CheepRepository : ICheepRepository
         return q.Count();
     }
     
+    //remove? - never used
     public List<Cheep> GetPaginatedCheeps(int currentPage, int pageSize, string? author = null)
     {
         if (pageSize < 1) pageSize = 32;
