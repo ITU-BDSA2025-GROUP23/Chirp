@@ -47,4 +47,25 @@ public class ChirpPaginationTest: IClassFixture<TestingWebApplicationFactory>
         //Assert
         Assert.Equal(resultA, resultB);
     }
+    
+    [Fact]
+    public async Task PageSizeEquals32()
+    {
+        //Arrange 
+        using var connection = new SqliteConnection("Filename=:memory:");
+        await connection.OpenAsync();
+        var builder = new DbContextOptionsBuilder<ChatDBContext>().UseSqlite(connection);
+
+        using var context = new ChatDBContext(builder.Options);
+        await context.Database.EnsureCreatedAsync(); // Applies the schema to the database
+
+        ICheepRepository repository = new CheepRepository(context);
+        
+        //act
+        var resultA = repository.GetPaginatedCheepsDTO(1,0);
+        var resultB = repository.GetPaginatedCheepsDTO(1,32);
+        
+        //Assert
+        Assert.Equal(resultA, resultB);
+    }
 }
