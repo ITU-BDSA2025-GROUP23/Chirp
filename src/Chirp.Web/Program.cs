@@ -20,23 +20,22 @@ public class Program
 
         var app = builder.Build();
 
-        using (var scope = app.Services.CreateScope())
-        {
-            var db = scope.ServiceProvider.GetRequiredService<ChatDBContext>();
-            var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-            try
-            {
-                var context = scope.ServiceProvider.GetRequiredService<ChatDBContext>();
-                context.Database.EnsureCreated();
-                db.Database.Migrate();
-                DbInitializer.SeedDatabase(db);
-                logger.LogInformation("Database ensured and seeded.");
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Database initialization failed.");
-            }
-        }
+       using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ChatDBContext>();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+
+    try
+    {
+        db.Database.Migrate();
+        DbInitializer.SeedDatabase(db);
+        logger.LogInformation("Database migrated and seeded.");
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "Database initialization failed.");
+    }
+}
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
