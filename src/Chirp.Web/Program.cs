@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 public class Program
 {
-    public static async Task Main(string[] args)
+    public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
         var githubClientId = builder.Configuration["Authentication:GitHub:ClientId"];
         var githubClientSecret = builder.Configuration["Authentication:GitHub:ClientSecret"];
-
+        
         builder.Services.AddRazorPages();
 
         string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -33,7 +33,7 @@ public class Program
         })
     .   AddGitHub(options =>
         {  
-            options.ClientId = githubClientId; 
+            options.ClientId = githubClientId;
             options.ClientSecret = githubClientSecret;
     });
         builder.Services.AddScoped<ICheepRepository, CheepRepository>();
@@ -57,7 +57,7 @@ public class Program
             }
         }
 
-        await SeedUsersAsync(app);
+        SeedUsersAsync(app).GetAwaiter().GetResult();
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
@@ -69,7 +69,7 @@ public class Program
 
         app.MapRazorPages();
 
-        await app.RunAsync();
+        app.RunAsync().GetAwaiter().GetResult();
     }
 
 static async Task SeedUsersAsync(WebApplication app)
