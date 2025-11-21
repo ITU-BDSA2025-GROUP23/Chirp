@@ -6,20 +6,28 @@
 }
 
 <div class="container mt-4">
-    <h2>Post a Cheep!</h2>
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <h2>Post a Cheep!</h2>
 
-    <h3>What's on your mind?</h3>
+        <h3>What's on your mind?</h3>
 
-    <!-- This form posts back to the same Razor Page -->
-    <form method="post">
-        <div class="mb-3">
-            <input type="text" 
-                   name="Message" 
-                   class="form-control" 
-                   maxlength="160" 
-                   minlength="1"/>
-        </div>
+        <!-- This form posts back to the same Razor Page -->
+        <form method="post">
+            <div class="mb-3">
+                <input type="text" 
+                       name="Message" 
+                       class="form-control" 
+                       maxlength="160" 
+                       minlength="1"/>
+            </div>
 
-        <button type="submit" class="btn btn-primary">Share</button>
-    </form>
+            <button type="submit" class="btn btn-primary">Share</button>
+        </form>    
+    }
+    else
+    {
+        <em> YOU HAVE TO LOG IN TO USE THIS FUNCTION</em>
+    }
+    
 </div>

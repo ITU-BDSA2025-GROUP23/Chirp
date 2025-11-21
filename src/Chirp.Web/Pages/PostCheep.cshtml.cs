@@ -2,9 +2,10 @@
 using Chirp.Core.DTOs;
 using Chirp.Infrastructure.Repositories;
 namespace Chirp.Web.Pages;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 
-public class  PostCheepModel
+public class  PostCheepModel : PageModel //PaginationModel?
 {
     [BindProperty] public string Message { get; set; }
     
@@ -13,9 +14,12 @@ public class  PostCheepModel
     public List<CheepDTO> Cheeps { get; set; } = new();
     public PostCheepModel(ICheepRepository repository) => _repository = repository;
     
-    /*public IActionResult OnPost()
+    public IActionResult OnPost()
     {
-        
+        if (!ModelState.IsValid)
+        {
+            return Page();
+        }
+        return RedirectToPage("/Public");
     }
-    */
 }
