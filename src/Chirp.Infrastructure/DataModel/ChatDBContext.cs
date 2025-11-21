@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chirp.Infrastructure.DataModel;
 
-public class ChatDBContext : DbContext
+public class ChatDBContext : IdentityDbContext<IdentityUser>
 {
     public ChatDBContext(DbContextOptions<ChatDBContext> options) :
         base(options) { }
