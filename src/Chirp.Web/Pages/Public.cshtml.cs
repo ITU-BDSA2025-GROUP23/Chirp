@@ -22,11 +22,9 @@ public class PublicModel : PaginationModel
         _service = service;
     }
 
-    public IActionResult OnGet([FromQuery(Name = "page")] int page = 1)
+    public IActionResult OnGet(int p = 1)
     {
-        if (int.TryParse(Request.Query["p"], out var p) && p > 0) CurrentPage = p;
-        else
-            CurrentPage = 1;
+        CurrentPage = p < 1  ? 1 : p;
             
         TotalCheeps = _service.GetCheepCount();
 
