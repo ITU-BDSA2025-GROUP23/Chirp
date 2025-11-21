@@ -1,0 +1,25 @@
+﻿@page "/postCheep"
+@model Chirp.Web.Pages.PostCheepModel
+@{
+    ViewData["Title"] = "Chirp!";
+    Layout = "Shared/_Layout";
+}
+
+<div class="container mt-4">
+    <h2>Post a Cheep!</h2>
+
+    <h3>What's on your mind?</h3>
+
+    <!-- This form posts back to the same Razor Page -->
+    <form method="post">
+        <div class="mb-3">
+            <input type="text" 
+                   name="Message" 
+                   class="form-control" 
+                   maxlength="160" 
+                   minlength="1"/>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Share</button>
+    </form>
+</div>

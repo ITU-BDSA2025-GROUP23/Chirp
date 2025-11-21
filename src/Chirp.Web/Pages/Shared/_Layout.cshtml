@@ -18,7 +18,8 @@
             <form asp-area="Identity" asp-page="/Account/Logout" method="post" style="display:inline;">
                 <button type="submit">logout [@name]</button>
             </form>|
-            <a asp-page="/MyPage">My Page</a>
+            <a asp-page="/MyPage">My Page</a>|
+            <a asp-page="/postCheep" >Post Cheep</a>
         </div>
         }
         else
@@ -27,6 +28,7 @@
             <a asp-page="/Public">public timeline</a> |
             <a asp-area="Identity" asp-page="/Account/Register">register</a> |
             <a asp-area="Identity" asp-page="/Account/Login">login</a>|
+            <a asp-page="/postCheep" >Post Cheep</a>
         </div>
         }
     </div>
