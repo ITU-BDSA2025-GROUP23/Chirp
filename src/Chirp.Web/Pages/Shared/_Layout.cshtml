@@ -14,11 +14,12 @@
         {
         var name = User.Identity.Name;
         <div>
-            <a asp-page="/UserTimeline" asp-route-username="@name">my timeline</a> |
             <a asp-page="/Public">public timeline</a> |
             <form asp-area="Identity" asp-page="/Account/Logout" method="post" style="display:inline;">
                 <button type="submit">logout [@name]</button>
-            </form>
+            </form>|
+            <a asp-page="/MyPage">My Page</a>|
+            <a asp-page="/postCheep" >Post Cheep</a>
         </div>
         }
         else
@@ -26,7 +27,8 @@
         <div>
             <a asp-page="/Public">public timeline</a> |
             <a asp-area="Identity" asp-page="/Account/Register">register</a> |
-            <a asp-area="Identity" asp-page="/Account/Login">login</a>
+            <a asp-area="Identity" asp-page="/Account/Login">login</a>|
+            <a asp-page="/postCheep" >Post Cheep</a>
         </div>
         }
     </div>
@@ -38,7 +40,6 @@
         Chirp — An ASP.NET Application
     </div>
 </div>
-
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
