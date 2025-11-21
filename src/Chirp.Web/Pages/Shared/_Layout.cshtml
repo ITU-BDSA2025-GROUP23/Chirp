@@ -6,34 +6,39 @@
     <link rel="icon" type="image/png" href="/favicon/favicon.ico">
 </head>
 <body>
-<div class=page>
+<div class="page">
     <h1><img src="/images/icon1.png" alt="Icon1"/>Chirp!</h1>
-    <div class=navigation>
+
+    <div class="navigation">
         @if (User.Identity?.IsAuthenticated == true)
         {
-            <div>
-                <a href="/@(User.Identity.Name)">my timeline</a> |
-                <a href="/">public timeline</a> |
-                <a ... >logout [@(User.Identity.Name)]</a>
-            </div>
+        var name = User.Identity.Name;
+        <div>
+            <a asp-page="/UserTimeline" asp-route-username="@name">my timeline</a> |
+            <a asp-page="/Public">public timeline</a> |
+            <form asp-area="Identity" asp-page="/Account/Logout" method="post" style="display:inline;">
+                <button type="submit">logout [@name]</button>
+            </form>
+        </div>
         }
         else
         {
-            <div>
-                <a href="/">public timeline</a> |
-                <a ... >register</a>
-                <a ... >login</a>
-            </div>
+        <div>
+            <a asp-page="/Public">public timeline</a> |
+            <a asp-area="Identity" asp-page="/Account/Register">register</a> |
+            <a asp-area="Identity" asp-page="/Account/Login">login</a>
+        </div>
         }
     </div>
-    <div class=body>
-            @RenderBody()
+
+    <div class="body">
+        @RenderBody()
     </div>
-    <div class=footer>
-        Chirp &mdash; An ASP.NET Application
+    <div class="footer">
+        Chirp — An ASP.NET Application
     </div>
 </div>
 
-</body>
 @await RenderSectionAsync("Scripts", required: false)
+</body>
 </html>
