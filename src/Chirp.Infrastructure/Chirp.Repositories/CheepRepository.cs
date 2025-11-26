@@ -12,7 +12,7 @@ namespace Chirp.Infrastructure.Repositories;
 
         public IEnumerable<Cheep> GetCheepsByAuthor(string authorName);
 
-        public void AddCheep(string text, int authorID);
+        public void AddCheep(string text, Author author);
 
         public List<Cheep> GetPaginatedCheeps(int currentPage, int pageSize, string? author = null);
         public List<CheepDTO> GetPaginatedCheepsDTO(int currentPage, int pageSize, string? author = null);
@@ -60,7 +60,7 @@ public class CheepRepository : ICheepRepository
 
     }
 
-    public void AddCheep(string text, int authorID)
+    public void AddCheep(string text, Author author)
     {
         if (text.Length > 160 || string.IsNullOrWhiteSpace(text))
         {
@@ -70,7 +70,7 @@ public class CheepRepository : ICheepRepository
         {
             Text = text,
             TimeStamp = DateTime.UtcNow,
-            AuthorId = authorID
+            Author = author
         };
 
         _context.Cheeps.Add(cheep);
