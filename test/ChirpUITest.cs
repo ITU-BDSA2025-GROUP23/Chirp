@@ -6,7 +6,11 @@ using Chirp.Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using Microsoft.AspNetCore.Mvc.Testing;
-
+using Chirp.Web.Pages;
+using Microsoft.AspNetCore.Http;          
+using Microsoft.AspNetCore.Mvc;          
+using Microsoft.AspNetCore.Mvc.RazorPages; 
+using System.Security.Claims;
 
 namespace Chirp.test;
 
@@ -57,6 +61,7 @@ public class ChirpUITest : IClassFixture<TestingWebApplicationFactory>
     [Fact]
     public async Task PostEndsUpInCheeps()
     {
+        //Arrange
         var getResponse = await _loggedInClient.GetAsync("/postCheep");
         var getHtml = await getResponse.Content.ReadAsStringAsync();
 
@@ -78,8 +83,39 @@ public class ChirpUITest : IClassFixture<TestingWebApplicationFactory>
         using var scope = _factory.Services.CreateScope();
         var repo = scope.ServiceProvider.GetRequiredService<ICheepRepository>();
         
+        //act
         var cheeps = repo.GetCheepsByAuthor("test@example.com").ToList();
-
+        
+        //Assert
         Assert.Contains(cheeps, c => c.Text == "Test PostEndsUpInCheeps");
+    }
+    [Fact]
+    public async Task PostButtonRedirects()
+    {
+        //arrange
+        using var scope = _factory.Services.CreateScope();
+        var repo = scope.ServiceProvider.GetRequiredService<ICheepRepository>();
+
+        var model = new PostCheepModel(repo);
+        
+        var httpContext = new DefaultHttpContext();
+        httpContext.User = new ClaimsPrincipal(
+            new ClaimsIdentity(
+                new[] { new Claim(ClaimTypes.Name, "test@example.com") },
+                "Test"));
+
+        model.PageContext = new PageContext
+        {
+            HttpContext = httpContext
+        };
+        
+        model.Message = "Send me to my page";
+
+        // Act
+        var result = model.OnPost();
+
+        // Assert
+        var redirect = Assert.IsType<RedirectToPageResult>(result);
+        Assert.Equal("/MyPage", redirect.PageName);
     }
 }
