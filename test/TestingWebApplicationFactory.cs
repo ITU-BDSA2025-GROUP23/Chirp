@@ -9,6 +9,7 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Chirp.Web.db; 
+using Microsoft.AspNetCore.Mvc; 
 
 namespace Chirp.test; 
 
@@ -44,6 +45,19 @@ public class TestingWebApplicationFactory : WebApplicationFactory<Program>
             db.Database.EnsureDeleted();
             db.Database.Migrate();
             DbInitializer.SeedDatabase(db);
+            
+            services.PostConfigure<MvcOptions>(options =>
+            {
+                for (int i = options.Filters.Count - 1; i >= 0; i--)
+                {
+                    if (options.Filters[i] is AutoValidateAntiforgeryTokenAttribute)
+                    {
+                        options.Filters.RemoveAt(i);
+                    }
+                }
+                
+                options.Filters.Add(new IgnoreAntiforgeryTokenAttribute());
+            });
         });
         builder.ConfigureTestServices(services =>
         {
