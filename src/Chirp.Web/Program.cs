@@ -1,6 +1,7 @@
 using Chirp.Infrastructure.DataModel;
 using Chirp.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Chirp.Web;
 using Chirp.Web.db;
 using Chirp.Core;
@@ -26,16 +27,13 @@ public class Program
         })
         .AddEntityFrameworkStores<ChatDBContext>();
 
-        builder.Services
-        .AddAuthentication(options =>
+        builder.Services.AddAuthentication()
+        .AddGitHub(o =>
         {
-            options.RequireAuthenticatedSignIn = true;
-        })
-    .   AddGitHub(options =>
-        {  
-            options.ClientId = githubClientId;
-            options.ClientSecret = githubClientSecret;
-    });
+            o.ClientId = githubClientId;
+            o.ClientSecret = githubClientSecret;
+            o.CallbackPath = "/signin-github";
+        });
         builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 
         var app = builder.Build();
@@ -69,7 +67,7 @@ public class Program
 
         app.MapRazorPages();
 
-        app.RunAsync().GetAwaiter().GetResult();
+        app.Run();
     }
 
 static async Task SeedUsersAsync(WebApplication app)
