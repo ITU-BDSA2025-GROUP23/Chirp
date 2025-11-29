@@ -26,16 +26,13 @@ public class Program
         })
         .AddEntityFrameworkStores<ChatDBContext>();
 
-        builder.Services
-        .AddAuthentication(options =>
+        builder.Services.AddAuthentication()
+        .AddGitHub(o =>
         {
-            options.RequireAuthenticatedSignIn = true;
-        })
-    .   AddGitHub(options =>
-        {  
-            options.ClientId = githubClientId;
-            options.ClientSecret = githubClientSecret;
-    });
+            o.ClientId = githubClientId;
+            o.ClientSecret = githubClientSecret;
+            o.CallbackPath = "/signin-github";
+        });
         builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 
         var app = builder.Build();
@@ -69,7 +66,7 @@ public class Program
 
         app.MapRazorPages();
 
-        app.RunAsync().GetAwaiter().GetResult();
+        app.Run();
     }
 
 static async Task SeedUsersAsync(WebApplication app)
