@@ -1,7 +1,6 @@
 using Chirp.Infrastructure.DataModel;
 using Chirp.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Chirp.Web;
 using Chirp.Web.db;
 using Chirp.Core;
