@@ -8,6 +8,7 @@ namespace Chirp.Infrastructure.Repositories;
 
     public interface ICheepRepository
     {
+        void SaveChanges();
         public IEnumerable<Cheep> GetAllCheeps();
 
         public IEnumerable<Cheep> GetCheepsByAuthor(string authorName);
@@ -36,6 +37,11 @@ public class CheepRepository : ICheepRepository
     public CheepRepository(ChatDBContext context)
     {
         _context = context;
+    }
+    
+    public void SaveChanges()
+    {
+        _context.SaveChanges();
     }
 
     public IEnumerable<Cheep> GetAllCheeps()
@@ -153,6 +159,8 @@ public class CheepRepository : ICheepRepository
     public Author? GetAuthorByName(string userName)
     {
         return _context.Authors
+            .Include(a => a.Followers)
+            .Include(a => a.Following)
             .FirstOrDefault(a => a.Name == userName);
     }
     

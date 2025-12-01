@@ -19,13 +19,6 @@
                         @cheep.Text
                         <small class="text-muted">— @cheep.TimeIso</small>
                     </p>
-                    
-                    <form method="post" asp-page-handler="Follow" class="mt-1">
-                        <input type="hidden" name="authorName" value="@cheep.AuthorName" />
-                        <button type="submit" class="btn btn-sm btn-outline-primary">
-                            Follow
-                        </button>
-                    </form>
                 </li>
             }
         </ul>

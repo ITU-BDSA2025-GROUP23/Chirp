@@ -31,18 +31,4 @@ public class UserTimelineModel : PaginationModel
         Cheeps = _service.GetPaginatedCheepsDTO(CurrentPage, PageSize, AuthorName);
         return Page();
     }
-
-    public IActionResult OnPostFollow(string authorName)
-    {
-        var currentUser = _service.GetAuthorByName(User.Identity.Name);
-        var authorToFollow = _service.GetAuthorByName(authorName);
-
-        if (currentUser != null && authorToFollow != null)
-        {
-            currentUser.Follow(authorToFollow);
-            _service.SaveChanges();
-        }
-        
-        return RedirectToPage("/Public", new { p = CurrentPage });
-    }
 }

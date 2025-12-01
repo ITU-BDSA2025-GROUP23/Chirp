@@ -17,6 +17,21 @@ namespace Chirp.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
 
+            modelBuilder.Entity("AuthorAuthor", b =>
+                {
+                    b.Property<int>("FollowersAuthorId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("FollowingAuthorId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("FollowersAuthorId", "FollowingAuthorId");
+
+                    b.HasIndex("FollowingAuthorId");
+
+                    b.ToTable("AuthorAuthor");
+                });
+
             modelBuilder.Entity("Chirp.Infrastructure.DataModel.Author", b =>
                 {
                     b.Property<int>("AuthorId")
@@ -254,6 +269,21 @@ namespace Chirp.Infrastructure.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("AuthorAuthor", b =>
+                {
+                    b.HasOne("Chirp.Infrastructure.DataModel.Author", null)
+                        .WithMany()
+                        .HasForeignKey("FollowersAuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Chirp.Infrastructure.DataModel.Author", null)
+                        .WithMany()
+                        .HasForeignKey("FollowingAuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Chirp.Infrastructure.DataModel.Cheep", b =>

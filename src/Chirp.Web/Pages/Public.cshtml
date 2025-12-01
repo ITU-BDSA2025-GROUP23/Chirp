@@ -15,14 +15,27 @@
             @foreach (var cheep in Model.Cheeps)
             {
                 <li class="mb-3 border-bottom pb-2">
-                    <p class="mb-1">
+                    <div class="d-flex align-items-center">
                         <strong>
                             <a href="/@cheep.AuthorName">@cheep.AuthorName</a>
                         </strong>
+                        @if (User.Identity?.IsAuthenticated == true && User.Identity.Name != cheep.AuthorName)
+                        {
+                            <form method="post" asp-page-handler="Follow" class="ms-2">
+                                <input type="hidden" name="authorName" value="@cheep.AuthorName"/>
+                                <button type="submit" class="btn btn-outline-primary btn-sm follow-btn">
+                                    Follow
+                                </button>
+                            </form>
+                        }
+                    </div>
+                    <p class="mb-1">
                         @cheep.Text
-                        <small class="text-muted">— @cheep.TimeIso </small>
+                        <small class="text-muted">— @cheep.TimeIso</small>
                     </p>
                 </li>
+
+
             }
         </ul>
 

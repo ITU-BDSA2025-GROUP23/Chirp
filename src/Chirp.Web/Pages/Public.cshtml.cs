@@ -36,4 +36,20 @@ public class PublicModel : PaginationModel
         Cheeps = _service.GetPaginatedCheepsDTO(CurrentPage, PageSize);
         return Page();
     }
+    
+    public IActionResult OnPostFollow(string authorName)
+    {
+        var currentUser = _service.GetAuthorByName(User.Identity.Name);
+        var authorToFollow = _service.GetAuthorByName(authorName);
+
+        if (currentUser != null && authorToFollow != null && currentUser.AuthorId != authorToFollow.AuthorId)
+        {
+            currentUser.Follow(authorToFollow);
+            _service.SaveChanges();
+        }
+        
+        Console.WriteLine($"{currentUser.Name} now follows: {string.Join(", ", currentUser.Following.Select(a => a.Name))}");
+
+        return RedirectToPage("/Public", new { p = CurrentPage });
+    }
 }

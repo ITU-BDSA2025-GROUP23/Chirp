@@ -11,14 +11,29 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Chirp.Infrastructure.Migrations
 {
     [DbContext(typeof(ChatDBContext))]
-    [Migration("20251121131006_InitialDbSchema")]
-    partial class InitialDbSchema
+    [Migration("20251130222048_InitialDBSchema")]
+    partial class InitialDBSchema
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
+
+            modelBuilder.Entity("AuthorAuthor", b =>
+                {
+                    b.Property<int>("FollowersAuthorId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("FollowingAuthorId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("FollowersAuthorId", "FollowingAuthorId");
+
+                    b.HasIndex("FollowingAuthorId");
+
+                    b.ToTable("AuthorAuthor");
+                });
 
             modelBuilder.Entity("Chirp.Infrastructure.DataModel.Author", b =>
                 {
@@ -257,6 +272,21 @@ namespace Chirp.Infrastructure.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("AuthorAuthor", b =>
+                {
+                    b.HasOne("Chirp.Infrastructure.DataModel.Author", null)
+                        .WithMany()
+                        .HasForeignKey("FollowersAuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Chirp.Infrastructure.DataModel.Author", null)
+                        .WithMany()
+                        .HasForeignKey("FollowingAuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Chirp.Infrastructure.DataModel.Cheep", b =>

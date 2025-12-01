@@ -287,3 +287,11 @@ ul.nav li a {
 ul.nav li a:hover {
     background-color: #8b4949;
 }
+
+.follow-btn {
+    font-size: 0.65rem;      
+    padding: 0 4px;          
+    height: 18px;            
+    line-height: 1;          
+}
+
