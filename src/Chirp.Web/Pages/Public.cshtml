@@ -21,12 +21,26 @@
                         </strong>
                         @if (User.Identity?.IsAuthenticated == true && User.Identity.Name != cheep.AuthorName)
                         {
-                            <form method="post" asp-page-handler="Follow" class="ms-2">
-                                <input type="hidden" name="authorName" value="@cheep.AuthorName"/>
-                                <button type="submit" class="btn btn-outline-primary btn-sm follow-btn">
-                                    Follow
-                                </button>
-                            </form>
+                            if (Model.CurrentUser != null && 
+                                !Model.CurrentUser.Following.Any(a => a.Name == cheep.AuthorName))
+                        {
+                        <form method="post" asp-page-handler="Follow" class="ms-2">
+                            <input type="hidden" name="authorName" value="@cheep.AuthorName"/>
+                            <button type="submit" class="btn btn-outline-primary btn-sm follow-btn">
+                                Follow
+                            </button>
+                        </form>
+                        }
+                            else 
+                            {
+                                <form method="post" asp-page-handler="Unfollow" class="ms-2">
+                                    <input type="hidden" name="authorName" value="@cheep.AuthorName" />
+                                    <button type="submit" class="btn btn-outline-danger btn-sm follow-btn">
+                                        Unfollow
+                                    </button>
+                                </form>
+
+                            }
                         }
                     </div>
                     <p class="mb-1">
