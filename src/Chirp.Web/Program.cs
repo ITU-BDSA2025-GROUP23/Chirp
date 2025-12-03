@@ -15,6 +15,13 @@ public class Program
         var githubClientId = builder.Configuration["Authentication:GitHub:ClientId"];
         var githubClientSecret = builder.Configuration["Authentication:GitHub:ClientSecret"];
         
+		if (githubClientId is null || githubClientSecret is null)
+		{
+    		throw new InvalidOperationException(
+        	"GitHub authentication is not configured. " +
+        	"Set Authentication:GitHub:ClientId and ClientSecret in appsettings or user secrets.");
+		}
+
         builder.Services.AddRazorPages();
 
         string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
