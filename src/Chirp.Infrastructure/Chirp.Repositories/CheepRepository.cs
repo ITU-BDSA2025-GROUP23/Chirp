@@ -191,6 +191,8 @@ public class CheepRepository : ICheepRepository
     public Author? GetAuthorByEmail(string email)
     {
         return _context.Authors
+            .Include(a => a.Followers)
+            .Include(a => a.Following)
             .FirstOrDefault(a => a.Email == email);
     }
     
