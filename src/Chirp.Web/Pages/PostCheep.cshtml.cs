@@ -22,11 +22,6 @@ public class  PostCheepModel : PageModel //PaginationModel?
         var email = User.Identity.Name;
         var userName = email;
         var text = Message;
-
-        /*if (userName.Name == null)
-        {
-            return RedirectToPage("/");
-        }*/
         
         _repository.CreateCheep(userName,email, text);
         return RedirectToPage("/MyPage");

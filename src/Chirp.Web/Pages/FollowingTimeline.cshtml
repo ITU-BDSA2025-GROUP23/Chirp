@@ -1,0 +1,58 @@
+﻿@page "/FollowingTimeline"
+@model Chirp.Web.Pages.FollowingTimelineModel
+@using System.Linq
+@{
+    ViewData["Title"] = "Chirp!";
+    Layout = "Shared/_Layout";
+}
+
+<div class="container mt-4">
+    <h2>Following Timeline</h2>
+
+    @if (Model.Cheeps.Any())
+    {
+        <ul id="messagelist" class="cheeps list-unstyled">
+            @foreach (var cheep in Model.Cheeps)
+            {
+                <li class="mb-3 border-bottom pb-2">
+                    <div class="d-flex align-items-center">
+                        <strong>
+                            <a href="/@cheep.AuthorName">@cheep.AuthorName</a>
+                        </strong>
+                        @if (User.Identity?.IsAuthenticated == true && User.Identity.Name != cheep.AuthorName)
+                        {   
+                                <form method="post" asp-page-handler="Unfollow" class="ms-2">
+                                    <input type="hidden" name="authorName" value="@cheep.AuthorName" />
+                                    <button type="submit" class="btn btn-outline-danger btn-sm follow-btn">
+                                        Unfollow
+                                    </button>
+                                </form>
+                        }
+                    </div>
+                    <p class="mb-1">
+                        @cheep.Text
+                        <small class="text-muted">— @cheep.TimeIso</small>
+                    </p>
+                </li>
+
+
+            }
+        </ul>
+
+            <nav class="pager" style="margin-top:1rem">
+                @if (Model.CurrentPage > 1)
+                {
+                    <a href="@(Url.Page("/Public", new { p = Model.CurrentPage - 1 }))">« Previous</a>
+                }
+                @if (Model.CurrentPage < Model.TotalPages)
+                {
+                    <a style="margin-left:1rem"
+                    href="@(Url.Page("/Public", new { p = Model.CurrentPage + 1 }))">Next »</a>
+                }
+            </nav>     
+            }
+    else
+    {
+        <em>There are no cheeps so far.</em>
+    }
+</div>
