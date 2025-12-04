@@ -13,6 +13,10 @@ public class UserTimelineModel : PaginationModel
     public List<CheepDTO> Cheeps { get; set; } = new();
     public int TotalCheeps { get; private set; }
     public int TotalPages => (int)Math.Ceiling((double)TotalCheeps / PageSize);
+    
+    public int FollowingCount { get; set; }
+    
+    public int FollowersCount { get; set; }
 
     public UserTimelineModel(ICheepRepository service) => _service = service;
 
@@ -24,6 +28,10 @@ public class UserTimelineModel : PaginationModel
         if (CurrentPage < 1) CurrentPage = 1;
 
         TotalCheeps = _service.GetCheepCount(AuthorName);
+        
+        FollowingCount = _service.GetFollowing(AuthorName!).Count;
+        
+        FollowersCount = _service.GetFollowers(AuthorName!).Count;
 
         var lastPage = Math.Max(1, (int)Math.Ceiling((double)TotalCheeps / PageSize));
         if (CurrentPage > lastPage) CurrentPage = lastPage;

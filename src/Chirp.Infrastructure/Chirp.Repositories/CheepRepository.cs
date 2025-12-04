@@ -27,6 +27,10 @@ namespace Chirp.Infrastructure.Repositories;
         public Author CreateAuthor(string userName, string email);
 
         public void CreateCheep(string userName, string email, string text);
+
+        public List<Author> GetFollowing(string authorName);
+        
+        public List<Author> GetFollowers(string authorName);
     }
 
 
@@ -94,6 +98,18 @@ public class CheepRepository : ICheepRepository
             q = q.Where(c => c.Author != null && c.Author.Name != null && c.Author.Name.Trim().ToLower() == a.ToLower());
         }
         return q.Count();
+    }
+
+    public List<Author> GetFollowing(string authorName)
+    {
+        var author = GetAuthorByName(authorName);
+        return author?.Following.ToList() ?? new List<Author>();
+    }
+
+    public List<Author> GetFollowers(string authorName)
+    {
+        var author = GetAuthorByName(authorName);
+        return author?.Followers.ToList() ?? new List<Author>();
     }
     
     //remove? - never used
