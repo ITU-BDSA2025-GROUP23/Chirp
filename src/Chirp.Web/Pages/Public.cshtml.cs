@@ -16,7 +16,7 @@ public class PublicModel : PaginationModel
     public int TotalCheeps { get; private set; }
     public int NumberOfCheeps => Cheeps.Count;
     public int TotalPages => (int)System.Math.Ceiling((double)TotalCheeps / PageSize);
-
+    
     public PublicModel(ICheepRepository service)
     {
         _service = service;
@@ -40,16 +40,19 @@ public class PublicModel : PaginationModel
 
         Cheeps = _service.GetPaginatedCheepsDTO(CurrentPage, PageSize);
         return Page();
+        
+
     }
     
     public IActionResult OnPostFollow(string authorName)
     {
-        var currentUser = _service.GetAuthorByName(User.Identity.Name);
+        CurrentUser = _service.GetAuthorByName(User.Identity.Name);
+        
         var authorToFollow = _service.GetAuthorByName(authorName);
-
-        if (currentUser != null && authorToFollow != null && currentUser.AuthorId != authorToFollow.AuthorId)
+        
+        if (CurrentUser != null && authorToFollow != null && CurrentUser != authorToFollow)
         {
-            currentUser.Follow(authorToFollow);
+            CurrentUser.Follow(authorToFollow);
             _service.SaveChanges();
         }
 
@@ -58,14 +61,16 @@ public class PublicModel : PaginationModel
 
     public IActionResult OnPostUnfollow(string authorName)
     {
-        var currentUser = _service.GetAuthorByName(User.Identity.Name);
+        CurrentUser = _service.GetAuthorByName(User.Identity.Name);
+        
         var authorToUnfollow = _service.GetAuthorByName(authorName);
+        
 
-        if (currentUser != null && authorToUnfollow != null && currentUser.AuthorId != authorToUnfollow.AuthorId)
+        if (CurrentUser != null && authorToUnfollow != null && CurrentUser != authorToUnfollow)
         {
-            if (currentUser.Following.Any(a => a.AuthorId == authorToUnfollow.AuthorId))
+            if (CurrentUser.Following.Any(a => a.AuthorId == authorToUnfollow.AuthorId))
             {
-                currentUser.Following.Remove(authorToUnfollow);
+                CurrentUser.Following.Remove(authorToUnfollow);
                 _service.SaveChanges();
             }
         }

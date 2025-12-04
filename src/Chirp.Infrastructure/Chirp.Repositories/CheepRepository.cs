@@ -31,6 +31,8 @@ namespace Chirp.Infrastructure.Repositories;
         public List<Author> GetFollowing(string authorName);
         
         public List<Author> GetFollowers(string authorName);
+        
+        public Author GetCheepsAuthor(Cheep cheep);
     }
 
 
@@ -110,6 +112,12 @@ public class CheepRepository : ICheepRepository
     {
         var author = GetAuthorByName(authorName);
         return author?.Followers.ToList() ?? new List<Author>();
+    }
+
+    public Author GetCheepsAuthor(Cheep cheep)
+    {
+        Author author = cheep.Author;
+        return author;
     }
     
     //remove? - never used

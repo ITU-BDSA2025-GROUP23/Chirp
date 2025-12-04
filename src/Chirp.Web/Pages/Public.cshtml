@@ -20,9 +20,11 @@
                             <a href="/@cheep.AuthorName">@cheep.AuthorName</a>
                         </strong>
                         @if (User.Identity?.IsAuthenticated == true && User.Identity.Name != cheep.AuthorName)
-                        {
-                            if (Model.CurrentUser != null && 
-                                !Model.CurrentUser.Following.Any(a => a.Name == cheep.AuthorName))
+                        {   
+                            bool DoesFollow = Model.CurrentUser != null &&
+                                              Model.CurrentUser.Following.Any(a => a.Name == cheep.AuthorName);
+                            
+                            if (!DoesFollow)
                         {
                         <form method="post" asp-page-handler="Follow" class="ms-2">
                             <input type="hidden" name="authorName" value="@cheep.AuthorName"/>
