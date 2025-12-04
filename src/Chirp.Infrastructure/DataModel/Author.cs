@@ -14,13 +14,5 @@ public class Author
     public ICollection<Author> Followers { get; set; } = new List<Author>();
     
     public ICollection<Author> Following { get; set; } = new List<Author>();
-
-    public void Follow(Author author)
-    {
-        if (!Following.Contains(author))
-            Following.Add(author);
-
-        if (!author.Followers.Contains(this))
-            author.Followers.Add(this);
-    }
+    
 }
