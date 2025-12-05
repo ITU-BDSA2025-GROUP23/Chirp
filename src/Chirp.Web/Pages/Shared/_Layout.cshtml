@@ -15,6 +15,7 @@
         var name = User.Identity.Name;
         <div>
             <a asp-page="/Public">public timeline</a> |
+            <a asp-page="/AboutMe">About me</a> |
             <form asp-area="Identity" asp-page="/Account/Logout" method="post" style="display:inline;">
                 <button type="submit">logout [@name]</button>
             </form>|
