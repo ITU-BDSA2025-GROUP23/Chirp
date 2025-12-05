@@ -2,12 +2,15 @@
 <html lang="en">
 <head>
     <title>@ViewData["Title"]</title>
-    <link href="/css/style.css" rel="stylesheet" type="text/css" />
-    <link rel="icon" type="image/png" href="/favicon/favicon.ico">
+    <link href="/css/style2.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/png" href="/favicon/favicon2.ico">
 </head>
 <body>
 <div class="page">
-    <h1><img src="/images/icon1.png" alt="Icon1"/>Chirp!</h1>
+    <h1>
+        <a asp-page="/Public" class="logo-link">
+            <img src="/images/Logo3.png" alt="Icon1" />LeChirp!</a> 
+    </h1>
 
     <div class="navigation">
         @if (User.Identity?.IsAuthenticated == true)

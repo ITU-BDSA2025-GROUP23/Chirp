@@ -38,7 +38,7 @@ public class FollowingTimelineModel : PaginationModel
 
             if (CurrentPage < 1) CurrentPage = 1;
         
-            var author = _service.GetAuthorByEmail(User.Identity!.Name!);
+            var author = _service.GetAuthorByName(User.Identity!.Name!);
             
             foreach(var following in author.Following)
             {
