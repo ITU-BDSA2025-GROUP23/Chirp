@@ -15,6 +15,13 @@ public class Program
         var githubClientId = builder.Configuration["Authentication:GitHub:ClientId"];
         var githubClientSecret = builder.Configuration["Authentication:GitHub:ClientSecret"];
         
+		if (githubClientId is null || githubClientSecret is null)
+		{
+    		throw new InvalidOperationException(
+        	"GitHub authentication is not configured. " +
+        	"Set Authentication:GitHub:ClientId and ClientSecret in appsettings or user secrets.");
+		}
+
         builder.Services.AddRazorPages();
 
         string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -26,16 +33,13 @@ public class Program
         })
         .AddEntityFrameworkStores<ChatDBContext>();
 
-        builder.Services
-        .AddAuthentication(options =>
+        builder.Services.AddAuthentication()
+        .AddGitHub(o =>
         {
-            options.RequireAuthenticatedSignIn = true;
-        })
-    .   AddGitHub(options =>
-        {  
-            options.ClientId = githubClientId;
-            options.ClientSecret = githubClientSecret;
-    });
+            o.ClientId = githubClientId;
+            o.ClientSecret = githubClientSecret;
+            o.CallbackPath = "/signin-github";
+        });
         builder.Services.AddScoped<ICheepRepository, CheepRepository>();
         builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 
@@ -70,7 +74,7 @@ public class Program
 
         app.MapRazorPages();
 
-        app.RunAsync().GetAwaiter().GetResult();
+        app.Run();
     }
 
 static async Task SeedUsersAsync(WebApplication app)

@@ -9,7 +9,8 @@ namespace Chirp.Web.Pages;
 
 public class  PostCheepModel : PageModel //PaginationModel?
 {
-    [BindProperty] public string Message { get; set; }
+    [BindProperty] 
+    public string Message { get; set; }= string.Empty;
     
     public bool CanPost => User?.Identity?.IsAuthenticated ?? false;
     private readonly ICheepRepository _repository;
@@ -19,8 +20,8 @@ public class  PostCheepModel : PageModel //PaginationModel?
     
     public IActionResult OnPost()
     {
-        var email = User.Identity.Name;
-        var userName = email;
+        var email = User?.Identity?.Name;
+        var userName = email!;
         var text = Message;
         
         _repository.CreateCheep(userName,email, text);
