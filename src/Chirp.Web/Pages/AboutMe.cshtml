@@ -5,7 +5,9 @@
     ViewData["Title"] = "About Me";
     Layout = "Shared/_Layout.cshtml";
 }
-<h2>About Me</h2>
+<div class="behind-headline">
+    <h2>About Me</h2>
+</div>
 
 @if(!User.Identity?.IsAuthenticated ?? true)
 {
@@ -13,36 +15,41 @@
 }
 else
 {
-    <section>
-        <h3>Profile</h3>
-        <p><strong>User name:</strong> @Model.UserName</p>
-        <p><strong>Email:</strong> @Model.Email</p>
-    </section>
-
-    <section>
-        <h3>My cheeps</h3>
-        @if (Model.MyCheeps.Any())
-        {
-            <ul>
-                @foreach (var cheep in Model.MyCheeps)
-                {
-                    <li>
-                        <strongs>@cheep.TimeStamp:</strongs> @cheep.Text
-                    </li>
-                }
-            </ul>
-        }
-        else
-        {
-            <p>You have not posted any cheeps yet.</p>
-        }
-    </section>
-
-    <section>
-        <form method="post" asp-page-handler="ForgetMe">
-            <button type="submit" style="background-color:#cc0000;color:white;border:none;padding:0.5rem 1rem;">
-                Forget me!
-            </button>
-        </form>
-    </section>
+    <div class="behind-headline about-section">
+        <section>
+            <h3>Profile</h3>
+            <p><strong>User name:</strong> @Model.UserName</p>
+            <p><strong>Email:</strong> @Model.Email</p>
+        </section>
+    </div>
+    
+    <div class="behind-headline about-section">
+        <section>
+            <h3>My cheeps</h3>
+            @if (Model.MyCheeps.Any())
+            {
+                <ul>
+                    @foreach (var cheep in Model.MyCheeps)
+                    {
+                        <li>
+                            <strongs>@cheep.TimeStamp:</strongs> @cheep.Text
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>You have not posted any cheeps yet.</p>
+            }
+        </section>
+    </div>
+    
+    
+        <section>
+            <form method="post" asp-page-handler="ForgetMe">
+                <button type="submit" style="background-color:#970000;color:white;border:none;padding:0.5rem 1rem;">
+                    Forget me!
+                </button>
+            </form>
+        </section>
 }

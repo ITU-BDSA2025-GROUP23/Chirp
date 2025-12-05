@@ -30,11 +30,28 @@ public class PublicModel : PaginationModel
     public IActionResult OnGet([FromQuery(Name = "page")] int page = 1)
     {
         if (User.Identity?.IsAuthenticated == true)
-        {
+        { 
             CurrentUser = _service.GetAuthorByEmail(User.Identity!.Name!);
+            if (CurrentUser == null)
+            {
+                CurrentUser = _service.GetAuthorByEmail(User.Identity!.Name!);
+            }
+            
+            if (CurrentUser.Following == null)
+            {
+                var email = User?.Identity?.Name;
+                var userName = email!;
+                CurrentUser = _service.CreateAuthor(userName, email);
+            }
+        
+            CurrentUserName = CurrentUser.Name;
         }
-
-        CurrentUserName = CurrentUser.Name;
+        else
+        {
+            CurrentUserName = null;
+        }
+        
+        
         
         if (int.TryParse(Request.Query["p"], out var p) && p > 0) CurrentPage = p;
         else

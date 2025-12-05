@@ -8,9 +8,11 @@
 <div class="container mt-4">
     @if (User.Identity?.IsAuthenticated == true)
     {
-        <h2>Post a Cheep!</h2>
-
-        <h3>What's on your mind?</h3>
+        <div class="behind-headline">
+            <h2>Post a Take!</h2>
+        </div>
+        
+        <h3><i>What's your HOT TAKE?</i></h3>
 
         <form method="post">
             <div class="mb-3">
@@ -20,7 +22,7 @@
                        maxlength="160" 
                        minlength="1"/>
             </div>
-            <button type="submit" class="btn btn-primary">POST</button>
+            <button type="submit" class="btn btn-primary"><b>POST</b></button>
         </form>    
     }
     else
