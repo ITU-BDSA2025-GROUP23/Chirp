@@ -14,21 +14,29 @@ public class AboutMeModel : PageModel
 {
     private readonly ChatDBContext _db;
     private readonly ICheepRepository _repository;
+    private readonly IAuthorRepository _authorRepo;
     private readonly UserManager<IdentityUser> _userManager;
     private readonly SignInManager<IdentityUser> _signInManager;
 
-    public string? UserName { get; private set; }
+    [BindProperty(SupportsGet = true, Name = "author")]
+    public string? AuthorName { get; set; }
     public string? Email { get; private set; }
+    public int FollowingCount { get; set; }
+    public int FollowersCount { get; set; }
     public IList<Cheep> MyCheeps { get; private set; } = new List<Cheep>();
+    public IList<Author> Following { get; private set; } = new List<Author>();
+    public IList<Author> Followers { get; private set; } = new List<Author>();
 
     public AboutMeModel(
         ChatDBContext db,
         ICheepRepository repository,
+        IAuthorRepository authorRepo,
         UserManager<IdentityUser> userManager,
         SignInManager<IdentityUser> signInManager)
     {
         _db = db;
         _repository = repository;
+        _authorRepo = authorRepo;
         _userManager = userManager;
         _signInManager = signInManager;
     }
@@ -41,8 +49,22 @@ public class AboutMeModel : PageModel
             return RedirectToPage("/Public");
         }
 
-        UserName = user.UserName;
-        Email = user.Email;
+        if (string.IsNullOrWhiteSpace(AuthorName))
+            AuthorName = RouteData.Values["author"]?.ToString();
+        
+        if (string.IsNullOrWhiteSpace(AuthorName))
+        {
+            AuthorName = user.UserName;
+        }
+        
+        var auth = _repository.GetAuthorByName(AuthorName)
+                   ?? _repository.GetAuthorByEmail(AuthorName);
+        
+        Email = auth.Email;
+        AuthorName = auth.Name;
+        
+        FollowingCount = _repository.GetFollowing(AuthorName!).Count;
+        FollowersCount = _repository.GetFollowers(AuthorName!).Count;
 
         if (!string.IsNullOrEmpty(Email))
         {
@@ -54,6 +76,15 @@ public class AboutMeModel : PageModel
                     .Where(c => c.Author != null && c.Author.AuthorId == author.AuthorId)
                     .OrderByDescending(c => c.TimeStamp)
                     .ToListAsync();
+
+                Following = _repository.GetFollowing(AuthorName!)
+                    .OrderBy(a => a.Name)
+                    .ToList();
+                
+                Followers = _repository.GetFollowers(AuthorName!)
+                    .OrderBy(a => a.Name)
+                    .ToList();
+                
             }
         }
 

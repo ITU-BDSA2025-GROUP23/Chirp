@@ -36,14 +36,13 @@ public class PublicModel : PaginationModel
             {
                 CurrentUser = _service.GetAuthorByEmail(User.Identity!.Name!);
             }
-            
-            if (CurrentUser.Following == null)
+
+            if (CurrentUser == null)
             {
                 var email = User?.Identity?.Name;
                 var userName = email!;
-                CurrentUser = _service.CreateAuthor(userName, email);
+                CurrentUser = _service.CreateAuthor(userName, email);   
             }
-        
             CurrentUserName = CurrentUser.Name;
         }
         else
