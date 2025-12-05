@@ -19,7 +19,8 @@
                         <strong>
                             <a href="/@cheep.AuthorName">@cheep.AuthorName</a>
                         </strong>
-                        @if (User.Identity?.IsAuthenticated == true && User.Identity.Name != cheep.AuthorName)
+                        @if (User.Identity?.IsAuthenticated == true 
+                             && User.Identity.Name != cheep.AuthorName && Model.CurrentUserName != cheep.AuthorName)
                         {   
                             bool DoesFollow = Model.CurrentUser != null &&
                                               Model.CurrentUser.Following.Any(a => a.Name == cheep.AuthorName);
