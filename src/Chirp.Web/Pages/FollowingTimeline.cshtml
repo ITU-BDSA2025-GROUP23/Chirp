@@ -1,5 +1,5 @@
-﻿@page "/"
-@model Chirp.Web.Pages.PublicModel
+﻿@page "/FollowingTimeline"
+@model Chirp.Web.Pages.FollowingTimelineModel
 @using System.Linq
 @{
     ViewData["Title"] = "Chirp!";
@@ -7,7 +7,7 @@
 }
 
 <div class="container mt-4">
-    <h2>Public Timeline</h2>
+    <h2>Following Timeline</h2>
 
     @if (Model.Cheeps.Any())
     {
@@ -21,28 +21,12 @@
                         </strong>
                         @if (User.Identity?.IsAuthenticated == true && User.Identity.Name != cheep.AuthorName)
                         {   
-                            bool DoesFollow = Model.CurrentUser != null &&
-                                              Model.CurrentUser.Following.Any(a => a.Name == cheep.AuthorName);
-                            
-                            if (!DoesFollow)
-                        {
-                        <form method="post" asp-page-handler="Follow" class="ms-2">
-                            <input type="hidden" name="authorName" value="@cheep.AuthorName"/>
-                            <button type="submit" class="btn btn-outline-primary btn-sm follow-btn">
-                                Follow
-                            </button>
-                        </form>
-                        }
-                            else 
-                            {
                                 <form method="post" asp-page-handler="Unfollow" class="ms-2">
                                     <input type="hidden" name="authorName" value="@cheep.AuthorName" />
                                     <button type="submit" class="btn btn-outline-danger btn-sm follow-btn">
                                         Unfollow
                                     </button>
                                 </form>
-
-                            }
                         }
                     </div>
                     <p class="mb-1">

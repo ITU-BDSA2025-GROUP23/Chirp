@@ -23,16 +23,6 @@ public class  PostCheepModel : PageModel //PaginationModel?
         var email = User?.Identity?.Name;
         var userName = email!;
         var text = Message;
-        if (string.IsNullOrWhiteSpace(email))
-        {
-            return Challenge(); 
-        }
-
-        if (string.IsNullOrWhiteSpace(Message))
-        {
-            ModelState.AddModelError(nameof(Message), "Message is required.");
-            return Page();
-        }
         
         _repository.CreateCheep(userName,email, text);
         return RedirectToPage("/MyPage");

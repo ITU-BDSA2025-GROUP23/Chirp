@@ -8,6 +8,7 @@ namespace Chirp.Infrastructure.Repositories;
 
     public interface ICheepRepository
     {
+        void SaveChanges();
         public IEnumerable<Cheep> GetAllCheeps();
 
         public IEnumerable<Cheep> GetCheepsByAuthor(string authorName);
@@ -26,6 +27,12 @@ namespace Chirp.Infrastructure.Repositories;
         public Author CreateAuthor(string userName, string email);
 
         public void CreateCheep(string userName, string email, string text);
+
+        public List<Author> GetFollowing(string authorName);
+        
+        public List<Author> GetFollowers(string authorName);
+        
+        public Author GetCheepsAuthor(Cheep cheep);
     }
 
 
@@ -36,6 +43,11 @@ public class CheepRepository : ICheepRepository
     public CheepRepository(ChatDBContext context)
     {
         _context = context;
+    }
+    
+    public void SaveChanges()
+    {
+        _context.SaveChanges();
     }
 
     public IEnumerable<Cheep> GetAllCheeps()
@@ -88,6 +100,24 @@ public class CheepRepository : ICheepRepository
             q = q.Where(c => c.Author != null && c.Author.Name != null && c.Author.Name.Trim().ToLower() == a.ToLower());
         }
         return q.Count();
+    }
+
+    public List<Author> GetFollowing(string authorName)
+    {
+        var author = GetAuthorByName(authorName);
+        return author?.Following.ToList() ?? new List<Author>();
+    }
+
+    public List<Author> GetFollowers(string authorName)
+    {
+        var author = GetAuthorByName(authorName);
+        return author?.Followers.ToList() ?? new List<Author>();
+    }
+
+    public Author GetCheepsAuthor(Cheep cheep)
+    {
+        Author author = cheep.Author;
+        return author;
     }
     
     //remove? - never used
@@ -153,12 +183,16 @@ public class CheepRepository : ICheepRepository
     public Author? GetAuthorByName(string userName)
     {
         return _context.Authors
+            .Include(a => a.Followers)
+            .Include(a => a.Following)
             .FirstOrDefault(a => a.Name == userName);
     }
     
     public Author? GetAuthorByEmail(string email)
     {
         return _context.Authors
+            .Include(a => a.Followers)
+            .Include(a => a.Following)
             .FirstOrDefault(a => a.Email == email);
     }
     
