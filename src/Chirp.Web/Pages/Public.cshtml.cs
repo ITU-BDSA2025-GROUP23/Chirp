@@ -19,6 +19,8 @@ public class PublicModel : PaginationModel
     public int NumberOfCheeps => Cheeps.Count;
     public int TotalPages => (int)System.Math.Ceiling((double)TotalCheeps / PageSize);
     
+    public string? CurrentUserName { get; set; }
+    
     public PublicModel(ICheepRepository service,IAuthorRepository authorRepository )
     {
         _service = service;
@@ -28,10 +30,27 @@ public class PublicModel : PaginationModel
     public IActionResult OnGet([FromQuery(Name = "page")] int page = 1)
     {
         if (User.Identity?.IsAuthenticated == true)
-        {
+        { 
             CurrentUser = _service.GetAuthorByEmail(User.Identity!.Name!);
+            if (CurrentUser == null)
+            {
+                CurrentUser = _service.GetAuthorByEmail(User.Identity!.Name!);
+            }
+
+            if (CurrentUser == null)
+            {
+                var email = User?.Identity?.Name;
+                var userName = email!;
+                CurrentUser = _service.CreateAuthor(userName, email);   
+            }
+            CurrentUserName = CurrentUser.Name;
         }
-            
+        else
+        {
+            CurrentUserName = null;
+        }
+        
+        
         
         if (int.TryParse(Request.Query["p"], out var p) && p > 0) CurrentPage = p;
         else
@@ -62,7 +81,8 @@ public class PublicModel : PaginationModel
         
         
         
-        if (CurrentUser != null && authorToFollow != null && CurrentUser != authorToFollow)
+        if (CurrentUser != null && authorToFollow != null 
+                                && CurrentUser != authorToFollow && CurrentUser.Name != authorToFollow.Name)
         {
             _authorRepository.Follow(CurrentUser, authorToFollow);
             _authorRepository.SaveChanges();
@@ -75,14 +95,15 @@ public class PublicModel : PaginationModel
     {
         CurrentUser = _service.GetAuthorByEmail(User.Identity.Name);
         
-        var authorToUnfollow = _service.GetAuthorByName(authorName);
+        var authorToUnFollow = _service.GetAuthorByName(authorName);
         
 
-        if (CurrentUser != null && authorToUnfollow != null && CurrentUser != authorToUnfollow)
+        if (CurrentUser != null && authorToUnFollow != null 
+                                && CurrentUser != authorToUnFollow && CurrentUser.Name != authorToUnFollow.Name)
         {
-            if (CurrentUser.Following.Any(a => a.AuthorId == authorToUnfollow.AuthorId))
+            if (CurrentUser.Following.Any(a => a.AuthorId == authorToUnFollow.AuthorId))
             {
-                _authorRepository.UnFollow(CurrentUser, authorToUnfollow);
+                _authorRepository.UnFollow(CurrentUser, authorToUnFollow);
                 _authorRepository.SaveChanges();
             }
         }

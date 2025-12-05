@@ -2,8 +2,8 @@
 
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
-
-<ul class="navbar-nav">
+<section>
+    <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
@@ -25,3 +25,5 @@ else
     </li>
 }
 </ul>
+</section>
+

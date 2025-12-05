@@ -6,10 +6,12 @@
 }
 
 <div class="container mt-4">
-    <h2>@Model.AuthorName's Timeline</h2>
-    <h3>Following @Model.FollowingCount | Followers @Model.FollowersCount
-    </h3>
-
+    <div class="behind-headline">
+        <h2>@Model.AuthorName's Timeline</h2>
+        <h3>Following @Model.FollowingCount | Followers @Model.FollowersCount
+        </h3>         
+    </div>
+    
     @if (Model.Cheeps.Any())
     {
         <ul id="messagelist" class="cheeps list-unstyled">

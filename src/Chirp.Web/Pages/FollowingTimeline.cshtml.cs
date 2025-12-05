@@ -37,8 +37,21 @@ public class FollowingTimelineModel : PaginationModel
                 AuthorName = RouteData.Values["author"]?.ToString();
 
             if (CurrentPage < 1) CurrentPage = 1;
-        
+            
             var author = _service.GetAuthorByName(User.Identity!.Name!);
+
+            if (author == null)
+            {
+                author = _service.GetAuthorByEmail(User.Identity!.Name!);
+            }
+            
+            if (author.Following == null)
+            {
+                var email = User?.Identity?.Name;
+                var userName = email!;
+                
+                author = _service.CreateAuthor(userName, email);
+            }
             
             foreach(var following in author.Following)
             {
@@ -63,7 +76,7 @@ public class FollowingTimelineModel : PaginationModel
     
     public IActionResult OnPostUnfollow(string authorName)
     {
-        var CurrentUser = _service.GetAuthorByEmail(User.Identity.Name);
+        var CurrentUser = _service.GetAuthorByName(User.Identity.Name);
         
         var authorToUnfollow = _service.GetAuthorByName(authorName);
         
