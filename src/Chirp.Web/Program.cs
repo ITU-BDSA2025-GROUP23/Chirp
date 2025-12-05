@@ -39,6 +39,9 @@ public class Program
             o.ClientId = githubClientId;
             o.ClientSecret = githubClientSecret;
             o.CallbackPath = "/signin-github";
+
+            o.Scope.Add("user:email");
+            o.SaveTokens = true;
         });
         builder.Services.AddScoped<ICheepRepository, CheepRepository>();
         builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
