@@ -14,5 +14,7 @@ public class Cheep
 	public string Text { get; set; } = default!;
 	
     public required DateTime TimeStamp  { get; set; }
+    
+    public ICollection<Author> Likes  { get; set; } = new List<Author>();
   
 }

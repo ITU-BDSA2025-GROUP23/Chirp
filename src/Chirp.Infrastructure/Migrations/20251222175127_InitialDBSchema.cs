@@ -62,6 +62,7 @@ namespace Chirp.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Authors", x => x.AuthorId);
+                    table.UniqueConstraint("AK_Authors_Email", x => x.Email);
                 });
 
             migrationBuilder.CreateTable(
@@ -171,26 +172,26 @@ namespace Chirp.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AuthorAuthor",
+                name: "AuthorFollow",
                 columns: table => new
                 {
-                    FollowersAuthorId = table.Column<int>(type: "INTEGER", nullable: false),
-                    FollowingAuthorId = table.Column<int>(type: "INTEGER", nullable: false)
+                    FollowerEmail = table.Column<string>(type: "TEXT", nullable: false),
+                    FolloweeEmail = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AuthorAuthor", x => new { x.FollowersAuthorId, x.FollowingAuthorId });
+                    table.PrimaryKey("PK_AuthorFollow", x => new { x.FollowerEmail, x.FolloweeEmail });
                     table.ForeignKey(
-                        name: "FK_AuthorAuthor_Authors_FollowersAuthorId",
-                        column: x => x.FollowersAuthorId,
+                        name: "FK_AuthorFollow_Authors_FolloweeEmail",
+                        column: x => x.FolloweeEmail,
                         principalTable: "Authors",
-                        principalColumn: "AuthorId",
+                        principalColumn: "Email",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AuthorAuthor_Authors_FollowingAuthorId",
-                        column: x => x.FollowingAuthorId,
+                        name: "FK_AuthorFollow_Authors_FollowerEmail",
+                        column: x => x.FollowerEmail,
                         principalTable: "Authors",
-                        principalColumn: "AuthorId",
+                        principalColumn: "Email",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -212,6 +213,30 @@ namespace Chirp.Infrastructure.Migrations
                         column: x => x.AuthorId,
                         principalTable: "Authors",
                         principalColumn: "AuthorId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CheepLikes",
+                columns: table => new
+                {
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    CheepId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CheepLikes", x => new { x.Email, x.CheepId });
+                    table.ForeignKey(
+                        name: "FK_CheepLikes_Authors_Email",
+                        column: x => x.Email,
+                        principalTable: "Authors",
+                        principalColumn: "Email",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CheepLikes_Cheeps_CheepId",
+                        column: x => x.CheepId,
+                        principalTable: "Cheeps",
+                        principalColumn: "CheepId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -253,9 +278,20 @@ namespace Chirp.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_AuthorAuthor_FollowingAuthorId",
-                table: "AuthorAuthor",
-                column: "FollowingAuthorId");
+                name: "IX_AuthorFollow_FolloweeEmail",
+                table: "AuthorFollow",
+                column: "FolloweeEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Authors_Email",
+                table: "Authors",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CheepLikes_CheepId",
+                table: "CheepLikes",
+                column: "CheepId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cheeps_AuthorId",
@@ -282,16 +318,19 @@ namespace Chirp.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "AuthorAuthor");
+                name: "AuthorFollow");
 
             migrationBuilder.DropTable(
-                name: "Cheeps");
+                name: "CheepLikes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Cheeps");
 
             migrationBuilder.DropTable(
                 name: "Authors");
