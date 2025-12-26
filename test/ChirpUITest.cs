@@ -51,13 +51,14 @@ public class ChirpUITest : IClassFixture<TestingWebApplicationFactory>
         var html = await response.Content.ReadAsStringAsync();
 
         // Assert
-        Assert.Contains("Post a Cheep!", html);
-        Assert.Contains("What's on your mind?", html);
+        Assert.Contains("Post a Take!", html);
+        Assert.Contains("What's your HOT TAKE?", html);
         Assert.Contains("<form method=\"post\"", html);
         Assert.Contains("name=\"Message\"", html);
         Assert.Contains("type=\"submit\"", html);
-        Assert.Contains(">POST</button>", html);
+        Assert.Contains(">POST</b></button>", html);
     }
+    
     [Fact]
     public async Task PostEndsUpInCheeps()
     {
