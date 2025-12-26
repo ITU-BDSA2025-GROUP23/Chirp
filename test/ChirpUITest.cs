@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Chirp.Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
-using Xunit.Abstractions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Chirp.Web.Pages;
 using Microsoft.AspNetCore.Http;          
@@ -18,14 +17,12 @@ namespace Chirp.test;
 public class ChirpUITest : IClassFixture<TestingWebApplicationFactory>
 {
     private readonly TestingWebApplicationFactory _factory;
-    private readonly ITestOutputHelper _output;
     private readonly HttpClient _client;
     private readonly HttpClient _loggedInClient;
 
-    public ChirpUITest(TestingWebApplicationFactory factory, ITestOutputHelper output)
+    public ChirpUITest(TestingWebApplicationFactory factory)
     {
         _factory = factory;
-        _output = output;
         _client = factory.CreateClient();
 
         _loggedInClient = factory.CreateClient(new WebApplicationFactoryClientOptions
@@ -177,8 +174,6 @@ public class ChirpUITest : IClassFixture<TestingWebApplicationFactory>
         var resp = await _loggedInClient.GetAsync("/");
         resp.EnsureSuccessStatusCode();
         var html = await resp.Content.ReadAsStringAsync();
-        
-        _output.WriteLine(html);
         
         Assert.Contains("data-test=\"unfollow-button\"", html);
     }
