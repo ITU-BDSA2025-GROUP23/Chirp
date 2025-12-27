@@ -1,34 +1,43 @@
 name: Deploy Chirp CSVDB Service (remote DB)
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "main" ]
-  workflow_dispatch:
+    paths:
+      - "src/Chirp.CSVDB.Service/**"
+      - "src/Chirp.Shared/**"
+      - ".github/workflows/deploy-remote-db.yml"
+
+env:
+  AZURE_WEBAPP_NAME: bdsagroup23chirpremotedb-ewbqerfhfrekapa6
+  DOTNET_VERSION: "8.0.x"
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "8.0.x"
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Restore
-        run: dotnet restore
+        run: dotnet restore src/Chirp.CSVDB.Service/Chirp.CSVDB.Service.csproj
 
       - name: Build
         run: dotnet build src/Chirp.CSVDB.Service/Chirp.CSVDB.Service.csproj -c Release --no-restore
 
       - name: Publish
-        run: dotnet publish src/Chirp.CSVDB.Service/Chirp.CSVDB.Service.csproj -c Release -o ${{ github.workspace }}/publish --no-build
+        run: dotnet publish src/Chirp.CSVDB.Service/Chirp.CSVDB.Service.csproj -c Release -o ${{ github.workspace }}/publish
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: bdsagroup23chirpremotedb-ewbqerfhfrekapa6
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_REMOTE_DB_PUBLISH_PROFILE }}
           package: ${{ github.workspace }}/publish
