@@ -15,6 +15,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\SimpleDB\SimpleDB.csproj" />
+        <ProjectReference Include="..\Chirp.Shared\Chirp.Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>

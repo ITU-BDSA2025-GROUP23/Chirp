@@ -31,3 +31,7 @@ project.fragment.lock.json
 # OS cruft
 .DS_Store
 Thumbs.db
+
+# .NET build output
+**/bin/
+**/obj/
