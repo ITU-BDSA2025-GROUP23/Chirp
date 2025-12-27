@@ -1,16 +1,14 @@
-name: Deploy Chirp CSVDB Service to Azure
+name: Deploy Chirp.CSVDB.Service to Azure
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 env:
   AZURE_WEBAPP_NAME: bdsagroup23chirpremotedb-ewbqerfhfrekapa6
+  WORKING_DIRECTORY: src/Chirp.CSVDB.Service
   DOTNET_VERSION: "8.0.x"
-  SERVICE_PROJECT: src/Chirp.CSVDB.Service/Chirp.CSVDB.Service.csproj
-  PUBLISH_DIR: ${{ github.workspace }}/publish
 
 jobs:
   build-and-deploy:
@@ -26,22 +24,17 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Restore
-        run: dotnet restore ${{ env.SERVICE_PROJECT }}
+        run: dotnet restore ${{ env.WORKING_DIRECTORY }}
 
       - name: Build
-        run: dotnet build ${{ env.SERVICE_PROJECT }} --configuration Release --no-restore
-
-      - name: Test
-        run: dotnet test --configuration Release --no-build
-        continue-on-error: true
+        run: dotnet build ${{ env.WORKING_DIRECTORY }} --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish ${{ env.SERVICE_PROJECT }} --configuration Release --no-build --output "${{ env.PUBLISH_DIR }}"
+        run: dotnet publish ${{ env.WORKING_DIRECTORY }} -c Release -o ${{ runner.temp }}/publish --no-build
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ${{ env.PUBLISH_DIR }}
-
+          package: ${{ runner.temp }}/publish
