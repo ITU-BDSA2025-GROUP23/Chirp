@@ -1,0 +1,49 @@
+name: Deploy Chirp CSVDB Service (remote DB)
+
+on:
+  push:
+    branches: [ "Chirp-cli-Azure" ]   # change to "main" if you deploy from main
+    paths:
+      - "src/Chirp.CSVDB.Service/**"
+      - "src/Chirp.Shared/**"
+      - ".github/workflows/deploy-remotedb.yml"
+  workflow_dispatch:
+
+env:
+  AZURE_WEBAPP_NAME: bdsagroup23chirpremotedb-ewbqerfhfrekapa6
+  DOTNET_VERSION: "8.0.x"
+  PROJECT_PATH: src/Chirp.CSVDB.Service/Chirp.CSVDB.Service.csproj
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore
+        run: dotnet restore ${{ env.PROJECT_PATH }}
+
+      - name: Build
+        run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
+
+      - name: Publish
+        run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -o ${{ github.workspace }}/publish
+
+      - name: Sanity check publish output
+        run: |
+          echo "Published files:"
+          ls -lah ${{ github.workspace }}/publish
+          echo "runtimeconfig files:"
+          find ${{ github.workspace }}/publish -name "*.runtimeconfig.json" -maxdepth 2 -print
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_REMOTE_DB_PUBLISH_PROFILE }}
+          package: ${{ github.workspace }}/publish
