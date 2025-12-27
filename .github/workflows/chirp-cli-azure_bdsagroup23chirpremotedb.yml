@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_NAME: bdsagroup23chirpremotedb
+  AZURE_WEBAPP_NAME: bdsagroup23chirpremotedb-ewbqerfhfrekapa6
   DOTNET_VERSION: "8.0.x"
   SERVICE_PROJECT: src/Chirp.CSVDB.Service/Chirp.CSVDB.Service.csproj
   PUBLISH_DIR: ${{ github.workspace }}/publish
@@ -44,3 +44,4 @@ jobs:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: ${{ env.PUBLISH_DIR }}
+
