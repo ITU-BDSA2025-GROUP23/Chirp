@@ -19,15 +19,24 @@
                 <li class="mb-3 border-bottom pb-2">
                     <div class="d-flex align-items-center">
                         <strong>
-                            <a href="/@cheep.AuthorName">@cheep.AuthorName</a>
+                            @if (!string.Equals(cheep.AuthorName, "Deleted user", StringComparison.Ordinal))
+                            {
+                                <a href="/@cheep.AuthorName">@cheep.AuthorName</a>
+                            }
+                            else
+                            {
+                                <span class="text-muted">@cheep.AuthorName</span>
+                            }
                         </strong>
                         @{
                             var doesFollow = Model.CurrentUser?.Following?.Any(a =>
                                 string.Equals(a.Name, cheep.AuthorName, StringComparison.OrdinalIgnoreCase)
                             ) == true;
                         }
-                        @if (User.Identity?.IsAuthenticated == true 
-                             && !string.Equals(Model.CurrentUserName, cheep.AuthorName, StringComparison.OrdinalIgnoreCase))
+                        
+                        @if (User.Identity?.IsAuthenticated == true
+                             && !string.Equals(Model.CurrentUserName, cheep.AuthorName, StringComparison.OrdinalIgnoreCase)
+                             && !string.Equals(cheep.AuthorName, "Deleted user", StringComparison.Ordinal))
                         {
                             if (!doesFollow)
 
