@@ -1,5 +1,11 @@
-# Chirp! Project Report
-## Table of Centents
+---
+title: "Chirp! Project Report"
+toc: true
+toc-title: "Table of Contents"
+toc-depth: 3
+numbersections: true
+---
+
 ## Design and architecture
 ### Domain model
 
@@ -12,13 +18,13 @@ Author represents a user in the system and is integrated with ASP.NET Identity.
 An author can create multiple cheeps, and each cheep belongs to exactly one author.
 Authors can follow other authors, forming a many-to-many relationship.
 A cheep contains textual content and a timestamp.
-All entities are persisted using Entity Framework Core via ChatDBContext.'
+All entities are persisted using Entity Framework Core via ChatDBContext.
 
 ### Architecture — In the small
 
-The follwing diagram illustrates the organization of the code base and its project dependencies.
+The following diagram illustrates the organization of the code base and its project dependencies.
 
-![Architexture - in the small](diagrams/architecture-in-the-small.pdf)
+![Architecture - in the small](diagrams/architecture-in-the-small.pdf)
 
 The application follows an onion architecture.
 The presentation layer is implemented in Chirp.Web and contains Razor Pages, page models, and authentication endpoints.
@@ -29,7 +35,7 @@ Dependencies point inward toward the core and domain layers.
 
 ### Architecture of deployed application
 
-The following diagram shows the deployed Chirp! system is compsed and how componets communicate.
+The following diagram shows the deployed Chirp! system is composed and how components communicate.
 
 ![Deployment architecture](diagrams/deployment-architecture.pdf)
 
@@ -51,9 +57,9 @@ The user can authenticate using ASP.NET Identity login functionality.
 After authentication, the user can post cheeps, follow other authors, and view personalized timelines such as MyPage and FollowingTimeline.
 Authenticated users can log out at any time.
 
-### Sequence of functionality/calls trough Chirp!
+### Sequence of functionality/calls through Chirp!
 
-The following sequence diagram shows the flow of an unauthenticated requesttp the root endpoint and the data retrieval required to render the page.
+The following sequence diagram shows the flow of an unauthenticated request to the root endpoint and the data retrieval required to render the page.
 
 ![Sequence diagram: GET /](diagrams/sequence-of-functionality.pdf)
 
@@ -88,12 +94,19 @@ The repository is cloned from GitHub.
 Dependencies are restored using dotnet restore.
 The database is initialized using Entity Framework Core migrations.
 The application is started using dotnet run from the Chirp.Web project.
-The application is accessible in a web browser on the configured local port.' OBS potentially add user secrets not sure if it works without.
+The application is accessible in a web browser on the configured local port.
 
 ### How to run test suite locally
-List all necessary steps that Adrian or Helge have to perform to execute your test suites. Here, you can assume that we already cloned your repository in the step above.
+To run the test suite locally, execute the following command from the root of the repository:
 
-Briefly describe what kinds of tests you have in your test suites and what they are testing.
+```bash
+dotnet test
+```
+
+The test suite includes:
+- **Unit tests**: Testing individual components in isolation (e.g., repository methods).
+- **Integration tests**: Testing the interaction between multiple components and the database.
+- **UI/End-to-End tests**: Testing the application from a user's perspective using Playwright.
 
 ## Ethics
 ### License
