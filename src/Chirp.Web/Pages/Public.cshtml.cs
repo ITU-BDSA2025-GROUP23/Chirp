@@ -18,6 +18,7 @@ public class PublicModel : PaginationModel
     public int TotalCheeps { get; private set; }
     public int NumberOfCheeps => Cheeps.Count;
     public int TotalPages => (int)System.Math.Ceiling((double)TotalCheeps / PageSize);
+	public bool isLiked = false;
     
     public string? CurrentUserName { get; set; }
     
@@ -64,17 +65,11 @@ public class PublicModel : PaginationModel
         Cheeps = _service.GetPaginatedCheepsDTO(CurrentPage, PageSize);
         return Page();
         
-
+		isLiked = HttpContext.Session.GetString("isLiked") == "true";
     }
     
     public IActionResult OnPostFollow(string authorName)
     {
-        /*
-        if (CurrentUser == null)
-        {
-            return RedirectToPage("/postCheep");
-        }
-        */
         CurrentUser = _service.GetAuthorByEmail(User.Identity.Name);
         
         var authorToFollow = _service.GetAuthorByName(authorName);
@@ -110,4 +105,9 @@ public class PublicModel : PaginationModel
 
         return RedirectToPage("/Public", new { p = CurrentPage });
     }
+	public IActionResult OnPostLiked(int CheepId)
+    {
+		isLiked = !isLiked;
+    return RedirectToPage("/Public", new { p = CurrentPage });
+	}
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <title>@ViewData["Title"]</title>
-    <link href="/css/style2.css" rel="stylesheet" type="text/css" />
+    <link href="/css/style2.css?v=2" rel="stylesheet" type="text/css" />
     <link rel="icon" type="image/png" href="/favicon/favicon2.ico">
 </head>
 <body>
@@ -28,8 +28,7 @@
                     <button type="submit">logout [@name]</button>
                 </form> |
                 <a asp-page="/FollowingTimeline" >Following Timelie</a> |
-                <a asp-page="/MyPage">My Page</a> |
-			
+                <a asp-page="/MyPage">My Page</a> 
             </div>
         }
         else
@@ -41,7 +40,6 @@
             </div>
         }
     </div>
-
     <div class="body">
         @RenderBody()
     </div>

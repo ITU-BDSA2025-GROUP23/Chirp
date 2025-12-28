@@ -18,9 +18,6 @@
             {
                 <li class="mb-3 border-bottom pb-2">
                     <div class="d-flex align-items-center">
-                        <strong>
-                            <a href="/@cheep.AuthorName">@cheep.AuthorName</a>
-                        </strong>
                         @if (User.Identity?.IsAuthenticated == true 
                              && User.Identity.Name != cheep.AuthorName && Model.CurrentUserName != cheep.AuthorName)
                         {   
@@ -28,14 +25,14 @@
                                               Model.CurrentUser.Following.Any(a => a.Name == cheep.AuthorName);
                             
                             if (!DoesFollow)
-                        {
-                        <form method="post" asp-page-handler="Follow" class="ms-2">
+                        	{
+                        	<form method="post" asp-page-handler="Follow" class="ms-2">
                             <input type="hidden" name="authorName" value="@cheep.AuthorName"/>
                             <button type="submit" class="btn btn-outline-primary btn-sm follow-btn">
                                 Follow
                             </button>
-                        </form>
-                        }
+                        	</form>
+                        	}
                             else 
                             {
                                 <form method="post" asp-page-handler="Unfollow" class="ms-2">
@@ -47,12 +44,36 @@
                                 </form>
 
                             }
+                            
+                            <strong>
+                                <a href="/@cheep.AuthorName">@cheep.AuthorName</a>
+                            </strong>
+                            
+                            <p class="mb-1">
+                                @cheep.Text
+                                <small class="text-muted">— @cheep.TimeIso</small>
+                            </p>
+                            
+                            <div style="margin-top:4px;">
+                           	<form method="post" asp-page-handler="Liked" class="ms-2">
+                                <button class="bball-like" title="Like" type="submit">
+                                    <span class="@(Model.isLiked ? "bball" : "bball-liked")"></span>
+                                </button>
+							</form>
+                            </div>
+                        }
+                        else
+                        {   
+                            <strong>
+                                <a href="/@cheep.AuthorName">@cheep.AuthorName</a>
+                            </strong>
+                            
+                            <p class="mb-1">
+                                @cheep.Text
+                                <small class="text-muted">— @cheep.TimeIso</small>
+                            </p>
                         }
                     </div>
-                    <p class="mb-1">
-                        @cheep.Text
-                        <small class="text-muted">— @cheep.TimeIso</small>
-                    </p>
                 </li>
 
 
