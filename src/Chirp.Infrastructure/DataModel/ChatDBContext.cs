@@ -28,8 +28,8 @@ public class ChatDBContext : IdentityDbContext<IdentityUser>
             .IsUnique();
         
         modelBuilder.Entity<Cheep>()
-            .HasMany(a => a.Likes)
-            .WithMany()
+            .HasMany(c => c.Likes)
+            .WithMany(a => a.Liked)
             .UsingEntity<Dictionary<string, object>>(
                 "CheepLikes",
                     j => j
@@ -42,7 +42,7 @@ public class ChatDBContext : IdentityDbContext<IdentityUser>
                         .HasOne<Cheep>()
                         .WithMany()
                         .HasForeignKey("CheepId")
-                        .HasPrincipalKey(a => a.CheepId)
+                        .HasPrincipalKey(c => c.CheepId)
                         .OnDelete(DeleteBehavior.Cascade),
                     j =>
                         {
@@ -52,12 +52,11 @@ public class ChatDBContext : IdentityDbContext<IdentityUser>
                         
             );
         
-        
         modelBuilder.Entity<Author>()
             .HasMany(a => a.Followers)
             .WithMany(a => a.Following)
             .UsingEntity<Dictionary<string, object>>(
-                "AuhtorFollow",
+                "AuthorFollow",
                 j => j
                     .HasOne<Author>()
                     .WithMany()

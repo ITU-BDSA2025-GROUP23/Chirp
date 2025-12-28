@@ -16,27 +16,27 @@
         <ul id="messagelist" class="cheeps list-unstyled">
             @foreach (var cheep in Model.Cheeps)
             {
-                <li class="mb-3 border-bottom pb-2">
+                <li id="cheep-@cheep.Id" class="mb-3 border-bottom pb-2">
                     <div class="d-flex align-items-center">
-                        @if (User.Identity?.IsAuthenticated == true 
+                        @if (User.Identity?.IsAuthenticated == true
                              && User.Identity.Name != cheep.AuthorName && Model.CurrentUserName != cheep.AuthorName)
-                        {   
+                        {
                             bool DoesFollow = Model.CurrentUser != null &&
                                               Model.CurrentUser.Following.Any(a => a.Name == cheep.AuthorName);
-                            
+
                             if (!DoesFollow)
-                        	{
-                        	<form method="post" asp-page-handler="Follow" class="ms-2">
-                            <input type="hidden" name="authorName" value="@cheep.AuthorName"/>
-                            <button type="submit" class="btn btn-outline-primary btn-sm follow-btn">
-                                Follow
-                            </button>
-                        	</form>
-                        	}
-                            else 
+                            {
+                                <form method="post" asp-page-handler="Follow" class="ms-2">
+                                    <input type="hidden" name="authorName" value="@cheep.AuthorName"/>
+                                    <button type="submit" class="btn btn-outline-primary btn-sm follow-btn">
+                                        Follow
+                                    </button>
+                                </form>
+                            }
+                            else
                             {
                                 <form method="post" asp-page-handler="Unfollow" class="ms-2">
-                                    <input type="hidden" name="authorName" value="@cheep.AuthorName" />
+                                    <input type="hidden" name="authorName" value="@cheep.AuthorName"/>
                                     <button type="submit" class="btn btn-outline-danger btn-sm follow-btn"
                                             style="color: rebeccapurple; border-color: rebeccapurple;">
                                         Unfollow
@@ -44,30 +44,43 @@
                                 </form>
 
                             }
-                            
+
                             <strong>
                                 <a href="/@cheep.AuthorName">@cheep.AuthorName</a>
                             </strong>
-                            
+
                             <p class="mb-1">
                                 @cheep.Text
                                 <small class="text-muted">— @cheep.TimeIso</small>
                             </p>
-                            
+
+                            bool isLiked = Model.CurrentUser != null &&
+                                           Model.CurrentUser.Liked.Any(l => l.CheepId == cheep.Id);
+
                             <div style="margin-top:4px;">
-                           	<form method="post" asp-page-handler="Liked" class="ms-2">
-                                <button class="bball-like" title="Like" type="submit">
-                                    <span class="@(Model.isLiked ? "bball" : "bball-liked")"></span>
-                                </button>
-							</form>
+                                <form method="post"
+                                      asp-page-handler="Liked"
+                                      class="ms-2"
+                                      style="display:inline-flex; align-items:center; gap:6px;">
+        
+                                    <input type="hidden" name="id" value="@cheep.Id"/>
+
+                                    <button class="bball-like" title="Like" type="submit">
+                                        <span class="@(isLiked ? "bball-liked" : "bball")"></span>
+                                    </button>
+
+                                    <span class="like-text">
+                                        @(isLiked ? "Unlike" : "Like")
+                                    </span>
+                                </form>
                             </div>
                         }
                         else
-                        {   
+                        {
                             <strong>
                                 <a href="/@cheep.AuthorName">@cheep.AuthorName</a>
                             </strong>
-                            
+
                             <p class="mb-1">
                                 @cheep.Text
                                 <small class="text-muted">— @cheep.TimeIso</small>

@@ -3,6 +3,7 @@ using System.Linq;
 using Chirp.Infrastructure.DataModel;
 using Chirp.Core.DTOs;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace Chirp.Infrastructure.Repositories;
 
@@ -33,6 +34,8 @@ namespace Chirp.Infrastructure.Repositories;
         public List<Author> GetFollowers(string authorName);
         
         public Author GetCheepsAuthor(Cheep cheep);
+        public Cheep GetCheepById(int id);
+        public void Like(Cheep cheep, Author author);
     }
 
 
@@ -54,6 +57,7 @@ public class CheepRepository : ICheepRepository
     {
         return _context.Cheeps
             .Include(c => c.Author)
+            .Include(c => c.Likes)
             .AsNoTracking()
             .OrderByDescending(c => c.TimeStamp)
             .ThenByDescending(c => c.CheepId)
@@ -185,6 +189,7 @@ public class CheepRepository : ICheepRepository
         return _context.Authors
             .Include(a => a.Followers)
             .Include(a => a.Following)
+            .Include(a => a.Liked) 
             .FirstOrDefault(a => a.Name == userName);
     }
     
@@ -193,6 +198,7 @@ public class CheepRepository : ICheepRepository
         return _context.Authors
             .Include(a => a.Followers)
             .Include(a => a.Following)
+            .Include(a => a.Liked) 
             .FirstOrDefault(a => a.Email == email);
     }
     
@@ -237,7 +243,31 @@ public class CheepRepository : ICheepRepository
 
         _context.Cheeps.Add(cheep);
         _context.SaveChanges();
-    } 
+    }
+
+    public Cheep GetCheepById(int id)
+    {
+        return _context.Cheeps
+            .Include(c => c.Likes)
+            .FirstOrDefault(c => c.CheepId == id);
+    }
+    
+    public void Like(Cheep cheep, Author author)
+    {
+        var alreadyLiked = author.Liked.FirstOrDefault(c => c.CheepId == cheep.CheepId);
+
+        if (alreadyLiked == null)
+        {
+            author.Liked.Add(cheep);  
+            cheep.Likes.Add(author);
+        }
+        else
+        {
+            author.Liked.Remove(alreadyLiked);
+            cheep.Likes.Remove(author);
+        }
+        
+    }
 }
 
 

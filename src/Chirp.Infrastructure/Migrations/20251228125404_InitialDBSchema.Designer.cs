@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Chirp.Infrastructure.Migrations
 {
     [DbContext(typeof(ChatDBContext))]
-    [Migration("20251222175127_InitialDBSchema")]
+    [Migration("20251228125404_InitialDBSchema")]
     partial class InitialDBSchema
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace Chirp.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
 
-            modelBuilder.Entity("AuhtorFollow", b =>
+            modelBuilder.Entity("AuthorFollow", b =>
                 {
                     b.Property<string>("FollowerEmail")
                         .HasColumnType("TEXT");
@@ -292,7 +292,7 @@ namespace Chirp.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("AuhtorFollow", b =>
+            modelBuilder.Entity("AuthorFollow", b =>
                 {
                     b.HasOne("Chirp.Infrastructure.DataModel.Author", null)
                         .WithMany()
