@@ -144,7 +144,7 @@ public class CheepRepository : ICheepRepository
             .Skip((currentPage - 1) * pageSize)
             .Take(pageSize)
             .ToList();
-        }
+    }
 
     public List<CheepDTO> GetPaginatedCheepsDTO(int currentPage, int pageSize, string? author = null)
     {
@@ -236,7 +236,7 @@ public class CheepRepository : ICheepRepository
         var cheep = new Cheep
         {
             Text = text,
-            TimeStamp = DateTime.UtcNow,
+            TimeStamp = DateTime.Now,
             Author = author
 
         };
