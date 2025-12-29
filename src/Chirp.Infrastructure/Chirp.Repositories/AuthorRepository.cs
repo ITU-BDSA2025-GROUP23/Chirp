@@ -13,7 +13,9 @@ public interface IAuthorRepository
     public void Follow(Author author,Author wantFollow);
     
     public void UnFollow(Author author,Author wantunFollow);
-    
+
+    public void DeleteAuthor(Author author);
+
 }
 
 
@@ -30,9 +32,10 @@ public class AuthorRepository : IAuthorRepository
     {
         _context.SaveChanges();
     }
+
     public void Follow(Author author,Author wantFollow)
     {
-        if (author != null || wantFollow != null)
+        if (author != null && wantFollow != null)
         {
             author.Following.Add(wantFollow);
             wantFollow.Followers.Add(author);    
@@ -41,10 +44,28 @@ public class AuthorRepository : IAuthorRepository
 
     public void UnFollow(Author author, Author wantunFollow)
     {
-        if (author != null || wantunFollow != null)
+        if (author != null && wantunFollow != null)
         {
             author.Following.Remove(wantunFollow);
             wantunFollow.Followers.Remove(author);    
         }
+    }
+
+    public void DeleteAuthor(Author author)
+    {
+        author.Name = "Deleted user"; 
+        author.Email = $"{Guid.NewGuid()}@deleted.local"; 
+        _context.Authors.Update(author);
+        
+        foreach (var cheep in author.Cheeps)
+        {
+            cheep.Text = "*This take has been deleted*";
+        }
+
+        foreach (var autWantUnFollow in author.Following)
+        {
+            UnFollow(author, autWantUnFollow);
+        }
+        
     }
 }

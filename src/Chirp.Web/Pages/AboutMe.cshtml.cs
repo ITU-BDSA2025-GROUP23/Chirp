@@ -102,10 +102,8 @@ public class AboutMeModel : PageModel
         var author = _repository.GetAuthorByEmail(user.Email!);
         if (author != null)
         {
-            author.Name = "Deleted user";
-            author.Email = $"{Guid.NewGuid()}@deleted.local";
-            _db.Authors.Update(author);
-        }
+			_authorRepo.DeleteAuthor(author);
+		}
 
         var externalLogins = await _userManager.GetLoginsAsync(user);
         foreach (var login in externalLogins)

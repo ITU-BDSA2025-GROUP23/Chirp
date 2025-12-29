@@ -190,6 +190,7 @@ public class CheepRepository : ICheepRepository
             .Include(a => a.Followers)
             .Include(a => a.Following)
             .Include(a => a.Liked) 
+            .Include(a => a.Cheeps)
             .FirstOrDefault(a => a.Name == userName);
     }
     
@@ -199,6 +200,7 @@ public class CheepRepository : ICheepRepository
             .Include(a => a.Followers)
             .Include(a => a.Following)
             .Include(a => a.Liked) 
+            .Include(a => a.Cheeps)
             .FirstOrDefault(a => a.Email == email);
     }
     
