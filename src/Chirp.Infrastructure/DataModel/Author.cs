@@ -15,4 +15,5 @@ public class Author
     
     public ICollection<Author> Following { get; set; } = new List<Author>();
     
+    public ICollection<Cheep> Liked { get; set; } = new List<Cheep>();
 }

@@ -20,6 +20,10 @@ public class PublicModel : PaginationModel
     public int TotalPages => (int)System.Math.Ceiling((double)TotalCheeps / PageSize);
     
     public string? CurrentUserName { get; set; }
+
+    public Cheep chp;
+    
+    
     
     public PublicModel(ICheepRepository service,IAuthorRepository authorRepository )
     {
@@ -50,7 +54,6 @@ public class PublicModel : PaginationModel
             CurrentUserName = null;
         }
         
-        
         if (int.TryParse(Request.Query["p"], out var p) && p > 0) CurrentPage = p;
         else
             CurrentPage = 1;
@@ -61,18 +64,12 @@ public class PublicModel : PaginationModel
         if (CurrentPage > lastPage) CurrentPage = lastPage;
 
         Cheeps = _service.GetPaginatedCheepsDTO(CurrentPage, PageSize);
-        return Page();
         
+        return Page();
     }
     
     public IActionResult OnPostFollow(string authorName)
     {
-        /*
-        if (CurrentUser == null)
-        {
-            return RedirectToPage("/postCheep");
-        }
-        */
         CurrentUser = _service.GetAuthorByEmail(User.Identity.Name);
         
         var authorToFollow = _service.GetAuthorByName(authorName);
@@ -108,4 +105,14 @@ public class PublicModel : PaginationModel
 
         return RedirectToPage("/Public", new { p = CurrentPage });
     }
+	public IActionResult OnPostLiked(int id)
+    {
+        var Cheep = _service.GetCheepById(id);
+        
+        CurrentUser = _service.GetAuthorByEmail(User.Identity!.Name!);
+        _service.Like(Cheep, CurrentUser);
+        _service.SaveChanges();
+        
+    return RedirectToPage("/Public", null, new { p = CurrentPage }, $"cheep-{id}");
+	}
 }

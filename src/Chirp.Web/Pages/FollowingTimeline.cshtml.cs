@@ -6,6 +6,7 @@ using Chirp.Core.DTOs;
 using Chirp.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Chirp.Infrastructure.DataModel;
 
 
 
@@ -20,8 +21,9 @@ public class FollowingTimelineModel : PaginationModel
     public List<CheepDTO> Cheeps { get; set; } = new();
     public int TotalCheeps { get; private set; }
     public int TotalPages => (int)Math.Ceiling((double)TotalCheeps / PageSize);
-    
     public List<CheepDTO>  AllCheeps = new List<CheepDTO>();
+    
+    public Author? CurrentUser { get; set; }
     public FollowingTimelineModel(ICheepRepository service,IAuthorRepository authorRepository )
     {
         _service = service;
@@ -71,12 +73,17 @@ public class FollowingTimelineModel : PaginationModel
                 .Take(PageSize)
                 .ToList();
             
+            CurrentUser = _service.GetAuthorByEmail(User.Identity!.Name!);
             return Page(); 
     }
     
     public IActionResult OnPostUnfollow(string authorName)
     {
-        var CurrentUser = _service.GetAuthorByName(User.Identity.Name);
+        CurrentUser = _service.GetAuthorByName(User.Identity.Name);
+        if (CurrentUser == null)
+        {
+            CurrentUser = _service.GetAuthorByEmail(User.Identity!.Name!);
+        }
         
         var authorToUnfollow = _service.GetAuthorByName(authorName);
         
@@ -89,8 +96,19 @@ public class FollowingTimelineModel : PaginationModel
                 _authorRepository.SaveChanges();
             }
         }
-
+        
         return RedirectToPage("/Public", new { p = CurrentPage });
+    }
+    
+    public IActionResult OnPostLiked(int id)
+    {
+        var Cheep = _service.GetCheepById(id);
+        
+        CurrentUser = _service.GetAuthorByEmail(User.Identity!.Name!);
+        _service.Like(Cheep, CurrentUser);
+        _service.SaveChanges();
+        
+        return RedirectToPage("/FollowingTimeline", null, new { p = CurrentPage }, $"cheep-{id}");
     }
 }
 

@@ -17,12 +17,36 @@
         <ul id="messagelist" class="cheeps list-unstyled">
             @foreach (var cheep in Model.Cheeps)
             {
-                <li class="mb-3 border-bottom pb-2">
-                    <p class="mb-1">
-                        <strong><a href="/@cheep.AuthorName">@cheep.AuthorName</a></strong>
-                        @cheep.Text
-                        <small class="text-muted">— @cheep.TimeIso</small>
-                    </p>
+                <li id="cheep-@cheep.Id" class="mb-3 border-bottom pb-2">
+                    <div class="d-flex align-items-center">
+                        <p class="mb-1">
+                            <strong><a href="/@cheep.AuthorName">@cheep.AuthorName</a></strong>
+                            @cheep.Text
+                            <small class="text-muted">— @cheep.TimeIso</small>
+                        </p>
+                        @if (Model.CurrentUserName != Model.AuthorName)
+                        {
+                            bool isLiked = Model.CurrentUser != null &&
+                                           Model.CurrentUser.Liked.Any(l => l.CheepId == cheep.Id);  
+                            <div style="margin-top:4px;">
+                                <form method="post"
+                                      asp-page-handler="Liked"
+                                      class="ms-2"
+                                      style="display:inline-flex; align-items:center; gap:6px;">
+
+                                    <input type="hidden" name="id" value="@cheep.Id"/>
+
+                                    <button class="bball-like" title="Like" type="submit">
+                                        <span class="@(isLiked ? "bball-liked" : "bball")"></span>
+                                    </button>
+
+                                    <span class="like-text">
+                                        @(isLiked ? "Unlike" : "Like")
+                                    </span>
+                                </form>
+                            </div>
+                        }
+                    </div>
                 </li>
             }
         </ul>
@@ -40,6 +64,8 @@
     }
     else
     {
-        <em>There are no cheeps so far.</em>
+        <div class="behind-headline">
+            <em>There are no cheeps so far.</em>
+        </div>
     }
 </div>

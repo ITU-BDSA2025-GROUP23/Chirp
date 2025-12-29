@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Chirp.Infrastructure.Migrations
 {
     [DbContext(typeof(ChatDBContext))]
-    [Migration("20251205100224_InitialDBSchema")]
+    [Migration("20251228125404_InitialDBSchema")]
     partial class InitialDBSchema
     {
         /// <inheritdoc />
@@ -20,19 +20,34 @@ namespace Chirp.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
 
-            modelBuilder.Entity("AuthorAuthor", b =>
+            modelBuilder.Entity("AuthorFollow", b =>
                 {
-                    b.Property<int>("FollowersAuthorId")
+                    b.Property<string>("FollowerEmail")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FolloweeEmail")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("FollowerEmail", "FolloweeEmail");
+
+                    b.HasIndex("FolloweeEmail");
+
+                    b.ToTable("AuthorFollow", (string)null);
+                });
+
+            modelBuilder.Entity("CheepLikes", b =>
+                {
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CheepId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("FollowingAuthorId")
-                        .HasColumnType("INTEGER");
+                    b.HasKey("Email", "CheepId");
 
-                    b.HasKey("FollowersAuthorId", "FollowingAuthorId");
+                    b.HasIndex("CheepId");
 
-                    b.HasIndex("FollowingAuthorId");
-
-                    b.ToTable("AuthorAuthor");
+                    b.ToTable("CheepLikes", (string)null);
                 });
 
             modelBuilder.Entity("Chirp.Infrastructure.DataModel.Author", b =>
@@ -50,6 +65,9 @@ namespace Chirp.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("AuthorId");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("Authors");
                 });
@@ -274,17 +292,35 @@ namespace Chirp.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("AuthorAuthor", b =>
+            modelBuilder.Entity("AuthorFollow", b =>
                 {
                     b.HasOne("Chirp.Infrastructure.DataModel.Author", null)
                         .WithMany()
-                        .HasForeignKey("FollowersAuthorId")
+                        .HasForeignKey("FolloweeEmail")
+                        .HasPrincipalKey("Email")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Chirp.Infrastructure.DataModel.Author", null)
                         .WithMany()
-                        .HasForeignKey("FollowingAuthorId")
+                        .HasForeignKey("FollowerEmail")
+                        .HasPrincipalKey("Email")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CheepLikes", b =>
+                {
+                    b.HasOne("Chirp.Infrastructure.DataModel.Cheep", null)
+                        .WithMany()
+                        .HasForeignKey("CheepId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Chirp.Infrastructure.DataModel.Author", null)
+                        .WithMany()
+                        .HasForeignKey("Email")
+                        .HasPrincipalKey("Email")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
