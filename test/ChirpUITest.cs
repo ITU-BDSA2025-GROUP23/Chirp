@@ -31,7 +31,7 @@ public class ChirpUITest : IClassFixture<TestingWebApplicationFactory>
         });
         _loggedInClient.DefaultRequestHeaders.Add("X-Test-User", "test@example.com");
     }
-
+    
     [Fact]
     public async Task LogInBeforePost()
     {
@@ -51,13 +51,14 @@ public class ChirpUITest : IClassFixture<TestingWebApplicationFactory>
         var html = await response.Content.ReadAsStringAsync();
 
         // Assert
-        Assert.Contains("Post a Cheep!", html);
-        Assert.Contains("What's on your mind?", html);
+        Assert.Contains("Post a Take!", html);
+        Assert.Contains("What's your HOT TAKE?", html);
         Assert.Contains("<form method=\"post\"", html);
         Assert.Contains("name=\"Message\"", html);
         Assert.Contains("type=\"submit\"", html);
-        Assert.Contains(">POST</button>", html);
+        Assert.Contains(">POST</b></button>", html);
     }
+    
     [Fact]
     public async Task PostEndsUpInCheeps()
     {
@@ -118,4 +119,63 @@ public class ChirpUITest : IClassFixture<TestingWebApplicationFactory>
         var redirect = Assert.IsType<RedirectToPageResult>(result);
         Assert.Equal("/MyPage", redirect.PageName);
     }
+
+    [Fact]
+    public async Task Follow_UnfollowButtonTest()
+    {
+        
+        using var scope = _factory.Services.CreateScope();
+        var repo = scope.ServiceProvider.GetRequiredService<ICheepRepository>();
+        
+        repo.CreateAuthor("other", "other@example.dk");
+        repo.CreateCheep("other", "other@example.dk", "This is a Test");
+
+        var resp = await _client.GetAsync("/");
+        resp.EnsureSuccessStatusCode();
+        var html = await resp.Content.ReadAsStringAsync();
+
+        Assert.DoesNotContain("data-test=\"follow-button\"", html);
+        Assert.DoesNotContain("data-test=\"unfollow-button\"", html);
+        
+    }
+
+    [Fact]
+    public async Task Logged_InFollowButtonTest()
+    {
+        using var scope = _factory.Services.CreateScope();
+        var repo = scope.ServiceProvider.GetRequiredService<ICheepRepository>();
+
+        repo.CreateAuthor("test", "test@example.com");
+        repo.CreateCheep("other", "other@example.dk", "This is a Test");
+
+        var resp = await _loggedInClient.GetAsync("/");
+        resp.EnsureSuccessStatusCode();
+        var html = await resp.Content.ReadAsStringAsync();
+        
+        Assert.Contains("data-test=\"follow-button\"", html);
+        Assert.DoesNotContain("data-test=\"unfollow-button\"", html);
+    }
+
+    [Fact]
+    public async Task UnfollowOnFollowedUserTest()
+    {
+        using var scope = _factory.Services.CreateScope();
+        var cheepRepo = scope.ServiceProvider.GetRequiredService<ICheepRepository>();
+        var authorRepo = scope.ServiceProvider.GetRequiredService<IAuthorRepository>();
+
+        var test = cheepRepo.GetAuthorByEmail("test@example.com");
+        var other = cheepRepo.CreateAuthor("other", "other@example.dk");
+        cheepRepo.CreateCheep("other", "other@example.dk", "This is a Test");
+        cheepRepo.SaveChanges();
+        
+        authorRepo.Follow(test, other);
+        authorRepo.SaveChanges();
+        
+        var resp = await _loggedInClient.GetAsync("/");
+        resp.EnsureSuccessStatusCode();
+        var html = await resp.Content.ReadAsStringAsync();
+        
+        Assert.Contains("data-test=\"unfollow-button\"", html);
+    }
+    
 }

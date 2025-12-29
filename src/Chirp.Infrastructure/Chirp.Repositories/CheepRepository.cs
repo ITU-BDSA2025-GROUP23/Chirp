@@ -185,6 +185,7 @@ public class CheepRepository : ICheepRepository
         return _context.Authors
             .Include(a => a.Followers)
             .Include(a => a.Following)
+            .Include(a => a.Cheeps)
             .FirstOrDefault(a => a.Name == userName);
     }
     
@@ -193,6 +194,7 @@ public class CheepRepository : ICheepRepository
         return _context.Authors
             .Include(a => a.Followers)
             .Include(a => a.Following)
+            .Include(a => a.Cheeps)
             .FirstOrDefault(a => a.Email == email);
     }
     

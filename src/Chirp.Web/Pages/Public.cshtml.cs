@@ -51,7 +51,6 @@ public class PublicModel : PaginationModel
         }
         
         
-        
         if (int.TryParse(Request.Query["p"], out var p) && p > 0) CurrentPage = p;
         else
             CurrentPage = 1;
@@ -64,7 +63,6 @@ public class PublicModel : PaginationModel
         Cheeps = _service.GetPaginatedCheepsDTO(CurrentPage, PageSize);
         return Page();
         
-
     }
     
     public IActionResult OnPostFollow(string authorName)

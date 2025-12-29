@@ -19,31 +19,48 @@
                 <li class="mb-3 border-bottom pb-2">
                     <div class="d-flex align-items-center">
                         <strong>
-                            <a href="/@cheep.AuthorName">@cheep.AuthorName</a>
+                            @if (!string.Equals(cheep.AuthorName, "Deleted user", StringComparison.Ordinal))
+                            {
+                                <a href="/@cheep.AuthorName">@cheep.AuthorName</a>
+                            }
+                            else
+                            {
+                                <span class="text-muted">@cheep.AuthorName</span>
+                            }
                         </strong>
-                        @if (User.Identity?.IsAuthenticated == true 
-                             && User.Identity.Name != cheep.AuthorName && Model.CurrentUserName != cheep.AuthorName)
-                        {   
-                            bool DoesFollow = Model.CurrentUser != null &&
-                                              Model.CurrentUser.Following.Any(a => a.Name == cheep.AuthorName);
-                            
-                            if (!DoesFollow)
+                        @{
+                            var doesFollow = Model.CurrentUser?.Following?.Any(a =>
+                                string.Equals(a.Name, cheep.AuthorName, StringComparison.OrdinalIgnoreCase)
+                            ) == true;
+                        }
+                        
+                        @if (User.Identity?.IsAuthenticated == true
+                             && !string.Equals(Model.CurrentUserName, cheep.AuthorName, StringComparison.OrdinalIgnoreCase)
+                             && !string.Equals(cheep.AuthorName, "Deleted user", StringComparison.Ordinal))
                         {
+                            if (!doesFollow)
+
+                            {
                         <form method="post" asp-page-handler="Follow" class="ms-2">
                             <input type="hidden" name="authorName" value="@cheep.AuthorName"/>
-                            <button type="submit" class="btn btn-outline-primary btn-sm follow-btn">
+                            <button type="submit"
+                                    class="btn btn-outline-primary btn-sm follow-btn"
+                                    data-test="follow-button">
                                 Follow
                             </button>
+
                         </form>
                         }
                             else 
                             {
                                 <form method="post" asp-page-handler="Unfollow" class="ms-2">
                                     <input type="hidden" name="authorName" value="@cheep.AuthorName" />
-                                    <button type="submit" class="btn btn-outline-danger btn-sm follow-btn"
-                                            style="color: rebeccapurple; border-color: rebeccapurple;">
+                                    <button type="submit"
+                                            class="btn btn-outline-danger btn-sm follow-btn"
+                                            data-test="unfollow-button">
                                         Unfollow
                                     </button>
+
                                 </form>
 
                             }
