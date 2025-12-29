@@ -16,7 +16,7 @@ input[type="email"],
 input[type="text"],
 input[type="tel"],
 input[type="password"] {
-    background: #9d0bb3;
+    background: #ffffff;
     border: 1px solid #e8ca33;
     padding: 2px;
     font-family: 'Trebuchet MS', sans-serif;
@@ -51,6 +51,9 @@ div.page {
 }
 
 div.page > h1 {
+    position: Sticky;
+    top: 0;
+    z-index: 2000;
     background: #e8ca33;
     margin: 0;
     padding: 10px 14px;
@@ -66,6 +69,9 @@ div.page h1 img {
 }
 
 div.page div.navigation {
+    position: Sticky;
+    top: 100px;
+    z-index: 2000;
     background: #DEE9E8;
     padding: 4px 10px;
     border-top: 1px solid #ccc;
@@ -131,6 +137,7 @@ div.page ul.cheeps {
 }
 
 div.page ul.cheeps li {
+    scroll-margin-top: 200px;
     margin: 10px 0;
     padding: 5px;
     background: #ffffff;
@@ -309,14 +316,15 @@ ul.nav li a:hover {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    padding: 10px 20px;
+    padding: 20px 40px;
     background-color: #e8ca33;
     color: white;
     border-radius: 999px;
     border: none;
     text-decoration: none;
+    font-size: 1.00rem;
     font-weight: bold;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 30px 20px 20px rgba(0,0,0,0.25);
     cursor: pointer;
     z-index: 1000;
 }
@@ -328,8 +336,16 @@ div.behind-headline {
     background-position: center;
     background-repeat: no-repeat;
     border: 1px solid #9d0bb3;
-    border-radius: 5px;
+    border-radius: 3px;
+    padding: 4px 12px;
 }
+
+div.behind-headline h2 {
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+
 .about-section {
     display: block;
     float: none;

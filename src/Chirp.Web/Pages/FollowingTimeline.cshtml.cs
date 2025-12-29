@@ -79,7 +79,11 @@ public class FollowingTimelineModel : PaginationModel
     
     public IActionResult OnPostUnfollow(string authorName)
     {
-        var CurrentUser = _service.GetAuthorByName(User.Identity.Name);
+        CurrentUser = _service.GetAuthorByName(User.Identity.Name);
+        if (CurrentUser == null)
+        {
+            CurrentUser = _service.GetAuthorByEmail(User.Identity!.Name!);
+        }
         
         var authorToUnfollow = _service.GetAuthorByName(authorName);
         

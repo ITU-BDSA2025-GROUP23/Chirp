@@ -20,6 +20,7 @@ public class UserTimelineModel : PaginationModel
     
     public int FollowersCount { get; set; }
     public Author? CurrentUser { get; set; }
+    public string CurrentUserName { get; set; }
     public UserTimelineModel(ICheepRepository service) => _service = service;
 
     public IActionResult OnGet()
@@ -39,7 +40,8 @@ public class UserTimelineModel : PaginationModel
         if (CurrentPage > lastPage) CurrentPage = lastPage;
         
         CurrentUser = _service.GetAuthorByEmail(User.Identity!.Name!);
-
+        CurrentUserName = CurrentUser.Name;
+        
         Cheeps = _service.GetPaginatedCheepsDTO(CurrentPage, PageSize, AuthorName);
         return Page();
     }

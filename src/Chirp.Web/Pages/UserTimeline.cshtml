@@ -24,29 +24,28 @@
                             @cheep.Text
                             <small class="text-muted">— @cheep.TimeIso</small>
                         </p>
-                        @{
+                        @if (Model.CurrentUserName != Model.AuthorName)
+                        {
                             bool isLiked = Model.CurrentUser != null &&
-                                           Model.CurrentUser.Liked.Any(l => l.CheepId == cheep.Id);   
+                                           Model.CurrentUser.Liked.Any(l => l.CheepId == cheep.Id);  
+                            <div style="margin-top:4px;">
+                                <form method="post"
+                                      asp-page-handler="Liked"
+                                      class="ms-2"
+                                      style="display:inline-flex; align-items:center; gap:6px;">
+
+                                    <input type="hidden" name="id" value="@cheep.Id"/>
+
+                                    <button class="bball-like" title="Like" type="submit">
+                                        <span class="@(isLiked ? "bball-liked" : "bball")"></span>
+                                    </button>
+
+                                    <span class="like-text">
+                                        @(isLiked ? "Unlike" : "Like")
+                                    </span>
+                                </form>
+                            </div>
                         }
-
-                        <div style="margin-top:4px;">
-                            <form method="post"
-                                  asp-page-handler="Liked"
-                                  class="ms-2"
-                                  style="display:inline-flex; align-items:center; gap:6px;">
-
-                                <input type="hidden" name="id" value="@cheep.Id"/>
-
-                                <button class="bball-like" title="Like" type="submit">
-                                    <span class="@(isLiked ? "bball-liked" : "bball")"></span>
-                                </button>
-
-                                <span class="like-text">
-                                    @(isLiked ? "Unlike" : "Like")
-                                </span>
-                            </form>
-                        </div>
-                        
                     </div>
                 </li>
             }
@@ -65,6 +64,8 @@
     }
     else
     {
-        <em>There are no cheeps so far.</em>
+        <div class="behind-headline">
+            <em>There are no cheeps so far.</em>
+        </div>
     }
 </div>
