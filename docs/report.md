@@ -7,7 +7,7 @@ numbersections: true
 ---
 
 # Introduction
-Chirp! is a microblogging web application where users can post short messages ("cheeps") and interact with other users through following and liking. The goal of the the project is to design and implement a maintainable ASP.NET Core application with authentication, persistence, Automated testing, and CI pipline.
+Chirp! is a microblogging web application where users can post short messages ("cheeps") and interact with other users through following and liking. The goal of the the project is to design and implement a maintainable ASP.NET Core application with authentication, persistence, Automated testing, and CI pipeline.
 
 Unauthenticated users can view the public timeline. After logging in, users can create cheeps, follow and unfollow other authors, like cheeps, unlike cheeps, and view personalize timelines such as (Mypage, and FollowingTimeline). Chirp! is built using ASP.NET Core Razor Pages, Entity Framework Core, and ASP.NET Identity with a relational database backend 
 
@@ -89,13 +89,15 @@ A failing build or test step prevents deployment.
 
 ### Team work
 
+![Project Board](images/project-board.png){ width=100% }
+
 The project board reflects the state of development immediately before hand-in. A small number of tasks remain unresolved, primarily related to optional features and UI polish. All required functionality for the Chirp! application is implemented.
 
 Development starts with the creation of an issue describing a task. A feature branch is created from `main`. The feature is implemented and tested locally. A pull request is opened and reviewed. After approval, the changes are merged into the `main` branch.
 
-We used pair working for complex tasks and areas with higher risk for example in our intergration of authentication. We typically worked in a "Driver" / "Navigator setup and rotated roles to spread knowledge across the team. These pair sessions helped allign coding style and achitecture design and reduced rework during code review, because design discussions happened before we implemented it.
+We used pair working for complex tasks and areas with higher risk for example in our integration of authentication. We typically worked in a "Driver" / "Navigator setup and rotated roles to spread knowledge across the team. These pair sessions helped align coding style and architecture design and reduced rework during code review, because design discussions happened before we implemented it.
 
-We held weekly sync meeting to allign on progress and priorities. in each meeting we:
+We held weekly sync meeting to align on progress and priorities. in each meeting we:
 - Reviewed what was completed since the last sync (features, bugs, PRs merged)
 - Identified blockers and assigned owners to resolve them
 - Agreed on the next set of tasks and updated the project board accordingly
@@ -104,6 +106,16 @@ We held weekly sync meeting to allign on progress and priorities. in each meetin
 ### How to make Chirp! work locally
 
 The repository is cloned from GitHub. Dependencies are restored using `dotnet restore`. The database is initialized using Entity Framework Core migrations. The application is started using `dotnet run` from the **Chirp.Web** project.
+
+*OBS* To run Github OAuth, setup Github client id and client secret. To set up use credentials dotnet user.secrets:
+
+dotnet user-secrets init
+
+dotnet user-secrets set "authentication_github_clientId" "Ov23liNbMZLbyI73hKwK"
+
+dotnet user-secrets set "authentication_github_clientSecret"
+"7e0b07f9b29107dcb10433c3af8804345f31ee72"
+
 
 The application is accessible in a web browser on the configured local port.
 
@@ -123,7 +135,7 @@ The test suite includes:
 ## Ethics
 ### License
 
-The application is released under the MIT License.
+The application is released under the MIT License. The MIT License allows unrestricted use, which encourages adoption and reuse. Its simplicity lowers barriers for others to build upon the software while still requiring attribution on the original authors. However, it has notable drawbacks. Modified or improved versions do not have to be shared publicly, which can limit contributions back to the open-source community. In addition, the license provides no warranty or liability, meaning the software is offered "as is." This protects the authors but places all rick on the users. Despite these downsides, the benefits outweigh the limitations, making the MIT License a suitable choice for out application.
 
 ### LLMs, ChatGPT, CoPilot, and others
 
