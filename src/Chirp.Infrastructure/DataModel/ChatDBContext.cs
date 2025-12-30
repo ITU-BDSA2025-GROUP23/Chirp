@@ -24,7 +24,7 @@ public class ChatDBContext : IdentityDbContext<IdentityUser>
         
         
         modelBuilder.Entity<Author>()
-            .HasIndex(a => a.Email)
+            .HasIndex(a => a.AuthorId)
             .IsUnique();
         
         modelBuilder.Entity<Cheep>()
@@ -35,8 +35,8 @@ public class ChatDBContext : IdentityDbContext<IdentityUser>
                     j => j
                         .HasOne<Author>()
                         .WithMany()
-                        .HasForeignKey("Email")
-                        .HasPrincipalKey(a => a.Email)
+                        .HasForeignKey("AuthorId")
+                        .HasPrincipalKey(a => a.AuthorId)
                         .OnDelete(DeleteBehavior.Cascade),
                     j => j
                         .HasOne<Cheep>()
@@ -46,7 +46,7 @@ public class ChatDBContext : IdentityDbContext<IdentityUser>
                         .OnDelete(DeleteBehavior.Cascade),
                     j =>
                         {
-                            j.HasKey("Email",  "CheepId");
+                            j.HasKey("AuthorId",  "CheepId");
                             j.ToTable("CheepLikes");
                         }
                         
@@ -60,18 +60,18 @@ public class ChatDBContext : IdentityDbContext<IdentityUser>
                 j => j
                     .HasOne<Author>()
                     .WithMany()
-                    .HasForeignKey("FollowerEmail")
-                    .HasPrincipalKey(a => a.Email)
+                    .HasForeignKey("FollowerId")
+                    .HasPrincipalKey(a => a.AuthorId)
                     .OnDelete(DeleteBehavior.Cascade),
                 j => j
                     .HasOne<Author>()
                     .WithMany()
-                    .HasForeignKey("FolloweeEmail")
-                    .HasPrincipalKey(a => a.Email)
+                    .HasForeignKey("FolloweeId")
+                    .HasPrincipalKey(a => a.AuthorId)
                     .OnDelete(DeleteBehavior.Cascade),
                 j =>
                 {
-                    j.HasKey("FollowerEmail",  "FolloweeEmail");
+                    j.HasKey("FollowerId",  "FolloweeId");
                     j.ToTable("AuthorFollow");
                 }
                         

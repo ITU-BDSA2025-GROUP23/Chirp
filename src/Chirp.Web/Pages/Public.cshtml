@@ -19,7 +19,8 @@
                 <li id="cheep-@cheep.Id" class="mb-3 border-bottom pb-2">
                     <div class="d-flex align-items-center">
                         @if (User.Identity?.IsAuthenticated == true
-                             && User.Identity.Name != cheep.AuthorName && Model.CurrentUserName != cheep.AuthorName)
+                             && User.Identity.Name != cheep.AuthorName && Model.CurrentUserName != cheep.AuthorName &&
+							!string.Equals(cheep.AuthorName, "Deleted user", StringComparison.Ordinal))
                         {
                             bool DoesFollow = Model.CurrentUser != null &&
                                               Model.CurrentUser.Following.Any(a => a.Name == cheep.AuthorName);
@@ -28,7 +29,8 @@
                             {
                                 <form method="post" asp-page-handler="Follow" class="ms-2">
                                     <input type="hidden" name="authorName" value="@cheep.AuthorName"/>
-                                    <button type="submit" class="btn btn-outline-primary btn-sm follow-btn">
+                                    <button type="submit" class="btn btn-outline-primary btn-sm follow-btn"
+										data-test="follow-button">
                                         Follow
                                     </button>
                                 </form>
@@ -38,6 +40,7 @@
                                 <form method="post" asp-page-handler="Unfollow" class="ms-2">
                                     <input type="hidden" name="authorName" value="@cheep.AuthorName"/>
                                     <button type="submit" class="btn btn-outline-danger btn-sm follow-btn"
+											data-test="unfollow-button"
                                             style="color: rebeccapurple; border-color: rebeccapurple;">
                                         Unfollow
                                     </button>
@@ -79,7 +82,14 @@
                         else
                         {
                             <strong>
+                               @if (!string.Equals(cheep.AuthorName, "Deleted user", StringComparison.Ordinal))
+                            {
                                 <a href="/@cheep.AuthorName">@cheep.AuthorName</a>
+                            }
+                            else
+                            {
+                                <span class="text-muted">@cheep.AuthorName</span>
+                            }
                             </strong>
 
                             <p class="mb-1">
