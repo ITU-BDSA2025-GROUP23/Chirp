@@ -6,23 +6,6 @@ toc-depth: 3
 numbersections: true
 ---
 
-# Table of Contents
-- [Introduction](#introduction)
-  - [Design and architecture](#design-and-architecture)
-    - [Domain model](#domain-model)
-    - [Architecture — In the small](#architecture--in-the-small)
-    - [Architecture of deployed application](#architecture-of-deployed-application)
-    - [User activities](#user-activities)
-    - [Sequence of functionality/calls through Chirp!](#sequence-of-functionalitycalls-through-chirp)
-  - [Process](#process)
-    - [Build, test, release, and deployment](#build-test-release-and-deployment)
-    - [Team work](#team-work)
-    - [How to make Chirp! work locally](#how-to-make-chirp-work-locally)
-    - [How to run test suite locally](#how-to-run-test-suite-locally)
-  - [Ethics](#ethics)
-    - [License](#license)
-    - [LLMs, ChatGPT, CoPilot, and others](#llms-chatgpt-copilot-and-others)
-
 # Introduction
 Chirp! is a microblogging web application where users can post short messages ("cheeps") and interact with other users through following and liking. The goal of the the project is to design and implement a maintainable ASP.NET Core application with authentication, persistence, Automated testing, and CI pipline.
 
