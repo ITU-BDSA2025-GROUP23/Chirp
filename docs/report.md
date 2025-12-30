@@ -104,6 +104,9 @@ The project board reflects the state of development immediately before hand-in. 
 
 Development starts with the creation of an issue describing a task. A feature branch is created from `main`. The feature is implemented and tested locally. A pull request is opened and reviewed. After approval, the changes are merged into the `main` branch.
 
+
+We used pair working for complex tasks and areas with higher risk for example in our intergration of authentication. We typically worked in a "Driver" / "Navigator setup and rotated roles to spread knowledge across the team. These pair sessions helped allign coding style and achitecture design and reduced rework during code review, because design discussions happened before we implemented it.
+
 ### How to make Chirp! work locally
 
 The repository is cloned from GitHub. Dependencies are restored using `dotnet restore`. The database is initialized using Entity Framework Core migrations. The application is started using `dotnet run` from the **Chirp.Web** project.
