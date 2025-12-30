@@ -94,4 +94,49 @@ public class ForgetMeTest :  IClassFixture<WebApplicationFactory<Program>>
 
         }
     }
+
+    [Fact]
+    public async Task LikeDeletedTest()
+    {
+        using var connection = new SqliteConnection("Filename=:memory:");
+        await connection.OpenAsync();
+        var builder = new DbContextOptionsBuilder<ChatDBContext>().UseSqlite(connection);
+
+        using var context = new ChatDBContext(builder.Options);
+        await context.Database.EnsureCreatedAsync(); // Applies the schema to the database
+
+        await using (context)
+        await using (connection)
+        {
+            IAuthorRepository authorRepo = new AuthorRepository(context);
+            ICheepRepository cheepRepo = new CheepRepository(context);
+
+            // Act
+            var author1 = new Author { Name = "TestUser1", Email = "TestUser1@test.dk", Cheeps = new List<Cheep>() };
+            var author2 = new Author { Name = "TestUser2", Email = "TestUser2@test.dk", Cheeps = new List<Cheep>() };
+            var author3 = new Author { Name = "TestUser3", Email = "TestUser3@test.dk", Cheeps = new List<Cheep>() };
+
+            context.Authors.AddRange(author1, author2,  author3);
+            await context.SaveChangesAsync();
+            
+            var cheep1 = new Cheep { AuthorId  = author1.AuthorId, Text = "Test cheep", TimeStamp = DateTime.UtcNow };
+            context.Cheeps.Add(cheep1);
+            await context.SaveChangesAsync();
+            
+            cheepRepo.Like(cheep1, author2);
+            cheepRepo.Like(cheep1, author3);
+            cheepRepo.SaveChanges();
+
+            authorRepo.DeleteAuthor(author1);
+            authorRepo.SaveChanges();
+
+            var twoLiked = context.Authors.Include(a => a.Liked).Single(a => a.Email == "TestUser2@test.dk");
+            var threeLiked = context.Authors.Include(a => a.Liked).Single(a => a.Email == "TestUser3@test.dk");
+            var cheepOneLikesCount = context.Cheeps.Include(c => c.Likes).Single(c => c.CheepId == cheep1.CheepId).Likes.Count;
+
+            Assert.DoesNotContain(twoLiked.Liked, c => c.CheepId == cheep1.CheepId);
+            Assert.DoesNotContain(threeLiked.Liked, c => c.CheepId == cheep1.CheepId);
+            Assert.Equal(0, cheepOneLikesCount);
+        }
+    }
 }

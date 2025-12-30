@@ -178,4 +178,40 @@ public class ChirpUITest : IClassFixture<TestingWebApplicationFactory>
         Assert.Contains("data-test=\"unfollow-button\"", html);
     }
     
+    
+    [Fact]
+    public async Task LikeUITest()
+    {
+        using var scope = _factory.Services.CreateScope();
+        var cheepRepo = scope.ServiceProvider.GetRequiredService<ICheepRepository>();
+        var authorRepo = scope.ServiceProvider.GetRequiredService<IAuthorRepository>();
+        
+        var test = cheepRepo.GetAuthorByEmail("test@example.com");
+        
+        var other = cheepRepo.CreateAuthor("other", "other@example.dk");
+        cheepRepo.CreateCheep("other", "other@example.dk", "This is a Test (liked)");
+        cheepRepo.CreateCheep("other", "other@example.dk", "This is a Test (not liked)");
+        cheepRepo.SaveChanges();
+        
+        var likedCheep = other.Cheeps
+            .OrderBy(c => c.CheepId)
+            .First();
+        
+        var notLikedCheep = other.Cheeps
+            .OrderBy(c => c.CheepId)
+            .Last();
+        
+        cheepRepo.Like(likedCheep, test);
+        cheepRepo.SaveChanges();
+        
+        var resp = await _loggedInClient.GetAsync("/other");
+        resp.EnsureSuccessStatusCode();
+        var html = await resp.Content.ReadAsStringAsync();
+        
+        Assert.Contains("bball-liked", html);
+        Assert.Contains("Unlike", html);
+        
+        Assert.Contains("class=\"bball\"", html);
+        Assert.Contains("Like", html);
+    }
 }
