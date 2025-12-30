@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Chirp.Infrastructure.Migrations
 {
     [DbContext(typeof(ChatDBContext))]
-    [Migration("20251228125404_InitialDBSchema")]
+    [Migration("20251229130157_InitialDBSchema")]
     partial class InitialDBSchema
     {
         /// <inheritdoc />
@@ -22,28 +22,28 @@ namespace Chirp.Infrastructure.Migrations
 
             modelBuilder.Entity("AuthorFollow", b =>
                 {
-                    b.Property<string>("FollowerEmail")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("FollowerId")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("FolloweeEmail")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("FolloweeId")
+                        .HasColumnType("INTEGER");
 
-                    b.HasKey("FollowerEmail", "FolloweeEmail");
+                    b.HasKey("FollowerId", "FolloweeId");
 
-                    b.HasIndex("FolloweeEmail");
+                    b.HasIndex("FolloweeId");
 
                     b.ToTable("AuthorFollow", (string)null);
                 });
 
             modelBuilder.Entity("CheepLikes", b =>
                 {
-                    b.Property<string>("Email")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("CheepId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Email", "CheepId");
+                    b.HasKey("AuthorId", "CheepId");
 
                     b.HasIndex("CheepId");
 
@@ -66,7 +66,7 @@ namespace Chirp.Infrastructure.Migrations
 
                     b.HasKey("AuthorId");
 
-                    b.HasIndex("Email")
+                    b.HasIndex("AuthorId")
                         .IsUnique();
 
                     b.ToTable("Authors");
@@ -296,31 +296,28 @@ namespace Chirp.Infrastructure.Migrations
                 {
                     b.HasOne("Chirp.Infrastructure.DataModel.Author", null)
                         .WithMany()
-                        .HasForeignKey("FolloweeEmail")
-                        .HasPrincipalKey("Email")
+                        .HasForeignKey("FolloweeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Chirp.Infrastructure.DataModel.Author", null)
                         .WithMany()
-                        .HasForeignKey("FollowerEmail")
-                        .HasPrincipalKey("Email")
+                        .HasForeignKey("FollowerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("CheepLikes", b =>
                 {
-                    b.HasOne("Chirp.Infrastructure.DataModel.Cheep", null)
+                    b.HasOne("Chirp.Infrastructure.DataModel.Author", null)
                         .WithMany()
-                        .HasForeignKey("CheepId")
+                        .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Chirp.Infrastructure.DataModel.Author", null)
+                    b.HasOne("Chirp.Infrastructure.DataModel.Cheep", null)
                         .WithMany()
-                        .HasForeignKey("Email")
-                        .HasPrincipalKey("Email")
+                        .HasForeignKey("CheepId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

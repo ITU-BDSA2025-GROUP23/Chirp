@@ -62,7 +62,6 @@ namespace Chirp.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Authors", x => x.AuthorId);
-                    table.UniqueConstraint("AK_Authors_Email", x => x.Email);
                 });
 
             migrationBuilder.CreateTable(
@@ -175,23 +174,23 @@ namespace Chirp.Infrastructure.Migrations
                 name: "AuthorFollow",
                 columns: table => new
                 {
-                    FollowerEmail = table.Column<string>(type: "TEXT", nullable: false),
-                    FolloweeEmail = table.Column<string>(type: "TEXT", nullable: false)
+                    FollowerId = table.Column<int>(type: "INTEGER", nullable: false),
+                    FolloweeId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AuthorFollow", x => new { x.FollowerEmail, x.FolloweeEmail });
+                    table.PrimaryKey("PK_AuthorFollow", x => new { x.FollowerId, x.FolloweeId });
                     table.ForeignKey(
-                        name: "FK_AuthorFollow_Authors_FolloweeEmail",
-                        column: x => x.FolloweeEmail,
+                        name: "FK_AuthorFollow_Authors_FolloweeId",
+                        column: x => x.FolloweeId,
                         principalTable: "Authors",
-                        principalColumn: "Email",
+                        principalColumn: "AuthorId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AuthorFollow_Authors_FollowerEmail",
-                        column: x => x.FollowerEmail,
+                        name: "FK_AuthorFollow_Authors_FollowerId",
+                        column: x => x.FollowerId,
                         principalTable: "Authors",
-                        principalColumn: "Email",
+                        principalColumn: "AuthorId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -220,17 +219,17 @@ namespace Chirp.Infrastructure.Migrations
                 name: "CheepLikes",
                 columns: table => new
                 {
-                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    AuthorId = table.Column<int>(type: "INTEGER", nullable: false),
                     CheepId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CheepLikes", x => new { x.Email, x.CheepId });
+                    table.PrimaryKey("PK_CheepLikes", x => new { x.AuthorId, x.CheepId });
                     table.ForeignKey(
-                        name: "FK_CheepLikes_Authors_Email",
-                        column: x => x.Email,
+                        name: "FK_CheepLikes_Authors_AuthorId",
+                        column: x => x.AuthorId,
                         principalTable: "Authors",
-                        principalColumn: "Email",
+                        principalColumn: "AuthorId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CheepLikes_Cheeps_CheepId",
@@ -278,14 +277,14 @@ namespace Chirp.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_AuthorFollow_FolloweeEmail",
+                name: "IX_AuthorFollow_FolloweeId",
                 table: "AuthorFollow",
-                column: "FolloweeEmail");
+                column: "FolloweeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Authors_Email",
+                name: "IX_Authors_AuthorId",
                 table: "Authors",
-                column: "Email",
+                column: "AuthorId",
                 unique: true);
 
             migrationBuilder.CreateIndex(

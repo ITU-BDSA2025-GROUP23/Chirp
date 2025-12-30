@@ -62,7 +62,7 @@ public class AuthorRepository : IAuthorRepository
             cheep.Text = "*This take has been deleted*";
         }
 
-        foreach (var autWantUnFollow in author.Following)
+        foreach (var autWantUnFollow in author.Following.ToList())
         {
             UnFollow(author, autWantUnFollow);
         }
