@@ -24,6 +24,12 @@ numbersections: true
     - [LLMs, ChatGPT, CoPilot, and others](#llms-chatgpt-copilot-and-others)
 
 # Introduction
+Chirp! is a microblogging web application where users can post short messages ("cheeps") and interact with other users through following and liking. The goal of the the project is to design and implement a maintainable ASP.NET Core application with authentication, persistence, Automated testing, and CI pipline.
+
+Unauthenticated users can view the public timeline. After logging in, users can create cheeps, follow and unfollow other authors, like cheeps, unlike cheeps, and view personalize timelines such as (Mypage, and FollowingTimeline). Chirp! is built using ASP.NET Core Razor Pages, Entity Framework Core, and ASP.NET Identity with a relational database backend 
+
+Out of scope: DMs and media uploads.
+
 ## Design and architecture
 ### Domain model
 
