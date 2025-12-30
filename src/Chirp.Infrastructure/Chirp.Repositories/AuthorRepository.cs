@@ -13,6 +13,8 @@ public interface IAuthorRepository
     public void Follow(Author author,Author wantFollow);
     
     public void UnFollow(Author author,Author wantunFollow);
+    
+    public void DeleteLikeFromAuthor(Author author, Cheep cheep);
 
     public void DeleteAuthor(Author author);
 
@@ -50,6 +52,23 @@ public class AuthorRepository : IAuthorRepository
             wantunFollow.Followers.Remove(author);    
         }
     }
+    
+    public void DeleteLikeFromAuthor(Author author, Cheep cheep)
+    {
+        if (author.Liked == null || cheep.Likes == null) 
+            return;
+        
+        if (author.Liked.Contains(cheep) && cheep.Likes.Contains(author))
+        {
+            author.Liked.Remove(cheep);
+            cheep.Likes.Remove(author);
+            SaveChanges();
+        }
+        else
+        {
+            return;
+        }
+    }
 
     public void DeleteAuthor(Author author)
     {
@@ -65,6 +84,11 @@ public class AuthorRepository : IAuthorRepository
         foreach (var autWantUnFollow in author.Following.ToList())
         {
             UnFollow(author, autWantUnFollow);
+        }
+        
+        foreach (var cheepDislike in author.Liked.ToList())
+        {
+            DeleteLikeFromAuthor(author, cheepDislike);
         }
         
     }
