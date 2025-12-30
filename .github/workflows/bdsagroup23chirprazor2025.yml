@@ -2,7 +2,7 @@ name: Build & Deploy — bdsagroup23chirprazor2025
 
 on:
   push:
-    branches: [ main, AGJ2000-patch-1 ]
+    branches: [ main, Anders-branch ]
   workflow_dispatch:
 
 jobs:
@@ -76,3 +76,4 @@ jobs:
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
+
