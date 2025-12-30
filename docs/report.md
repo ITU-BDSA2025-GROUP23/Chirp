@@ -81,11 +81,10 @@ The retrieved data is mapped to DTOs and returned to the Razor Page. The Razor P
 ## Process
 ### Build, test, release, and deployment
 
-Build, test, and deployment are automated using the GitHub Actions workflow **bdsagroup23chirprazor2025.yml**.
-
-On each push or pull request, the solution is built using the .NET SDK. The test projects in `test/` are executed, including unit and integration tests. If all tests pass, the application is deployed to the hosting environment.
-
-A failing build or test step prevents deployment.
+Our GitHub Actions workflow “Build & Deploy — bdsagroup23chirprazor2025” is triggered on pushes to `main`, and can also be started manually via `workflow_dispatch`.  
+The `build` job checks out the repository, installs .NET SDK 8.0.415, restores and builds `src/Chirp.Web/Chirp.Web.csproj` in Release for `net8.0`, publishes the application, and uploads the publish output as the `dotnet-app` artifact.  
+The `deploy` job downloads the artifact and deploys it to Azure App Service using `azure/webapps-deploy@v3` with the app name `bdsagroup23chirprazor2025` in the `Production` environment.  
+After a successful deployment, the `release` job creates a GitHub Release using `softprops/action-gh-release@v1` with the tag `deploy-${{ github.run_number }}` and metadata referencing the commit SHA and branch.
 
 ### Team work
 
@@ -107,7 +106,7 @@ We held weekly sync meeting to align on progress and priorities. in each meeting
 
 The repository is cloned from GitHub. Dependencies are restored using `dotnet restore`. The database is initialized using Entity Framework Core migrations. The application is started using `dotnet run` from the **Chirp.Web** project.
 
-*OBS* To run Github OAuth, setup Github client id and client secret. To set up use credentials dotnet user.secrets:
+*OBS* To run GitHub OAuth, setup GitHub client ID and client secret. To set up use credentials dotnet user.secrets:
 
 dotnet user-secrets init
 
