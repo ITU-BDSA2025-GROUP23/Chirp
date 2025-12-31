@@ -137,7 +137,9 @@ The test suite includes:
 ## Ethics
 ### License
 
-The application is released under the MIT License. The MIT License allows unrestricted use, which encourages adoption and reuse. Its simplicity lowers barriers for others to build upon the software while still requiring attribution on the original authors. However, it has notable drawbacks. Modified or improved versions do not have to be shared publicly, which can limit contributions back to the open-source community. In addition, the license provides no warranty or liability, meaning the software is offered "as is." This protects the authors but places all rick on the users. Despite these downsides, the benefits outweigh the limitations, making the MIT License a suitable choice for out application.
+The application is released under the MIT License. 
+
+The MIT License allows unrestricted use, which encourages adoption and reuse. Its simplicity lowers barriers for others to build upon the software while still requiring attribution on the original authors. However, it has notable drawbacks. Modified or improved versions do not have to be shared publicly, which can limit contributions back to the open-source community. In addition, the license provides no warranty or liability, meaning the software is offered "as is." This protects the authors but places all rick on the users. Despite these downsides, the benefits outweigh the limitations, making the MIT License a suitable choice for out application.
 
 ### LLMs, ChatGPT, CoPilot, and others
 
