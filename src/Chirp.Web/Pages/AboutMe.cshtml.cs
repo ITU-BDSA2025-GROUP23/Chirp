@@ -46,7 +46,7 @@ public class AboutMeModel : PageModel
         var user = await _userManager.GetUserAsync(User);
         if (user == null)
         {
-            return RedirectToPage("/postCheep");
+            return RedirectToPage("/Public");
         }
 
         if (string.IsNullOrWhiteSpace(AuthorName))
