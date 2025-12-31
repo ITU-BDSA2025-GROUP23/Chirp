@@ -9,7 +9,7 @@ numbersections: true
 # Introduction
 Chirp! is a microblogging web application where users can post short messages ("cheeps") and interact with other users through following and liking. The goal of the project is to design and implement a maintainable ASP.NET Core application with authentication, persistence, Automated testing, and CI pipeline.
 
-Unauthenticated users can view the public timeline. After logging in, users can create cheeps, follow and unfollow other authors, like cheeps, unlike cheeps, and view personalize timelines such as (Mypage, and FollowingTimeline). Chirp! is built using ASP.NET Core Razor Pages, Entity Framework Core, and ASP.NET Identity with a relational database backend 
+Unauthenticated users can view the public timeline. After logging in, users can create cheeps, follow and unfollow other authors, like cheeps, unlike cheeps, and view personalized timelines such as (Mypage, and FollowingTimeline). Chirp! is built using ASP.NET Core Razor Pages, Entity Framework Core, and ASP.NET Identity with a relational database backend 
 
 Out of scope: DMs and media uploads.
 
@@ -99,7 +99,7 @@ Development starts with the creation of an issue describing a task. A feature br
 
 We used pair working for complex tasks and areas with higher risk for example in our integration of authentication. We typically worked in a "Driver" / "Navigator setup and rotated roles to spread knowledge across the team. These pair sessions helped align coding style and architecture design and reduced rework during code review, because design discussions happened before we implemented it.
 
-We held weekly sync meeting to align on progress and priorities. in each meeting we:
+We held weekly sync meetings to align on progress and priorities. in each meeting we:
 - Reviewed what was completed since the last sync (features, bugs, PRs merged)
 - Identified blockers and assigned owners to resolve them
 - Agreed on the next set of tasks and updated the project board accordingly
@@ -110,13 +110,14 @@ We held weekly sync meeting to align on progress and priorities. in each meeting
 The repository is cloned from GitHub. Dependencies are restored using `dotnet restore`. The database is initialized using Entity Framework Core migrations. The application is started using `dotnet run` from the **Chirp.Web** project.
 
 *OBS* To run GitHub OAuth, setup GitHub client ID and client secret. To set up use credentials dotnet user.secrets:
+```bash
 
 dotnet user-secrets init
 
 dotnet user-secrets set "authentication_github_clientId" "<your-github-oauth-client-id>"
 
 dotnet user-secrets set "authentication_github_clientSecret" "<your-github-oauth-client-secret>"
-
+```
 
 
 The application is accessible in a web browser on the configured local port.
@@ -139,7 +140,7 @@ The test suite includes:
 
 The application is released under the MIT License. 
 
-The MIT License allows unrestricted use, which encourages adoption and reuse. Its simplicity lowers barriers for others to build upon the software while still requiring attribution on the original authors. However, it has notable drawbacks. Modified or improved versions do not have to be shared publicly, which can limit contributions back to the open-source community. In addition, the license provides no warranty or liability, meaning the software is offered "as is." This protects the authors but places all rick on the users. Despite these downsides, the benefits outweigh the limitations, making the MIT License a suitable choice for out application.
+The MIT License allows unrestricted use, which encourages adoption and reuse. Its simplicity lowers barriers for others to build upon the software while still requiring attribution on the original authors. However, it has notable drawbacks. Modified or improved versions do not have to be shared publicly, which can limit contributions back to the open-source community. In addition, the license provides no warranty or liability, meaning the software is offered "as is." This protects the authors but places all risk on the users. Despite these downsides, the benefits outweigh the limitations, making the MIT License a suitable choice for our application.
 
 ## LLMs, ChatGPT, CoPilot, and others
 
