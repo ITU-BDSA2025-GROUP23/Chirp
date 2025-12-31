@@ -113,10 +113,10 @@ The repository is cloned from GitHub. Dependencies are restored using `dotnet re
 
 dotnet user-secrets init
 
-dotnet user-secrets set "authentication_github_clientId" "Ov23liNbMZLbyI73hKwK"
+dotnet user-secrets set "authentication_github_clientId" "<your-github-oauth-client-id>"
 
-dotnet user-secrets set "authentication_github_clientSecret"
-"7e0b07f9b29107dcb10433c3af8804345f31ee72"
+dotnet user-secrets set "authentication_github_clientSecret" "<your-github-oauth-client-secret>"
+
 
 
 The application is accessible in a web browser on the configured local port.
