@@ -7,7 +7,7 @@ numbersections: true
 ---
 
 # Introduction
-Chirp! is a microblogging web application where users can post short messages ("cheeps") and interact with other users through following and liking. The goal of the the project is to design and implement a maintainable ASP.NET Core application with authentication, persistence, Automated testing, and CI pipeline.
+Chirp! is a microblogging web application where users can post short messages ("cheeps") and interact with other users through following and liking. The goal of the project is to design and implement a maintainable ASP.NET Core application with authentication, persistence, Automated testing, and CI pipeline.
 
 Unauthenticated users can view the public timeline. After logging in, users can create cheeps, follow and unfollow other authors, like cheeps, unlike cheeps, and view personalize timelines such as (Mypage, and FollowingTimeline). Chirp! is built using ASP.NET Core Razor Pages, Entity Framework Core, and ASP.NET Identity with a relational database backend 
 
