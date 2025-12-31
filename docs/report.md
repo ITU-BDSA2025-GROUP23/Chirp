@@ -81,9 +81,12 @@ The retrieved data is mapped to DTOs and returned to the Razor Page. The Razor P
 ## Process
 ### Build, test, release, and deployment
 
+![Build, test, release and deployment](diagrams/build-test-release-and-deploy.pdf){ width=100% }
+
 Our GitHub Actions workflow “Build & Deploy — bdsagroup23chirprazor2025” is triggered on pushes to `main`, and can also be started manually via `workflow_dispatch`.  
-The `build` job checks out the repository, installs .NET SDK 8.0.415, restores and builds `src/Chirp.Web/Chirp.Web.csproj` in Release for `net8.0`, publishes the application, and uploads the publish output as the `dotnet-app` artifact.  
+The `build` job checks out the repository, installs .NET SDK 8.0.415, restores and builds `src/Chirp.Web/Chirp.Web.csproj` in Release for `net8.0`, runs the automated test suite, publishes the application, and uploads the publish output as the `dotnet-app` artifact.  
 The `deploy` job downloads the artifact and deploys it to Azure App Service using `azure/webapps-deploy@v3` with the app name `bdsagroup23chirprazor2025` in the `Production` environment.  
+
 After a successful deployment, the `release` job creates a GitHub Release using `softprops/action-gh-release@v1` with the tag `deploy-${{ github.run_number }}` and metadata referencing the commit SHA and branch.
 
 ### Team work

@@ -2,7 +2,7 @@ name: Build & Deploy — bdsagroup23chirprazor2025
 
 on:
   push:
-    branches: [ main, Anders-branch ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
