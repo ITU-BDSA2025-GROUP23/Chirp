@@ -2,7 +2,7 @@ name: Build & Deploy — bdsagroup23chirprazor2025
 
 on:
   push:
-    branches: [ main, AGJ2000-patch-1 ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -24,6 +24,9 @@ jobs:
 
       - name: Build (Release, net8.0)
         run: dotnet build src/Chirp.Web/Chirp.Web.csproj -c Release -f net8.0 --no-restore
+
+      - name: Test
+        run: dotnet test test/test.csproj -c Release --no-build
 
       - name: Publish (net8.0)
         run: dotnet publish src/Chirp.Web/Chirp.Web.csproj -c Release -f net8.0 -o ${{ github.workspace }}/publish
@@ -73,3 +76,4 @@ jobs:
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
+
