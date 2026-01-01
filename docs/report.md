@@ -21,7 +21,7 @@ numbersections: true
       <a href="mailto:agje@itu.dk">agje@itu.dk</a>
     </td>
     <td align="left">
-      Mads Christian Ørskov Koldnborg<br/>
+      Mads Christian Ørskov Koldenborg<br/>
       <a href="mailto:mcko@itu.dk">mcko@itu.dk</a>
     </td>
   </tr>
@@ -176,9 +176,11 @@ To set up use credentials dotnet user.secrets run these commands to configure th
 
 dotnet user-secrets init
 
-dotnet user-secrets set "authentication_github_clientId" "<your-github-oauth-client-id>"
+dotnet user-secrets set "authentication_github_clientId" 
+                                            "<your-github-oauth-client-id>"
 
-dotnet user-secrets set "authentication_github_clientSecret" "<your-github-oauth-client-secret>"
+dotnet user-secrets set "authentication_github_clientSecret" 
+                                            "<your-github-oauth-client-secret>"
 ```
 
 3. Run the project
@@ -200,6 +202,7 @@ dotnet test
 ```
 
 The test suite includes:
+
 - **Unit tests**: Testing individual components in isolation (e.g., repository methods).
 - **Integration tests**: Testing the interaction between multiple components and the database.
 - **UI/End-to-End tests**: Testing the application from a user's perspective.

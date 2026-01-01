@@ -31,7 +31,7 @@ to start the test run:
 ## Authors
 
 - Anders Grangaard Jensen |  [@AGJ2000](https://github.com/AGJ2000)
-- Mads Christian Ørskov Koldnborg | [@MCITU](https://github.com/MCITU)
+- Mads Christian Ørskov Koldenborg | [@MCITU](https://github.com/MCITU)
 - Mathias Vestergaard Djurhuus | [@Djurhuus02](https://github.com/Djurhuus02)
 - Rasmus Tornvig Nordquist | [@Ratnman](https://github.com/Ratnman)
 - Theodor Monberg | [@theoswag](https://github.com/theoswag)
