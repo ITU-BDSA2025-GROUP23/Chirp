@@ -20,11 +20,16 @@ public class  PostCheepModel : PageModel //PaginationModel?
     
     public IActionResult OnPost()
     {
-        var email = User?.Identity?.Name;
-        var userName = email!;
-        var text = Message;
-        
-        _repository.CreateCheep(userName,email, text);
+        if (!(User.Identity?.IsAuthenticated ?? false))
+            return RedirectToPage("/Public");
+
+        var email = User.Identity?.Name;
+        if (string.IsNullOrWhiteSpace(email))
+            return RedirectToPage("/Public");
+
+        var userName = email;
+        _repository.CreateCheep(userName, email, Message);
+
         return RedirectToPage("/MyPage");
     }
 }

@@ -65,11 +65,11 @@
         <nav class="pager" style="margin-top:1rem">
             @if (Model.CurrentPage > 1)
             {
-                <a href="@(Url.Page("/Public", new { p = Model.CurrentPage - 1 }))">« Previous</a>
+                <a class = "b" href="@(Url.Page("/Public", new { p = Model.CurrentPage - 1 }))">« Previous</a>
             }
             @if (Model.CurrentPage < Model.TotalPages)
             {
-                <a style="margin-left:1rem"
+                <a class = "b" style="margin-left:1rem"
                    href="@(Url.Page("/Public", new { p = Model.CurrentPage + 1 }))">Next »</a>
             }
         </nav>

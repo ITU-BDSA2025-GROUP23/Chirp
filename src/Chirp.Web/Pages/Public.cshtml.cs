@@ -20,10 +20,6 @@ public class PublicModel : PaginationModel
     public int TotalPages => (int)System.Math.Ceiling((double)TotalCheeps / PageSize);
     
     public string? CurrentUserName { get; set; }
-
-    public Cheep chp;
-    
-    
     
     public PublicModel(ICheepRepository service,IAuthorRepository authorRepository )
     {
@@ -36,18 +32,15 @@ public class PublicModel : PaginationModel
         if (User.Identity?.IsAuthenticated == true)
         { 
             CurrentUser = _service.GetAuthorByEmail(User.Identity!.Name!);
-            if (CurrentUser == null)
-            {
-                CurrentUser = _service.GetAuthorByEmail(User.Identity!.Name!);
-            }
 
             if (CurrentUser == null)
             {
                 var email = User?.Identity?.Name;
-                var userName = email!;
-                CurrentUser = _service.CreateAuthor(userName, email);   
+                if (string.IsNullOrWhiteSpace(email))
+                    return RedirectToPage("/Public");
+                CurrentUser = _service.CreateAuthor(email, email);   
             }
-            CurrentUserName = CurrentUser.Name;
+            CurrentUserName = CurrentUser?.Name ?? "";
         }
         else
         {
@@ -70,7 +63,13 @@ public class PublicModel : PaginationModel
     
     public IActionResult OnPostFollow(string authorName)
     {
-        CurrentUser = _service.GetAuthorByEmail(User.Identity.Name);
+        var email = User.Identity?.Name;
+        if (string.IsNullOrWhiteSpace(email))
+            return RedirectToPage("/Public");
+        
+        CurrentUser = _service.GetAuthorByEmail(email);
+        if (CurrentUser == null)
+            return RedirectToPage("/Public");
         
         var authorToFollow = _service.GetAuthorByName(authorName);
         
@@ -88,15 +87,22 @@ public class PublicModel : PaginationModel
 
     public IActionResult OnPostUnfollow(string authorName)
     {
-        CurrentUser = _service.GetAuthorByEmail(User.Identity.Name);
+        var email = User.Identity?.Name;
+        if (string.IsNullOrWhiteSpace(email))
+            return RedirectToPage("/Public");
+        
+        CurrentUser = _service.GetAuthorByEmail(email);
+        if (CurrentUser == null)
+            return RedirectToPage("/Public");
         
         var authorToUnFollow = _service.GetAuthorByName(authorName);
         
-
-        if (CurrentUser != null && authorToUnFollow != null 
-                                && CurrentUser != authorToUnFollow && CurrentUser.Name != authorToUnFollow.Name)
+        if (authorToUnFollow != null &&
+            CurrentUser.AuthorId != authorToUnFollow.AuthorId &&
+            CurrentUser.Name != authorToUnFollow.Name)
         {
-            if (CurrentUser.Following.Any(a => a.AuthorId == authorToUnFollow.AuthorId))
+            if ((CurrentUser.Following ?? new List<Author>())
+                .Any(a => a.AuthorId == authorToUnFollow.AuthorId))
             {
                 _authorRepository.UnFollow(CurrentUser, authorToUnFollow);
                 _authorRepository.SaveChanges();
@@ -105,14 +111,20 @@ public class PublicModel : PaginationModel
 
         return RedirectToPage("/Public", new { p = CurrentPage });
     }
-	public IActionResult OnPostLiked(int id)
+    public IActionResult OnPostLiked(int id)
     {
-        var Cheep = _service.GetCheepById(id);
-        
-        CurrentUser = _service.GetAuthorByEmail(User.Identity!.Name!);
-        _service.Like(Cheep, CurrentUser);
+        var cheep = _service.GetCheepById(id);
+        if (cheep == null) return RedirectToPage("/Public", new { p = CurrentPage });
+
+        var email = User.Identity?.Name;
+        if (string.IsNullOrWhiteSpace(email)) return RedirectToPage("/Public");
+
+        var currentUser = _service.GetAuthorByEmail(email);
+        if (currentUser == null) return RedirectToPage("/Public");
+
+        _service.Like(cheep, currentUser);
         _service.SaveChanges();
-        
-    return RedirectToPage("/Public", null, new { p = CurrentPage }, $"cheep-{id}");
-	}
+
+        return RedirectToPage("/Public", null, new { p = CurrentPage }, $"cheep-{id}");
+    }
 }

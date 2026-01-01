@@ -56,10 +56,16 @@ public class AboutMeModel : PageModel
         {
             AuthorName = user.UserName;
         }
-        
+
+        if (string.IsNullOrWhiteSpace(AuthorName))
+            return RedirectToPage("/Public"); 
+
         var auth = _repository.GetAuthorByName(AuthorName)
                    ?? _repository.GetAuthorByEmail(AuthorName);
-        
+
+        if (auth == null)
+            return RedirectToPage("/Public");
+
         Email = auth.Email;
         AuthorName = auth.Name;
         
