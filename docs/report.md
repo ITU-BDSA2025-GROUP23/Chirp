@@ -33,7 +33,7 @@ The following diagram illustrates the organization of the code base and its proj
 
 ![Architecture - in the small](diagrams/architecture-in-the-small.pdf){ width=100% }
 
-![chirp-onion](images/chirp-onion.png){ width=100% }
+![chirp-onion](images/chirp-onion3.png){ width=100% }
 
 The application follows an **onion architecture**.
 
@@ -160,7 +160,7 @@ dotnet test
 The test suite includes:
 - **Unit tests**: Testing individual components in isolation (e.g., repository methods).
 - **Integration tests**: Testing the interaction between multiple components and the database.
-- **UI/End-to-End tests**: Testing the application from a user's perspective using Playwright.
+- **UI/End-to-End tests**: Testing the application from a user's perspective.
 
 # Ethics
 ## License
