@@ -73,13 +73,21 @@ public class ForgetMeTest :  IClassFixture<WebApplicationFactory<Program>>
 
             var author1 = cheepRepo.CreateAuthor("TestUser1", "TestUser1@test.dk");
             cheepRepo.CreateCheep("TestUser1", "TestUser1@test.dk", "Test!");
-
+            
+            Assert.NotNull(author1);
+            
             var authorFromDb = await context.Authors
                 .Include(a => a.Cheeps)
                 .FirstAsync(a => a.AuthorId == author1.AuthorId);
 
-            Assert.Single(authorFromDb.Cheeps);
-            Assert.Equal("Test!", authorFromDb.Cheeps.First().Text);
+            Assert.NotNull(authorFromDb);
+
+
+            var cheeps = authorFromDb.Cheeps!;
+            Assert.Single(cheeps);
+
+            var firstCheep = cheeps.First(); 
+            Assert.Equal("Test!", firstCheep.Text);
 
             repository.DeleteAuthor(authorFromDb);
             repository.SaveChanges();
@@ -88,8 +96,11 @@ public class ForgetMeTest :  IClassFixture<WebApplicationFactory<Program>>
                 .Include(a => a.Cheeps)
                 .FirstAsync(a => a.AuthorId == author1.AuthorId);
 
-            Assert.NotEmpty(updatedAuthor1.Cheeps);
-            Assert.All(updatedAuthor1.Cheeps, c =>
+
+            var updatedCheeps = updatedAuthor1.Cheeps!;
+            Assert.NotEmpty(updatedCheeps);
+
+            Assert.All(updatedCheeps, c =>
                 Assert.Equal("*This take has been deleted*", c.Text));
 
         }
