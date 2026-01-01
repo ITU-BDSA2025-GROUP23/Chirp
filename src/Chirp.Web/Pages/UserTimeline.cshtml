@@ -24,7 +24,7 @@
                             @cheep.Text
                             <small class="text-muted">— @cheep.TimeIso</small>
                         </p>
-                        @if (Model.CurrentUserName != Model.AuthorName)
+                        @if (Model.CurrentUserName != Model.AuthorName && Model.CurrentUser != null)
                         {
                             bool isLiked = Model.CurrentUser != null &&
                                            Model.CurrentUser.Liked.Any(l => l.CheepId == cheep.Id);  
