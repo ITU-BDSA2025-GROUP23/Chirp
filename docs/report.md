@@ -6,6 +6,48 @@ toc-depth: 3
 numbersections: true
 ---
 
+<div align="center">
+
+# Chirp! Project Report
+
+**ITU BDSA 2025/2026 — Group 23**
+
+<br/>
+
+<table>
+  <tr>
+    <td align="left">
+      Anders Grangaard Jensen<br/>
+      <a href="mailto:agje@itu.dk">agje@itu.dk</a>
+    </td>
+    <td align="left">
+      Mads Christian Ørskov Koldnborg<br/>
+      <a href="mailto:mcko@itu.dk">mcko@itu.dk</a>
+    </td>
+  </tr>
+  <tr>
+    <td align="left">
+      Mathias Vestergaard Djurhuus<br/>
+      <a href="mailto:mavd@itu.dk">mavd@itu.dk</a>
+    </td>
+    <td align="left">
+      Rasmus Tornvig Nordquist<br/>
+      <a href="mailto:ratn@itu.dk">ratn@itu.dk</a>
+    </td>
+  </tr>
+  <tr>
+    <td align="left">
+      Theodor Monberg<br/>
+      <a href="mailto:tmon@itu.dk">tmon@itu.dk</a>
+    </td>
+    <td></td>
+  </tr>
+</table>
+
+</div>
+
+---
+
 # Introduction
 Chirp! is a microblogging web application where users can post short messages ("cheeps") and interact with other users through following and liking. The goal of the project is to design and implement a maintainable ASP.NET Core application with authentication, persistence, Automated testing, and CI pipeline.
 
