@@ -6,14 +6,14 @@ on:
       - 'v*'         # fx v0.1.0, v1.2.3
 
 permissions:
-  contents: write   
+  contents: write
 
 jobs:
   publish:
     runs-on: ubuntu-latest
 
     env:
-      PROJECT_PATH: Chirp.Cli.Client/Chirp.Cli.client.csproj
+      PROJECT_PATH: src/Chirp.CLI.Client/Chirp.CLI.Client.csproj
       APP_NAME: chirp
 
     steps:
@@ -46,15 +46,13 @@ jobs:
               -p:PublishSingleFile=true \
               -p:SelfContained=false \
               -p:IncludeNativeLibrariesForSelfExtract=true \
+              -p:AssemblyName=$APP_NAME \
               --no-restore
-            # Navngiv binær
-            bin="$APP_NAME"
-            [[ "$rid" == "win-x64" ]] && bin="$APP_NAME.exe"
-            # Pak som zip uden mappe-træ
-            (cd "$out" && zip -q -9 -j "../../${APP_NAME}-${rid}.zip" "$bin")
+
+            # Zip hele output-mappen (framework-dependent single-file kan stadig have .runtimeconfig/.deps)
+            (cd "$out" && zip -q -9 -r "../${APP_NAME}-${rid}.zip" .)
           done
           ls -lah publish
-
 
       - name: Create GitHub Release and upload assets
         uses: softprops/action-gh-release@v2

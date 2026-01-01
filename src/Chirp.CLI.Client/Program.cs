@@ -1,45 +1,131 @@
+using System.Net.Http.Json;
+using Chirp.Shared;
 using CommandLine;
-using SimpleDB;
 
 namespace Chirp.CLI.Client;
 
-public record Cheep(string Author, string Message, long Timestamp);
 internal static class Program
 {
-    private static readonly string DbFile = Path.Combine(AppContext.BaseDirectory, "Data", "chirp_cli_db.csv");
-    private static readonly CSVDatabase<Cheep> db = new CSVDatabase<Cheep>(DbFile);
-
-    static int Main(string[] args)
+    public static async Task<int> Main(string[] args)
     {
-        return Parser.Default
-            .ParseArguments<Read, Cheepd>(args)
+        return await Parser.Default
+            .ParseArguments<ReadOptions, CheepOptions>(args)
             .MapResult(
-                (Read opt) =>
-                {
-                    var cheeps = db.Read();
-                    foreach (var c in cheeps) UserInterface.ReadCheep(c);
-                    return 0;
-                },
-                (Cheepd opt) =>
-                {
-                    var item = new Cheep(Environment.UserName, opt.Message, DateTimeOffset.UtcNow.ToUnixTimeSeconds());
-                    db.Store(item);
-                    UserInterface.Saved(opt.Message);
-                    return 0;
-                },
-                errs => 1
+                (ReadOptions o) => RunRead(o),
+                (CheepOptions o) => RunCheep(o),
+                _ => Task.FromResult(1)
             );
     }
-    [Verb("read", HelpText = "Read all cheeps.")]
-    public class Read
+
+    private static HttpClient CreateHttpClient()
     {
-    
+        var baseUrl = Environment.GetEnvironmentVariable("CHIRP_DB_URL") ?? "http://localhost:5263";
+
+        if (!baseUrl.StartsWith("http://", StringComparison.OrdinalIgnoreCase) &&
+            !baseUrl.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+        {
+            baseUrl = "http://" + baseUrl;
+        }
+
+        baseUrl = baseUrl.TrimEnd('/');
+
+        return new HttpClient
+        {
+            BaseAddress = new Uri(baseUrl, UriKind.Absolute),
+            Timeout = TimeSpan.FromSeconds(10)
+        };
     }
 
-    [Verb("cheep", HelpText = "make a new cheep.")]
-    public class Cheepd
+    private static async Task<int> RunRead(ReadOptions options)
     {
-        [Value(0, Required = true, HelpText = "The cheep message text.")]
-        public string Message { get; set; } = "";
+        try
+        {
+            using var http = CreateHttpClient();
+
+            var cheeps = await http.GetFromJsonAsync<List<Cheep>>("/cheeps");
+            if (cheeps is null)
+            {
+                Console.Error.WriteLine("Error: Received no data from /cheeps.");
+                return 1;
+            }
+
+            var ordered = cheeps.OrderBy(c => c.Timestamp).ToList();
+
+            if (options.Count is > 0)
+            {
+                ordered = ordered.TakeLast(options.Count.Value).ToList();
+            }
+
+            UserInterface.PrintCheeps(ordered);
+            return 0;
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.Error.WriteLine($"HTTP error while reading cheeps: {ex.Message}");
+            return 1;
+        }
+        catch (TaskCanceledException)
+        {
+            Console.Error.WriteLine("HTTP timeout while reading cheeps.");
+            return 1;
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Unexpected error while reading cheeps: {ex.Message}");
+            return 1;
+        }
     }
+
+    private static async Task<int> RunCheep(CheepOptions options)
+    {
+        try
+        {
+            using var http = CreateHttpClient();
+
+            var author = Environment.UserName;
+            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+
+            var cheep = new Cheep(author, options.Message, timestamp);
+
+            var response = await http.PostAsJsonAsync("/cheep", cheep);
+            if (!response.IsSuccessStatusCode)
+            {
+                Console.Error.WriteLine($"Error: POST /cheep failed ({(int)response.StatusCode} {response.ReasonPhrase}).");
+                return 1;
+            }
+
+            Console.WriteLine($"the chirp: {options.Message} was saved");
+            return 0;
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.Error.WriteLine($"HTTP error while storing cheep: {ex.Message}");
+            return 1;
+        }
+        catch (TaskCanceledException)
+        {
+            Console.Error.WriteLine("HTTP timeout while storing cheep.");
+            return 1;
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Unexpected error while storing cheep: {ex.Message}");
+            return 1;
+        }
+    }
+}
+
+[Verb("read", HelpText = "Read cheeps from the remote database.")]
+internal sealed class ReadOptions
+{
+    // This makes "read 10" work (positional argument)
+    [Value(0, Required = false, HelpText = "Optional: show only the last N cheeps.")]
+    public int? Count { get; set; }
+}
+
+[Verb("cheep", HelpText = "Store a cheep in the remote database.")]
+internal sealed class CheepOptions
+{
+    [Value(0, Required = true, HelpText = "The cheep message.")]
+    public required string Message { get; set; }
 }

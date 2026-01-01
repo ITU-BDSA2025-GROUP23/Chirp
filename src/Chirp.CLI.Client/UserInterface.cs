@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Chirp.Shared;
 
 namespace Chirp.CLI.Client;
 
-public static class UserInterface
+internal static class UserInterface
 {
-    private static string DisplayFormat = "MM/dd/yy HH:mm:ss";
-    public static void ReadCheep(Cheep cheep)
+    public static void PrintCheeps(IEnumerable<Cheep> cheeps)
     {
-            DateTimeOffset dto = DateTimeOffset.FromUnixTimeSeconds(cheep.Timestamp);
-            string realDate = dto.LocalDateTime.ToString(DisplayFormat);
-            Console.Write(cheep.Author + " @ " + realDate + ": " + cheep.Message + "\n");
-    }
-
-    public static void Saved(String message)
-    {
-        Console.WriteLine(" the chirp: " + message + " was saved");
+        foreach (var c in cheeps)
+        {
+            var localTime = DateTimeOffset.FromUnixTimeSeconds(c.Timestamp).ToLocalTime();
+            var timeStr = localTime.ToString("dd.MM.yy HH.mm.ss"); // matches your earlier output style
+            Console.WriteLine($"{c.Author} @ {timeStr}: {c.Message}");
+        }
     }
 }
