@@ -10,7 +10,7 @@ numbersections: true
 
 # Chirp! Project Report
 
-**ITU BDSA 2025/2026 — Group 23**
+**ITU BSANDSA1KU 2025/2026 — Group 23**
 
 <br/>
 
