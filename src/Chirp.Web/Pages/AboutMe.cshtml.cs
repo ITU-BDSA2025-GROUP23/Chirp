@@ -18,8 +18,7 @@ public class AboutMeModel : PageModel
     private readonly UserManager<IdentityUser> _userManager;
     private readonly SignInManager<IdentityUser> _signInManager;
 
-    [BindProperty(SupportsGet = true, Name = "author")]
-    public string? AuthorName { get; set; }
+    public string? AuthorName { get; private set; }
     public string? Email { get; private set; }
     public int FollowingCount { get; set; }
     public int FollowersCount { get; set; }
@@ -42,60 +41,70 @@ public class AboutMeModel : PageModel
     }
 
     public async Task<IActionResult> OnGetAsync()
+{
+    var identityUser = await _userManager.GetUserAsync(User);
+    if (identityUser == null)
+        return RedirectToPage("/Public");
+
+    var email = await _userManager.GetEmailAsync(identityUser);
+    var userName = await _userManager.GetUserNameAsync(identityUser);
+
+    if (string.IsNullOrWhiteSpace(email))
+        return RedirectToPage("/Public");
+
+    if (string.IsNullOrWhiteSpace(userName))
+        userName = email;
+
+    var author = _repository.GetAuthorByEmail(email)
+                 ?? _repository.GetAuthorByName(userName);
+
+    author ??= _repository.CreateAuthor(userName, email);
+
+    if (author == null)
+        return RedirectToPage("/Public");
+
+    var changed = false;
+
+    if (!string.Equals(author.Email, email, StringComparison.OrdinalIgnoreCase))
     {
-        var user = await _userManager.GetUserAsync(User);
-        if (user == null)
-        {
-            return RedirectToPage("/Public");
-        }
-
-        if (string.IsNullOrWhiteSpace(AuthorName))
-            AuthorName = RouteData.Values["author"]?.ToString();
-        
-        if (string.IsNullOrWhiteSpace(AuthorName))
-        {
-            AuthorName = user.UserName;
-        }
-
-        if (string.IsNullOrWhiteSpace(AuthorName))
-            return RedirectToPage("/Public"); 
-
-        var auth = _repository.GetAuthorByName(AuthorName)
-                   ?? _repository.GetAuthorByEmail(AuthorName);
-
-        if (auth == null)
-            return RedirectToPage("/Public");
-
-        Email = auth.Email;
-        AuthorName = auth.Name;
-        
-        FollowingCount = _repository.GetFollowing(AuthorName!).Count;
-        FollowersCount = _repository.GetFollowers(AuthorName!).Count;
-
-        if (!string.IsNullOrEmpty(Email))
-        {
-            var author = _repository.GetAuthorByEmail(Email);
-            if (author != null)
-            {
-                MyCheeps = await _db.Cheeps
-                    .Include(c => c.Author)
-                    .Where(c => c.Author != null && c.Author.AuthorId == author.AuthorId)
-                    .OrderByDescending(c => c.TimeStamp)
-                    .ToListAsync();
-
-                Following = _repository.GetFollowing(AuthorName!)
-                    .OrderBy(a => a.Name)
-                    .ToList();
-                
-                Followers = _repository.GetFollowers(AuthorName!)
-                    .OrderBy(a => a.Name)
-                    .ToList();
-                
-            }
-        }
-
-        return Page();
+        author.Email = email;
+        changed = true;
     }
+
+    if (!string.IsNullOrWhiteSpace(userName) &&
+        !string.Equals(author.Name, userName, StringComparison.Ordinal))
+    {
+        author.Name = userName;
+        changed = true;
+    }
+
+    if (changed)
+    {
+        _authorRepo.SaveChanges();
+    }
+
+    Email = author.Email;
+    AuthorName = author.Name;
+
+    Following = _repository.GetFollowing(AuthorName!)
+        .OrderBy(a => a.Name)
+        .ToList();
+
+    Followers = _repository.GetFollowers(AuthorName!)
+        .OrderBy(a => a.Name)
+        .ToList();
+
+    FollowingCount = Following.Count;
+    FollowersCount = Followers.Count;
+
+    MyCheeps = await _db.Cheeps
+        .Include(c => c.Author)
+        .Where(c => c.Author != null && c.Author.AuthorId == author.AuthorId)
+        .OrderByDescending(c => c.TimeStamp)
+        .ToListAsync();
+
+    return Page();
+}
 
     public async Task<IActionResult> OnPostForgetMeAsync()
     {
@@ -105,7 +114,11 @@ public class AboutMeModel : PageModel
             return RedirectToPage("/Public");
         }
 
-        var author = _repository.GetAuthorByEmail(user.Email!);
+        var email = await _userManager.GetEmailAsync(user);
+        if (string.IsNullOrWhiteSpace(email))
+            return RedirectToPage("/Public");
+
+        var author = _repository.GetAuthorByEmail(email);
         if (author != null)
         {
 			_authorRepo.DeleteAuthor(author);
