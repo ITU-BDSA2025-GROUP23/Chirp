@@ -8,8 +8,6 @@ numbersections: true
 
 <div align="center">
 
-# Chirp! Project Report
-
 **ITU BSANDSA1KU 2025/2026 — Group 23**
 
 <br/>
@@ -177,10 +175,10 @@ To set up use credentials dotnet user.secrets run these commands to configure th
 dotnet user-secrets init
 
 dotnet user-secrets set "authentication_github_clientId" 
-                                            "<your-github-oauth-client-id>"
+                                            "<Ov23liNbMZLbyI73hKwK>"
 
 dotnet user-secrets set "authentication_github_clientSecret" 
-                                            "<your-github-oauth-client-secret>"
+                                            "<7e0b07f9b29107dcb10433c3af8804345f31ee72>"
 ```
 
 3. Run the project
