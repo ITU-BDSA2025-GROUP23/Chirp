@@ -105,14 +105,6 @@ namespace Chirp.Web.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
             ProviderDisplayName = info.ProviderDisplayName;
 
-            if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
-            {
-                Input = new InputModel
-                {
-                    UserName = info.Principal.FindFirstValue(ClaimTypes.Email)
-                };
-            }
-
             return Page();
         }
 
