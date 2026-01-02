@@ -20,7 +20,7 @@ public class UserTimelineModel : PaginationModel
     
     public int FollowersCount { get; set; }
     public Author? CurrentUser { get; set; }
-    public string CurrentUserName { get; set; }
+    public string? CurrentUserName { get; set; }
     public UserTimelineModel(ICheepRepository service) => _service = service;
 
     public IActionResult OnGet()
@@ -39,8 +39,8 @@ public class UserTimelineModel : PaginationModel
         var lastPage = Math.Max(1, (int)Math.Ceiling((double)TotalCheeps / PageSize));
         if (CurrentPage > lastPage) CurrentPage = lastPage;
         
-        CurrentUser = _service.GetAuthorByEmail(User.Identity!.Name!);
-        CurrentUserName = CurrentUser.Name;
+        CurrentUser = _service.GetAuthorByEmail(User.Identity?.Name ?? "");
+        CurrentUserName = CurrentUser?.Name ?? "";
         
         Cheeps = _service.GetPaginatedCheepsDTO(CurrentPage, PageSize, AuthorName);
         return Page();
@@ -48,12 +48,18 @@ public class UserTimelineModel : PaginationModel
     
     public IActionResult OnPostLiked(int id)
     {
-        var Cheep = _service.GetCheepById(id);
-        
-        CurrentUser = _service.GetAuthorByEmail(User.Identity!.Name!);
-        _service.Like(Cheep, CurrentUser);
+        var cheep = _service.GetCheepById(id);
+        if (cheep == null) return RedirectToPage("/UserTimeline", new { author = AuthorName, p = CurrentPage });
+
+        var email = User.Identity?.Name;
+        if (string.IsNullOrWhiteSpace(email)) return RedirectToPage("/Public");
+
+        var currentUser = _service.GetAuthorByEmail(email);
+        if (currentUser == null) return RedirectToPage("/Public");
+
+        _service.Like(cheep, currentUser);
         _service.SaveChanges();
-        
+
         return RedirectToPage(
             "/UserTimeline",
             pageHandler: null,

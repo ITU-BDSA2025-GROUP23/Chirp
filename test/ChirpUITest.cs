@@ -91,7 +91,7 @@ public class ChirpUITest : IClassFixture<TestingWebApplicationFactory>
         Assert.Contains(cheeps, c => c.Text == "Test PostEndsUpInCheeps");
     }
     [Fact]
-    public async Task PostButtonRedirects()
+    public void PostButtonRedirects()
     {
         //arrange
         using var scope = _factory.Services.CreateScope();
@@ -164,9 +164,11 @@ public class ChirpUITest : IClassFixture<TestingWebApplicationFactory>
         var authorRepo = scope.ServiceProvider.GetRequiredService<IAuthorRepository>();
 
         var test = cheepRepo.GetAuthorByEmail("test@example.com");
+        Assert.NotNull(test);
         var other = cheepRepo.CreateAuthor("other", "other@example.dk");
         cheepRepo.CreateCheep("other", "other@example.dk", "This is a Test");
         cheepRepo.SaveChanges();
+        Assert.NotNull(other);
         
         authorRepo.Follow(test, other);
         authorRepo.SaveChanges();
@@ -187,22 +189,29 @@ public class ChirpUITest : IClassFixture<TestingWebApplicationFactory>
         var authorRepo = scope.ServiceProvider.GetRequiredService<IAuthorRepository>();
         
         var test = cheepRepo.GetAuthorByEmail("test@example.com");
+        Assert.NotNull(test);
         
         var other = cheepRepo.CreateAuthor("other", "other@example.dk");
         cheepRepo.CreateCheep("other", "other@example.dk", "This is a Test (liked)");
         cheepRepo.CreateCheep("other", "other@example.dk", "This is a Test (not liked)");
         cheepRepo.SaveChanges();
+        Assert.NotNull(other);
         
-        var likedCheep = other.Cheeps
+        Assert.NotNull(other.Cheeps);
+        Assert.NotEmpty(other.Cheeps);
+        
+        var likedCheep = other.Cheeps!
             .OrderBy(c => c.CheepId)
             .First();
         
-        var notLikedCheep = other.Cheeps
+        var notLikedCheep = other.Cheeps!
             .OrderBy(c => c.CheepId)
             .Last();
         
         cheepRepo.Like(likedCheep, test);
         cheepRepo.SaveChanges();
+        
+        
         
         var resp = await _loggedInClient.GetAsync("/other");
         resp.EnsureSuccessStatusCode();

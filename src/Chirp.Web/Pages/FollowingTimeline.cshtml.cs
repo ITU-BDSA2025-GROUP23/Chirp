@@ -31,83 +31,88 @@ public class FollowingTimelineModel : PaginationModel
     }
     
     public IActionResult OnGet()
+{
+    if (!(User.Identity?.IsAuthenticated ?? false))
+        return RedirectToPage("/Public");
+
+    var email = User.Identity!.Name;
+    if (string.IsNullOrWhiteSpace(email))
+        return RedirectToPage("/Public");
+
+    if (string.IsNullOrWhiteSpace(AuthorName))
+        AuthorName = RouteData.Values["author"]?.ToString();
+
+    if (CurrentPage < 1) CurrentPage = 1;
+
+    var author = _service.GetAuthorByName(email) ?? _service.GetAuthorByEmail(email);
+    author ??= _service.CreateAuthor(email, email);
+
+    if (author == null)
+        return RedirectToPage("/Public");
+
+    var followingList = author.Following ?? new List<Author>();
+
+    foreach (var following in followingList)
     {
-            if (!(User.Identity?.IsAuthenticated ?? false))
-                return RedirectToPage("/Public");   
-            
-            if (string.IsNullOrWhiteSpace(AuthorName))
-                AuthorName = RouteData.Values["author"]?.ToString();
-
-            if (CurrentPage < 1) CurrentPage = 1;
-            
-            var author = _service.GetAuthorByName(User.Identity!.Name!);
-
-            if (author == null)
-            {
-                author = _service.GetAuthorByEmail(User.Identity!.Name!);
-            }
-            
-            if (author.Following == null)
-            {
-                var email = User?.Identity?.Name;
-                var userName = email!;
-                
-                author = _service.CreateAuthor(userName, email);
-            }
-            
-            foreach(var following in author.Following)
-            {
-                Cheeps = _service.GetPaginatedCheepsDTO(CurrentPage, PageSize, following.Name);
-
-                AllCheeps.AddRange(Cheeps);
-            }
-
-            TotalCheeps = AllCheeps.Count;
-            
-            var lastPage = Math.Max(1, (int)Math.Ceiling((double)TotalCheeps / PageSize));
-            if (CurrentPage > lastPage) CurrentPage = lastPage;
-            
-            Cheeps = AllCheeps
-                .OrderByDescending(c => c.TimeIso)
-                .Skip((CurrentPage - 1) * PageSize)
-                .Take(PageSize)
-                .ToList();
-            
-            CurrentUser = _service.GetAuthorByEmail(User.Identity!.Name!);
-            return Page(); 
+        AllCheeps.AddRange(_service.GetPaginatedCheepsDTO(CurrentPage, PageSize, following.Name));
     }
-    
-    public IActionResult OnPostUnfollow(string authorName)
-    {
-        CurrentUser = _service.GetAuthorByName(User.Identity.Name);
-        if (CurrentUser == null)
-        {
-            CurrentUser = _service.GetAuthorByEmail(User.Identity!.Name!);
-        }
-        
-        var authorToUnfollow = _service.GetAuthorByName(authorName);
-        
 
-        if (CurrentUser != null && authorToUnfollow != null && CurrentUser != authorToUnfollow)
-        {
-            if (CurrentUser.Following.Any(a => a.AuthorId == authorToUnfollow.AuthorId))
-            {
-                _authorRepository.UnFollow(CurrentUser, authorToUnfollow);
-                _authorRepository.SaveChanges();
-            }
-        }
-        
+    TotalCheeps = AllCheeps.Count;
+
+    var lastPage = Math.Max(1, (int)Math.Ceiling((double)TotalCheeps / PageSize));
+    if (CurrentPage > lastPage) CurrentPage = lastPage;
+
+    Cheeps = AllCheeps
+        .OrderByDescending(c => c.TimeIso)
+        .Skip((CurrentPage - 1) * PageSize)
+        .Take(PageSize)
+        .ToList();
+
+    CurrentUser = _service.GetAuthorByEmail(email);
+    return Page();
+}
+
+public IActionResult OnPostUnfollow(string authorName)
+{
+    if (!(User.Identity?.IsAuthenticated ?? false))
+        return RedirectToPage("/Public");
+
+    var email = User.Identity!.Name;
+    if (string.IsNullOrWhiteSpace(email))
+        return RedirectToPage("/Public");
+
+    CurrentUser = _service.GetAuthorByName(email) ?? _service.GetAuthorByEmail(email);
+    if (CurrentUser == null)
+        return RedirectToPage("/Public");
+
+    var authorToUnfollow = _service.GetAuthorByName(authorName);
+    if (authorToUnfollow == null || CurrentUser.AuthorId == authorToUnfollow.AuthorId)
         return RedirectToPage("/Public", new { p = CurrentPage });
+
+    var following = CurrentUser.Following ?? new List<Author>();
+    if (following.Any(a => a.AuthorId == authorToUnfollow.AuthorId))
+    {
+        _authorRepository.UnFollow(CurrentUser, authorToUnfollow);
+        _authorRepository.SaveChanges();
     }
+
+    return RedirectToPage("/Public", new { p = CurrentPage });
+}
     
     public IActionResult OnPostLiked(int id)
     {
-        var Cheep = _service.GetCheepById(id);
-        
-        CurrentUser = _service.GetAuthorByEmail(User.Identity!.Name!);
-        _service.Like(Cheep, CurrentUser);
+        var cheep = _service.GetCheepById(id);
+        if (cheep == null) return RedirectToPage("/FollowingTimeline", new { p = CurrentPage });
+
+        var email = User.Identity?.Name;
+        if (string.IsNullOrWhiteSpace(email)) return RedirectToPage("/Public");
+
+        var currentUser = _service.GetAuthorByEmail(email);
+        if (currentUser == null) return RedirectToPage("/Public");
+
+        _service.Like(cheep, currentUser);
         _service.SaveChanges();
-        
+
         return RedirectToPage("/FollowingTimeline", null, new { p = CurrentPage }, $"cheep-{id}");
     }
 }

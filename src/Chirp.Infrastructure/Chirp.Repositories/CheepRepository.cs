@@ -25,7 +25,7 @@ namespace Chirp.Infrastructure.Repositories;
         
         public Author? GetAuthorByEmail(string Email);
 
-        public Author CreateAuthor(string userName, string email);
+        public Author? CreateAuthor(string userName, string email);
 
         public void CreateCheep(string userName, string email, string text);
 
@@ -33,7 +33,7 @@ namespace Chirp.Infrastructure.Repositories;
         
         public List<Author> GetFollowers(string authorName);
         
-        public Author GetCheepsAuthor(Cheep cheep);
+        public Author? GetCheepsAuthor(Cheep cheep);
         public Cheep GetCheepById(int id);
         public void Like(Cheep cheep, Author author);
     }
@@ -118,10 +118,9 @@ public class CheepRepository : ICheepRepository
         return author?.Followers.ToList() ?? new List<Author>();
     }
 
-    public Author GetCheepsAuthor(Cheep cheep)
+    public Author? GetCheepsAuthor(Cheep cheep)
     {
-        Author author = cheep.Author;
-        return author;
+        return cheep.Author;
     }
     
     //remove? - never used
@@ -251,7 +250,8 @@ public class CheepRepository : ICheepRepository
     {
         return _context.Cheeps
             .Include(c => c.Likes)
-            .FirstOrDefault(c => c.CheepId == id);
+            .FirstOrDefault(c => c.CheepId == id)
+            ?? throw new KeyNotFoundException($"Cheep with id {id} not found.");
     }
     
     public void Like(Cheep cheep, Author author)

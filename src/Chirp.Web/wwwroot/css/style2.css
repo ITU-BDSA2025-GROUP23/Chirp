@@ -8,7 +8,11 @@ a {
     color: #9d0bb3;
 }
 
-a:hover {
+.b {
+    color: #e8a70f;
+}
+
+a:hover,a.b:hover {
     color: #333;
 }
 
